@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Butik Kami - Chempaka Jewels</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <!-- Google Fonts: Playfair Display for Serifs and Inter for Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+  <!-- Central Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-white text-[#2B2B2B] antialiased">
+
+  <!-- Dynamic Header / Navbar Placeholder -->
+  <div id="navbar-placeholder"></div>
+
+  <!-- Showrooms List -->
+  <section class="py-16 sm:py-24 bg-[#FCFBFA] border-b border-gray-100">
+    <div class="container mx-auto px-6 sm:px-8 lg:px-16 max-w-[1400px]">
+      <div class="text-center mb-16">
+        <span class="text-xs uppercase tracking-[0.3em] font-bold text-[#C59D5F] block mb-2">Showrooms</span>
+        <h2 class="text-3xl lg:text-4xl font-serif text-gray-900 tracking-wide">Lokasi Butik Eksklusif</h2>
+        <p class="text-xs text-gray-400 max-w-md mx-auto mt-4 leading-relaxed font-light">
+          Nikmati konsultasi peribadi bersama penasihat permata elit kami dalam suasana salon VIP yang mewah.
+        </p>
+      </div>
+
+      <!-- Outlets Grid (Centered / Two-Column Premium Layout for Single Store) -->
+      <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16 justify-center max-w-4xl mx-auto">
+        <!-- Showroom Map Column (Replaces Lounge Photo) -->
+        <div class="w-full lg:w-1/2 relative flex-shrink-0">
+          <div class="absolute -top-4 -left-4 w-full h-full border border-[#C59D5F]/30 z-0 pointer-events-none"></div>
+          <div class="absolute -bottom-4 -right-4 w-full h-full border border-[#C59D5F]/10 z-0 pointer-events-none"></div>
+          <div class="relative z-10 aspect-[4/3] overflow-hidden shadow-xl rounded-sm">
+            <iframe 
+              src="https://maps.google.com/maps?q=12,%20Jln%20Setia%20Dagang%20AL%20U13/AL,%20Setia%20Alam,%2040170%20Shah%20Alam,%20Selangor&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+              class="w-full h-full border-0 min-h-[300px]" 
+              allowfullscreen="" 
+              loading="lazy"
+              title="Lokasi Chempaka Jewels Shah Alam"
+            ></iframe>
+          </div>
+        </div>
+
+        <!-- Outlets Card Details -->
+        <div class="w-full lg:w-1/2 bg-white p-6 sm:p-8 lg:p-10 border border-gray-100 shadow-sm rounded-sm luxury-card-glow text-left flex flex-col justify-between self-stretch">
+          <div>
+            <h3 class="text-lg font-serif text-gray-900 mb-6 border-b border-[#EAE6DF] pb-3 font-semibold">Butik Utama Shah Alam</h3>
+            
+            <div class="mb-6">
+              <span class="text-[10px] uppercase font-bold tracking-[0.2em] text-[#C59D5F] block mb-1">Alamat :</span>
+              <p class="text-xs text-gray-600 leading-relaxed font-light">
+                Seksyen U13, 12, Jln Setia Dagang AL U13/AL,<br>
+                Alam Nusantara, 40170 Shah Alam, Selangor
+              </p>
+              <p class="text-xs text-gray-900 font-semibold mt-2.5">
+                Tel: +60 17-811 3204
+              </p>
+              <a 
+                href="https://www.google.com/maps/search/?api=1&query=12,+Jln+Setia+Dagang+AL+U13/AL,+Setia+Alam,+40170+Shah+Alam,+Selangor" 
+                target="_blank" 
+                class="inline-flex items-center gap-1.5 text-[10px] uppercase font-bold tracking-wider text-[#C59D5F] hover:text-black transition-colors mt-3"
+              >
+                <span>Petunjuk Arah (Google Maps)</span>
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+              </a>
+            </div>
+
+            <div>
+              <span class="text-[10px] uppercase font-bold tracking-[0.2em] text-[#C59D5F] block mb-1">Waktu Operasi :</span>
+              <p class="text-xs text-gray-600 leading-relaxed font-medium">
+                Setiap hari
+              </p>
+              <span class="text-xs uppercase font-bold tracking-widest text-[#C59D5F] block mt-1">10.00am - 6.00pm</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIP Showroom Scheduler -->
+  <section class="py-16 sm:py-28 bg-white" id="appointment">
+    <div class="container mx-auto px-6 sm:px-8 lg:px-16 max-w-2xl">
+      <div class="text-center mb-12">
+        <span class="text-xs uppercase tracking-[0.2em] font-bold text-[#C59D5F] block mb-2">VIP Reservation</span>
+        <h3 class="text-2xl lg:text-3xl font-serif text-gray-900">Tempah Konsultasi Peribadi</h3>
+        <p class="text-xs text-gray-400 mt-3 font-light leading-relaxed">
+          Sila isi borang di bawah untuk menempah bilik konsultasi VIP kami. Penasihat peribadi kami akan menghubungi anda dalam masa 24 jam.
+        </p>
+      </div>
+
+      <!-- Reservation Form -->
+      <form onsubmit="submitVIPAppointment(event)" class="space-y-6">
+        <div>
+          <label for="vip-name" class="block text-sm font-bold uppercase tracking-wider text-gray-500 mb-2">Nama Penuh VIP:</label>
+          <input type="text" id="vip-name" required class="w-full border-t-0 border-r-0 border-l-0 border-b border-gray-200 focus:border-[#C59D5F] focus:ring-0 text-sm py-2">
+        </div>
+
+        <div>
+          <label for="vip-phone" class="block text-sm font-bold uppercase tracking-wider text-gray-500 mb-2">Nombor Telefon:</label>
+          <input type="tel" id="vip-phone" required class="w-full border-t-0 border-r-0 border-l-0 border-b border-gray-200 focus:border-[#C59D5F] focus:ring-0 text-sm py-2">
+        </div>
+
+        <div>
+          <label for="vip-boutique" class="block text-sm font-bold uppercase tracking-wider text-gray-500 mb-2">Butik Pilihan:</label>
+          <select id="vip-boutique" class="w-full border-t-0 border-r-0 border-l-0 border-b border-gray-200 focus:border-[#C59D5F] focus:ring-0 text-sm py-2">
+            <option value="Showroom Shah Alam Utama">Showroom Shah Alam Utama (Setia Alam)</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+          <div>
+            <label for="vip-date" class="block text-sm font-bold uppercase tracking-wider text-gray-500 mb-2">Pilih Tarikh:</label>
+            <input type="date" id="vip-date" required class="w-full border-t-0 border-r-0 border-l-0 border-b border-gray-200 focus:border-[#C59D5F] focus:ring-0 text-sm py-2">
+          </div>
+          <div>
+            <label for="vip-time" class="block text-sm font-bold uppercase tracking-wider text-gray-500 mb-2">Pilih Waktu:</label>
+            <input type="time" id="vip-time" required class="w-full border-t-0 border-r-0 border-l-0 border-b border-gray-200 focus:border-[#C59D5F] focus:ring-0 text-sm py-2">
+          </div>
+        </div>
+
+        <div class="pt-6">
+          <button type="submit" class="w-full bg-[#2B2B2B] hover:bg-[#C59D5F] text-white text-sm uppercase tracking-[0.2em] font-semibold py-4 px-6 transition-colors shadow-lg rounded-sm btn-luxury-transition">
+            Hantar Tempahan Salon VIP
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Reservation Confirmation Modal -->
+  <div id="booking-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4">
+    <div class="bg-white max-w-md w-full shadow-2xl relative rounded-sm p-8 text-center transform scale-95 transition-transform duration-300" id="booking-modal-card">
+      <div class="w-16 h-16 bg-yellow-50 rounded-full flex items-center justify-center mx-auto mb-6 text-[#C59D5F]">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+      </div>
+
+      <span class="text-xs uppercase tracking-widest text-[#C59D5F] font-bold block mb-2">Konfirmasi Tempahan</span>
+      <h3 class="text-sm font-serif text-gray-900 mb-6">VIP Salon Reservation</h3>
+
+      <div class="bg-[#FCFBFA] border border-gray-100 p-6 text-xs text-left space-y-3 mb-6 rounded-sm">
+        <div class="flex justify-between">
+          <span class="text-gray-400">Nama Tetamu:</span>
+          <strong id="res-name" class="text-gray-800">Danish</strong>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-400">Butik Terpilih:</span>
+          <strong id="res-boutique" class="text-gray-800">KL</strong>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-400">Tarikh &amp; Waktu:</span>
+          <strong id="res-datetime" class="text-gray-800">KL</strong>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-400">Kod Laluan VIP:</span>
+          <strong id="res-code" class="text-[#C59D5F] font-bold tracking-wider">VIP-1823</strong>
+        </div>
+      </div>
+
+      <button onclick="closeBookingModal()" class="w-full bg-[#2B2B2B] hover:bg-[#C59D5F] text-white text-sm uppercase tracking-[0.2em] font-semibold py-3 px-6 transition-colors rounded-sm">
+        Selesai
+      </button>
+    </div>
+  </div>
+
+  <!-- Dynamic Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Dynamic Cart Drawer Placeholder -->
+  <div id="cart-placeholder"></div>
+
+  <!-- Central JS State Managers -->
+  <script src="js/shared.js"></script>
+
+  <!-- Reservation script logic -->
+  <script>
+    function submitVIPAppointment(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('vip-name').value;
+      const boutique = document.getElementById('vip-boutique').value;
+      const date = document.getElementById('vip-date').value;
+      const time = document.getElementById('vip-time').value;
+      
+      const vipCode = 'VIP-' + Math.floor(1000 + Math.random() * 9000);
+
+      // Populate Modal Fields
+      document.getElementById('res-name').innerText = name;
+      document.getElementById('res-boutique').innerText = boutique;
+      document.getElementById('res-datetime').innerText = `${new Date(date).toLocaleDateString('ms-MY')} jam ${time}`;
+      document.getElementById('res-code').innerText = vipCode;
+
+      // Show Modal
+      const modal = document.getElementById('booking-modal');
+      const card = document.getElementById('booking-modal-card');
+
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      card.classList.remove('scale-95');
+
+      // Clear Form Fields
+      document.getElementById('vip-name').value = '';
+      document.getElementById('vip-phone').value = '';
+      document.getElementById('vip-date').value = '';
+      document.getElementById('vip-time').value = '';
+    }
+
+    function closeBookingModal() {
+      const modal = document.getElementById('booking-modal');
+      const card = document.getElementById('booking-modal-card');
+
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      card.classList.add('scale-95');
+    }
+  </script>
+
+</body>
+</html>

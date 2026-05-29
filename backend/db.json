@@ -1,0 +1,1932 @@
+{
+  "users": [
+    {
+      "id": "admin-1",
+      "email": "admin@chempakajewels.my",
+      "passwordHash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+      "name": "Chempaka Admin",
+      "role": "admin"
+    },
+    {
+      "id": "user-1",
+      "email": "danish@chempaka.my",
+      "passwordHash": "f2d81a070f80993077759fe48a97b2be2a94a284fb89a42531cd8d8dc28d5420",
+      "name": "Danish Iman",
+      "role": "member"
+    },
+    {
+      "id": "user-1779802311333",
+      "email": "tengku.danish.1779802311299@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779802347942",
+      "email": "tengku.danish.1779802347919@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779802596058",
+      "email": "tengku.danish.1779802596033@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779804889159",
+      "email": "tengku.danish.1779804889133@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779805100468",
+      "email": "tengku.danish.1779805100448@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "google-123456789",
+      "email": "danish.test.google@gmail.com",
+      "passwordHash": "GOOGLE_AUTH_MOCK",
+      "name": "Google Danish Test",
+      "role": "member"
+    },
+    {
+      "id": "user-1779805279109",
+      "email": "tengku.danish.1779805279087@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "google-109923812",
+      "email": "danish.iman.vip@gmail.com",
+      "passwordHash": "GOOGLE_AUTH_MOCK",
+      "name": "Danish Iman",
+      "role": "member"
+    },
+    {
+      "id": "user-1779805534925",
+      "email": "tengku.danish.1779805534890@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779806012094",
+      "email": "tengku.danish.1779806012069@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779806549914",
+      "email": "tengku.danish.1779806549882@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779855585213",
+      "email": "tengku.danish.1779855585157@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779855865809",
+      "email": "tengku.danish.1779855865779@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779856474286",
+      "email": "tengku.danish.1779856474262@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779856619276",
+      "email": "tengku.danish.1779856619253@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779856762675",
+      "email": "tengku.danish.1779856762629@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779873492302",
+      "email": "tengku.danish.1779873492253@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779873638627",
+      "email": "tengku.danish.1779873638595@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779873835339",
+      "email": "tengku.danish.1779873835310@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779874203913",
+      "email": "tengku.danish.1779874203882@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779875036137",
+      "email": "tengku.danish.1779875036103@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779875169266",
+      "email": "tengku.danish.1779875169234@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779875301965",
+      "email": "tengku.danish.1779875301931@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779875503695",
+      "email": "tengku.danish.1779875503659@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779875714670",
+      "email": "tengku.danish.1779875714637@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779886002792",
+      "email": "tengku.danish.1779886002736@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779886218317",
+      "email": "tengku.danish.1779886218282@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779886909682",
+      "email": "tengku.danish.1779886909626@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779887476546",
+      "email": "tengku.danish.1779887476513@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779887946880",
+      "email": "tengku.danish.1779887946839@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779888219748",
+      "email": "tengku.danish.1779888219718@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779888424080",
+      "email": "tengku.danish.1779888424046@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779888558409",
+      "email": "tengku.danish.1779888558367@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779888703971",
+      "email": "tengku.danish.1779888703927@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779888921609",
+      "email": "tengku.danish.1779888921579@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779890112680",
+      "email": "tengku.danish.1779890112640@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779890261291",
+      "email": "tengku.danish.1779890261254@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779890355117",
+      "email": "tengku.danish.1779890355091@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1779890392633",
+      "email": "tengku.danish.1779890392591@gmail.com",
+      "passwordHash": "95d30169a59c418b52013315fc81bc99fdf0a7b03a116f346ab628496f349ed5",
+      "name": "Tengku Danish",
+      "role": "member"
+    },
+    {
+      "id": "user-1780024709080",
+      "email": "danial.zartan03@gmail.com",
+      "passwordHash": "2a4568c639a34cf7bd882c25fc64e9dac5fb9815721f332587cf9e27565d4134",
+      "name": "Danial Adam",
+      "role": "user"
+    },
+    {
+      "id": "user-1780025140048",
+      "email": "abu@gmail.com",
+      "passwordHash": "9fe27f6f7d3c4301fa5f6c45a249caa0922d8ab3d155deb3a4e233a5cfdbd14c",
+      "name": "abu",
+      "role": "user"
+    }
+  ],
+  "products": [
+    {
+      "id": "ring-1",
+      "title": "Cincin Permata DiRaja",
+      "category": "cincin",
+      "image": "Product/Cincin/Isolate_the_jewelry_on_a_202605281248.jpeg",
+      "purity": "Emas 916 (22K)",
+      "weight": 4.8,
+      "craftsmanship": 280,
+      "description": "Cincin permata diraja yang memukau, menggabungkan ketulenan emas 916 dengan perincian filigri halus buatan tangan tukang emas Chempaka.",
+      "status": "active"
+    },
+    {
+      "id": "ring-2",
+      "title": "Cincin Keemasan Abadi",
+      "category": "cincin",
+      "image": "Product/Cincin/Isolate_the_jewelry_on_a_202605281248 (1).jpeg",
+      "purity": "Emas 916 (22K)",
+      "weight": 3.5,
+      "craftsmanship": 220,
+      "description": "Reka bentuk minimalis-mewah yang anggun, melambangkan kasih sayang yang tiada penghujung. Sesuai untuk pemakaian harian mahupun acara khas.",
+      "status": "active"
+    },
+    {
+      "id": "ring-3",
+      "title": "Cincin Bunga Melur",
+      "category": "cincin",
+      "image": "Product/Cincin/Isolate_the_jewelry_on_a_202605281248 (2).jpeg",
+      "purity": "Emas 916 (22K)",
+      "weight": 5.2,
+      "craftsmanship": 320,
+      "description": "Inspirasi keindahan semula jadi bunga melur tradisional Melayu yang diukir dengan ketelitian luar biasa di atas emas 22K tulen.",
+      "status": "active"
+    },
+    {
+      "id": "ring-4",
+      "title": "Cincin Belah Rotan Klasik",
+      "category": "cincin",
+      "image": "Product/Cincin/Isolate_the_jewelry_on_a_202605281249.jpeg",
+      "purity": "Emas 916 (22K)",
+      "weight": 2.8,
+      "craftsmanship": 150,
+      "description": "Simbol ketulenan dan kesetiaan abadi. Reka bentuk belah rotan klasik yang licin berkilat memancarkan prestij ringkas.",
+      "status": "active"
+    },
+    {
+      "id": "ring-5",
+      "title": "Cincin Berlian Melur",
+      "category": "cincin",
+      "image": "Product/Cincin/Isolate_the_jewelry_on_a_202605281249 (1).jpeg",
+      "purity": "Emas 916 & Berlian",
+      "weight": 5.1,
+      "craftsmanship": 450,
+      "description": "Sentuhan eksklusif daripada siri Melur dengan tatahan berlian asli di tengahnya, menawarkan gabungan tradisi dan kemegahan.",
+      "status": "active"
+    },
+    {
+      "id": "ring-6",
+      "title": "Cincin Nilam Diraja",
+      "category": "cincin",
+      "image": "Product/Cincin/Isolate_the_jewelry_on_a_202605281249 (2).jpeg",
+      "purity": "Emas 916 & Nilam",
+      "weight": 7.5,
+      "craftsmanship": 580,
+      "description": "Cincin bertatah batu permata nilam (sapphire) biru tua sejati, dikelilingi oleh tatahan emas 916 berkilau memukau.",
+      "status": "active"
+    },
+    {
+      "id": "ring-7",
+      "title": "Cincin Seri Bintang",
+      "category": "cincin",
+      "image": "Product/Cincin/Isolate_the_jewelry_on_a_202605281248.jpeg",
+      "purity": "Emas 916 (22K)",
+      "weight": 6,
+      "craftsmanship": 380,
+      "description": "Rekaan cincin bersudut memantulkan cahaya bintang, menghasilkan pembiasan kecemerlangan emas yang tiada tolok bandingnya.",
+      "status": "active"
+    },
+    {
+      "id": "neck-1",
+      "title": "Rantai Leher Mahkota Emas",
+      "category": "rantai",
+      "image": "Product/Rantai/WhatsApp_Image_2026-05-24_at_5.34.44_202605281257.jpeg",
+      "purity": "Emas 916 (22K)",
+      "weight": 18.5,
+      "craftsmanship": 650,
+      "description": "Rantai leher padat dengan loket bermotifkan mahkota Diraja Melayu yang melambangkan keagungan sejati bangsawan lama.",
+      "status": "active"
+    },
+    {
+      "id": "neck-2",
+      "title": "Rantai Leher Pintal Kasih",
+      "category": "rantai",
+      "image": "Product/Rantai/WhatsApp_Image_2026-05-24_at_5.34.50_202605281257.jpeg",
+      "purity": "Emas 916 (22K)",
+      "weight": 12.2,
+      "craftsmanship": 420,
+      "description": "Ukiran tenunan pintal kembar yang menceritakan hubungan erat penuh cinta, memancarkan pesona murni di dada pemakai.",
+      "status": "active"
+    },
+    {
+      "id": "neck-3",
+      "title": "Rantai LeherSaujana Hiasan",
+      "category": "rantai",
+      "image": "Product/Rantai/WhatsApp_Image_2026-05-24_at_5.34.44_202605281257.jpeg",
+      "purity": "Emas 916 (22K)",
+      "weight": 15,
+      "craftsmanship": 500,
+      "description": "Gabungan rantaian halus dengan perincian bulat berpintal memukau, sesuai untuk dipadankan dengan busana premium Hari Raya.",
+      "status": "active"
+    },
+    {
+      "id": "neck-4",
+      "title": "Rantai Leher Saujana Nilam",
+      "category": "rantai",
+      "image": "Product/Rantai/WhatsApp_Image_2026-05-24_at_5.34.50_202605281257.jpeg",
+      "purity": "Emas 916 & Nilam",
+      "weight": 14.8,
+      "craftsmanship": 620,
+      "description": "Rangkaian emas bermutu tinggi dihiasi batu nilam bersinar terang di bahagian tengah, melambangkan keanggunan melangkaui zaman.",
+      "status": "active"
+    },
+    {
+      "id": "brace-1",
+      "title": "Gelang Tangan Adria",
+      "category": "gelang",
+      "image": "Product/Gelang/WhatsApp_Image_2026-05-24_at_5.34.46_202605281256.jpeg",
+      "purity": "Emas 916 (22K)",
+      "weight": 9.8,
+      "craftsmanship": 360,
+      "description": "Reka bentuk lingkaran moden dengan tatahan butiran halus, amat bersesuaian untuk gaya harian yang minimalis dan premium.",
+      "status": "inactive"
+    },
+    {
+      "id": "brace-2",
+      "title": "Rantai Tangan Zinnia",
+      "category": "gelang",
+      "image": "Product/Gelang/WhatsApp_Image_2026-05-24_at_5.34.47_202605281256.jpeg",
+      "purity": "Emas 916 (22K)",
+      "weight": 11.2,
+      "craftsmanship": 420,
+      "description": "Tenunan emas padat berbentuk siri kelopak Zinnia yang memberikan keselesaan dan kelas tersendiri ketika dilingkarkan.",
+      "status": "active"
+    },
+    {
+      "id": "brace-3",
+      "title": "Gelang Biru Nilam",
+      "category": "gelang",
+      "image": "Product/Gelang/WhatsApp_Image_2026-05-24_at_5.34.47_202605281256 (1).jpeg",
+      "purity": "Emas 916 (22K)",
+      "weight": 14.5,
+      "craftsmanship": 595,
+      "description": "Rantai tangan emas tebal dengan kehalusan ukiran permata nilam biru royal, melambangkan keagungan sejati bangsawan.",
+      "status": "active"
+    },
+    {
+      "id": "brace-4",
+      "title": "Gelang Tangan Laksamana",
+      "category": "gelang",
+      "image": "Product/Gelang/WhatsApp_Image_2026-05-24_at_5.34.48_202605281256.jpeg",
+      "purity": "Emas 916 (22K)",
+      "weight": 22,
+      "craftsmanship": 850,
+      "description": "Tenunan rantai coco laksamana tebal yang gagah dan tegap, disaluti kilauan emas 916 murni yang memancarkan kewibawaan sejati.",
+      "status": "active"
+    }
+  ],
+  "orders": [
+    {
+      "id": "CPK-1779802311351",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779802311299@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-26T13:31:51.351Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779802311354",
+        "completedAt": "2026-05-26T13:31:51.356Z"
+      }
+    },
+    {
+      "id": "CPK-1779802347952",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779802347919@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-26T13:32:27.952Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779802347953",
+        "completedAt": "2026-05-26T13:32:27.954Z"
+      }
+    },
+    {
+      "id": "CPK-1779802596074",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779802596033@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-26T13:36:36.074Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779802596077",
+        "completedAt": "2026-05-26T13:36:36.078Z"
+      }
+    },
+    {
+      "id": "CPK-1779804511343",
+      "items": [
+        {
+          "id": "ring-2",
+          "title": "Cincin Keemasan Abadi",
+          "purity": "Emas 916 (22K)",
+          "weight": 3.5,
+          "price": 1509.75,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 1509.75,
+      "discountAmount": 0,
+      "total": 1509.75,
+      "customerName": "Chempaka Admin",
+      "customerEmail": "admin@chempakajewels.my",
+      "status": "paid",
+      "createdAt": "2026-05-26T14:08:31.343Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-FPX-1779804516050",
+        "completedAt": "2026-05-26T14:08:36.052Z"
+      }
+    },
+    {
+      "id": "CPK-1779804889168",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779804889133@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-26T14:14:49.168Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779804889170",
+        "completedAt": "2026-05-26T14:14:49.171Z"
+      }
+    },
+    {
+      "id": "CPK-1779805100481",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779805100448@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-26T14:18:20.481Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779805100483",
+        "completedAt": "2026-05-26T14:18:20.484Z"
+      }
+    },
+    {
+      "id": "CPK-1779805279120",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779805279087@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-26T14:21:19.120Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779805279122",
+        "completedAt": "2026-05-26T14:21:19.123Z"
+      }
+    },
+    {
+      "id": "CPK-1779805534943",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779805534890@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-26T14:25:34.943Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779805534945",
+        "completedAt": "2026-05-26T14:25:34.946Z"
+      }
+    },
+    {
+      "id": "CPK-1779806012104",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779806012069@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-26T14:33:32.104Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779806012106",
+        "completedAt": "2026-05-26T14:33:32.107Z"
+      }
+    },
+    {
+      "id": "CPK-1779806549924",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779806549882@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-26T14:42:29.924Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779806549926",
+        "completedAt": "2026-05-26T14:42:29.928Z"
+      }
+    },
+    {
+      "id": "CPK-1779808664387",
+      "items": [
+        {
+          "id": "neck-4",
+          "title": "Rantai Leher Saujana Nilam",
+          "purity": "Emas 916 & Nilam",
+          "weight": 14.8,
+          "price": 6073.8,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 6073.8,
+      "discountAmount": 0,
+      "total": 6073.8,
+      "customerName": "Guest Customer",
+      "customerEmail": "guest@chempakajewels.my",
+      "status": "paid",
+      "createdAt": "2026-05-26T15:17:44.387Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-FPX-1779808667409",
+        "completedAt": "2026-05-26T15:17:47.411Z"
+      }
+    },
+    {
+      "id": "CPK-1779855585245",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779855585157@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T04:19:45.245Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779855585249",
+        "completedAt": "2026-05-27T04:19:45.250Z"
+      }
+    },
+    {
+      "id": "CPK-1779855865819",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779855865779@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T04:24:25.819Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779855865822",
+        "completedAt": "2026-05-27T04:24:25.822Z"
+      }
+    },
+    {
+      "id": "CPK-1779856474295",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779856474262@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T04:34:34.295Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779856474296",
+        "completedAt": "2026-05-27T04:34:34.298Z"
+      }
+    },
+    {
+      "id": "CPK-1779856619286",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779856619253@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T04:36:59.286Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779856619288",
+        "completedAt": "2026-05-27T04:36:59.289Z"
+      }
+    },
+    {
+      "id": "CPK-1779856762696",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779856762629@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T04:39:22.696Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779856762702",
+        "completedAt": "2026-05-27T04:39:22.703Z"
+      }
+    },
+    {
+      "id": "CPK-1779873492317",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779873492253@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T09:18:12.317Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779873492318",
+        "completedAt": "2026-05-27T09:18:12.321Z"
+      }
+    },
+    {
+      "id": "CPK-1779873638642",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779873638595@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T09:20:38.642Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779873638645",
+        "completedAt": "2026-05-27T09:20:38.645Z"
+      }
+    },
+    {
+      "id": "CPK-1779873835354",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779873835310@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T09:23:55.354Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779873835357",
+        "completedAt": "2026-05-27T09:23:55.360Z"
+      }
+    },
+    {
+      "id": "CPK-1779874203927",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779874203882@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T09:30:03.927Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779874203930",
+        "completedAt": "2026-05-27T09:30:03.930Z"
+      }
+    },
+    {
+      "id": "CPK-1779875036154",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779875036103@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T09:43:56.154Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779875036157",
+        "completedAt": "2026-05-27T09:43:56.158Z"
+      }
+    },
+    {
+      "id": "CPK-1779875169281",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779875169234@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T09:46:09.281Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779875169281",
+        "completedAt": "2026-05-27T09:46:09.283Z"
+      }
+    },
+    {
+      "id": "CPK-1779875301983",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779875301931@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T09:48:21.983Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779875301985",
+        "completedAt": "2026-05-27T09:48:21.986Z"
+      }
+    },
+    {
+      "id": "CPK-1779875503707",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779875503659@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T09:51:43.707Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779875503708",
+        "completedAt": "2026-05-27T09:51:43.709Z"
+      }
+    },
+    {
+      "id": "CPK-1779875714683",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779875714637@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T09:55:14.684Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779875714688",
+        "completedAt": "2026-05-27T09:55:14.688Z"
+      }
+    },
+    {
+      "id": "CPK-1779886002823",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779886002736@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T12:46:42.823Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779886002826",
+        "completedAt": "2026-05-27T12:46:42.827Z"
+      }
+    },
+    {
+      "id": "CPK-1779886218339",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779886218282@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T12:50:18.339Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779886218344",
+        "completedAt": "2026-05-27T12:50:18.345Z"
+      }
+    },
+    {
+      "id": "CPK-1779886269209",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 2048.8,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 2048.8,
+      "discountAmount": 0,
+      "total": 2048.8,
+      "customerName": "Guest Customer",
+      "customerEmail": "guest@chempakajewels.my",
+      "status": "pending",
+      "createdAt": "2026-05-27T12:51:09.209Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": null,
+        "completedAt": null
+      }
+    },
+    {
+      "id": "CPK-1779886283424",
+      "items": [
+        {
+          "id": "ring-2",
+          "title": "Cincin Keemasan Abadi",
+          "purity": "Emas 916 (22K)",
+          "weight": 3.5,
+          "price": 1509.75,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 1509.75,
+      "discountAmount": 0,
+      "total": 1509.75,
+      "customerName": "Guest Customer",
+      "customerEmail": "guest@chempakajewels.my",
+      "status": "pending",
+      "createdAt": "2026-05-27T12:51:23.424Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": null,
+        "completedAt": null
+      }
+    },
+    {
+      "id": "CPK-1779886909705",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779886909626@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T13:01:49.705Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779886909708",
+        "completedAt": "2026-05-27T13:01:49.709Z"
+      }
+    },
+    {
+      "id": "CPK-1779887476563",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779887476513@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T13:11:16.563Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779887476566",
+        "completedAt": "2026-05-27T13:11:16.567Z"
+      }
+    },
+    {
+      "id": "CPK-1779887946895",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779887946839@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T13:19:06.895Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779887946899",
+        "completedAt": "2026-05-27T13:19:06.898Z"
+      }
+    },
+    {
+      "id": "CPK-1779888219759",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779888219718@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T13:23:39.759Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779888219761",
+        "completedAt": "2026-05-27T13:23:39.761Z"
+      }
+    },
+    {
+      "id": "CPK-1779888424095",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779888424046@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T13:27:04.095Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779888424099",
+        "completedAt": "2026-05-27T13:27:04.100Z"
+      }
+    },
+    {
+      "id": "CPK-1779888558423",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779888558367@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T13:29:18.423Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779888558424",
+        "completedAt": "2026-05-27T13:29:18.426Z"
+      }
+    },
+    {
+      "id": "CPK-1779888703987",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779888703927@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T13:31:43.987Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779888703990",
+        "completedAt": "2026-05-27T13:31:43.990Z"
+      }
+    },
+    {
+      "id": "CPK-1779888921623",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779888921579@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T13:35:21.623Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779888921625",
+        "completedAt": "2026-05-27T13:35:21.626Z"
+      }
+    },
+    {
+      "id": "CPK-1779890112703",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779890112640@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T13:55:12.703Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779890112706",
+        "completedAt": "2026-05-27T13:55:12.707Z"
+      }
+    },
+    {
+      "id": "CPK-1779890261308",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779890261254@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T13:57:41.308Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779890261313",
+        "completedAt": "2026-05-27T13:57:41.314Z"
+      }
+    },
+    {
+      "id": "CPK-1779890355132",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779890355091@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T13:59:15.132Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779890355137",
+        "completedAt": "2026-05-27T13:59:15.139Z"
+      }
+    },
+    {
+      "id": "CPK-1779890392652",
+      "items": [
+        {
+          "id": "ring-1",
+          "title": "Cincin Permata DiRaja",
+          "purity": "Emas 916 (22K)",
+          "weight": 4.8,
+          "price": 1741.48,
+          "quantity": 2
+        },
+        {
+          "id": "neck-1",
+          "title": "Rantai Leher Mahkota Emas",
+          "purity": "Emas 916 (22K)",
+          "weight": 18.5,
+          "price": 6347.162499999999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 11564.85,
+      "discountAmount": 1734.7275000000009,
+      "total": 9830.1225,
+      "customerName": "Tengku Danish",
+      "customerEmail": "tengku.danish.1779890392591@gmail.com",
+      "status": "paid",
+      "createdAt": "2026-05-27T13:59:52.652Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": "TXN-E2E-TEST-1779890392655",
+        "completedAt": "2026-05-27T13:59:52.655Z"
+      }
+    },
+    {
+      "id": "AUDIT-1779981720068",
+      "createdAt": "2026-05-28T15:22:00.068Z",
+      "customerName": "KEMASKINI HARGA: Oleh Chempaka Admin",
+      "customerEmail": "Lama: 916 = RM368.5/g, 999 = RM385.2/g | Baru: 916 = RM592/g, 999 = RM645/g",
+      "total": 0,
+      "status": "system_audit"
+    },
+    {
+      "id": "CPK-1779994476955",
+      "items": [
+        {
+          "id": "ring-3",
+          "title": "Cincin Bunga Melur",
+          "purity": "Emas 916 (22K)",
+          "weight": 5.2,
+          "price": 2236.2,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 2236.2,
+      "discountAmount": 223.62,
+      "voucherCode": "RAYA2026",
+      "voucherDiscount": 223.62,
+      "total": 2012.58,
+      "customerName": "Guest Customer",
+      "customerEmail": "guest@chempakajewels.my",
+      "status": "failed",
+      "createdAt": "2026-05-28T18:54:36.955Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": null,
+        "completedAt": null
+      }
+    },
+    {
+      "id": "CPK-1779995148245",
+      "items": [
+        {
+          "id": "ring-3",
+          "title": "Cincin Bunga Melur",
+          "purity": "Emas 916 (22K)",
+          "weight": 5.2,
+          "price": 3398.4,
+          "quantity": 1,
+          "size": null,
+          "length": null
+        }
+      ],
+      "subtotal": 3398.4,
+      "discountAmount": 0,
+      "voucherCode": null,
+      "voucherDiscount": 0,
+      "total": 3398.4,
+      "customerName": "Guest Customer",
+      "customerEmail": "guest@chempakajewels.my",
+      "status": "pending",
+      "createdAt": "2026-05-28T19:05:48.245Z",
+      "payment": {
+        "gateway": "Billplz-Mock",
+        "transactionId": null,
+        "completedAt": null
+      }
+    }
+  ],
+  "goldRates": {
+    "gold916": 592,
+    "gold999": 645
+  },
+  "banners": [
+    {
+      "id": "hero-slide-0",
+      "type": "hero",
+      "title": "Sertai Keahlian Kelab Elit & Nikmati Diskaun Sehingga 15%",
+      "subtitle": "Cincin & Rantai Hiasan",
+      "image": "Model/cincin_rantai_gelang_header.jpg",
+      "description": "Sertai Membership kami untuk mendapatkan discount sehingga 15% bagi setiap pembelian barangan emas murni Chempaka.",
+      "link": "/koleksi.html",
+      "ctaText": "Lihat Koleksi",
+      "status": "active"
+    },
+    {
+      "id": "hero-slide-1",
+      "type": "hero",
+      "title": "Nilai Abadi. Keanggunan Terukir.",
+      "subtitle": "Siri Platinum DiRaja",
+      "image": "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c054ba208d9040a4554c68d90d8a571c&profile_id=139&oauth2_token_id=57447761",
+      "description": "Hayati keindahan seni pertukangan emas warisan Melayu bertaraf VIP.",
+      "link": "#highlight-section",
+      "ctaText": "Mula Meneroka",
+      "status": "active"
+    },
+    {
+      "id": "hero-slide-2",
+      "type": "hero",
+      "title": "Keanggunan Tradisi Sejati",
+      "subtitle": "— Duta Kami, Ayu Damit",
+      "image": "Ayu Damit-Ambassador/ayu_damit_white_campaign.jpg",
+      "description": "Hayati pesona kemilau emas murni Chempaka bersama rekaan eksklusif yang memancarkan karisma sejati wanita Melayu anggun.",
+      "link": "/tentang-kami.html",
+      "ctaText": "Kisah Duta Kami",
+      "status": "active"
+    },
+    {
+      "id": "hero-slide-3",
+      "type": "hero",
+      "title": "Keanggunan Warisan DiRaja",
+      "subtitle": "- Duta Kami Ayu Damit",
+      "image": "Ayu Damit-Ambassador/ayu_damit_suit.jpg",
+      "description": "Hayati pesona kemilau emas murni 916 dengan rekaan mahkota keindahan eksklusif yang memancarkan aura keanggunan sejati seumur hidup.",
+      "link": "/koleksi.html",
+      "ctaText": "Terokai Koleksi",
+      "status": "active"
+    },
+    {
+      "id": "banner-slide-1",
+      "type": "banner",
+      "title": "Shop Cincin Permata DiRaja with 30% Exclusive Discount",
+      "subtitle": "Tawaran Terhad Acara VIP",
+      "image": "Product/WhatsApp Image 2026-05-24 at 5.34.41 PM.jpeg",
+      "description": "Miliki mahkota keindahan sejati Emas 916 dengan potongan harga istimewa 30% eksklusif untuk kunjungan minggu ini sahaja.",
+      "link": "/koleksi.html?category=cincin",
+      "ctaText": "Dapatkan Sekarang",
+      "status": "active"
+    },
+    {
+      "id": "banner-slide-2",
+      "type": "banner",
+      "title": "Sertai Kelab Elit Chempaka & Terima 15% Rebate Seumur Hidup",
+      "subtitle": "Keahlian Kelab Elit",
+      "image": "Model/vip_lounge_showroom.png",
+      "description": "Daftar keahlian VIP percuma hari ini untuk menikmati rebat 15% automatik untuk semua produk emas, tempahan awal koleksi Royale, dan undangan eksklusif.",
+      "link": "SIGNUP_MODAL",
+      "ctaText": "Daftar Keahlian Percuma",
+      "status": "active"
+    }
+  ],
+  "vouchers": []
+}

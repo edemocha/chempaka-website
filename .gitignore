@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Environment variables
+.env
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build output
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Invoices & sent emails (generated at runtime)
+backend/invoices/
+backend/sent_emails/
+
+# Gemini / Antigravity IDE artifacts
+.gemini/
+
+# Scratch / temp files at root
+scratch/
+*_extracted.txt
+antigravity-blueprint.md
+
+# UUID-prefixed temp snapshot files
+[0-9a-f]*-[0-9a-f]*-[0-9a-f]*-[0-9a-f]*-[0-9a-f]*_*.html
+[0-9a-f]*-[0-9a-f]*-[0-9a-f]*-[0-9a-f]*-[0-9a-f]*_*.js
+[0-9a-f]*-[0-9a-f]*-[0-9a-f]*-[0-9a-f]*-[0-9a-f]*_*.css

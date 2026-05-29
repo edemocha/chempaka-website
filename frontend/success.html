@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pembayaran Berjaya - Chempaka Jewels</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+  <!-- Central Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #F9F7F2; /* Chempaka Beige */
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-6">
+
+  <div class="bg-white max-w-xl w-full border border-gray-100 rounded-sm p-8 shadow-2xl relative text-center">
+    <!-- Success Icon -->
+    <div class="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6 text-green-500">
+      <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+    </div>
+
+    <!-- Title -->
+    <span class="text-xs uppercase tracking-[0.3em] font-bold text-[#C59D5F] block mb-2">Kelab Elit Chempaka</span>
+    <h2 class="text-3xl font-semibold text-gray-900 tracking-wide mb-4">Transaksi Berjaya!</h2>
+    <p class="text-gray-500 text-sm leading-relaxed mb-8 max-w-md mx-auto">
+      Terima kasih atas pembelian anda. Caj perbankan FPX telah disahkan. Resit rasmi anda telah dijana dan dihantar ke emel anda secara automatik.
+    </p>
+
+    <!-- Details Box -->
+    <div class="bg-[#FCFBFA] border border-gray-100 p-6 rounded-sm text-left text-xs mb-8 space-y-3.5">
+      <div class="flex justify-between">
+        <span class="text-gray-400 font-medium">No. Rujukan / Order ID:</span>
+        <strong class="text-gray-800 font-bold" id="order-id">Loading...</strong>
+      </div>
+      <div class="flex justify-between">
+        <span class="text-gray-400 font-medium">Tarikh Transaksi:</span>
+        <strong class="text-gray-800 font-bold" id="date">Loading...</strong>
+      </div>
+      <div class="flex justify-between">
+        <span class="text-gray-400 font-medium">No. Rujukan FPX / FPX Txn ID:</span>
+        <strong class="text-gray-800 font-bold" id="txn-id">Loading...</strong>
+      </div>
+      <div class="flex justify-between">
+        <span class="text-gray-400 font-medium">Nama Pembeli:</span>
+        <strong class="text-gray-800 font-bold" id="customer-name">Loading...</strong>
+      </div>
+      
+      <hr class="border-gray-100 my-2">
+
+      <div class="space-y-2" id="items-container">
+        <!-- Dynamic list of items -->
+      </div>
+
+      <hr class="border-gray-100 my-2">
+
+      <div class="flex justify-between text-sm pt-2">
+        <span class="text-gray-700 font-semibold uppercase tracking-wider">JUMLAH DIBAYAR:</span>
+        <strong class="text-[#C59D5F] font-bold text-base" id="total-amount">RM 0.00</strong>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex flex-col sm:flex-row gap-4">
+      <a id="download-pdf-btn" href="#" target="_blank" class="flex-1 bg-[#2B2B2B] hover:bg-[#C59D5F] text-white text-xs uppercase tracking-[0.2em] font-semibold py-4 px-6 text-center transition-colors shadow-lg rounded-sm">
+        Muat Turun Resit PDF
+      </a>
+      <a href="/" class="flex-1 border border-gray-300 hover:border-black text-gray-700 hover:text-black text-xs uppercase tracking-[0.2em] font-semibold py-4 px-6 text-center transition-colors rounded-sm">
+        Kembali ke Koleksi
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const orderId = params.get('orderId');
+
+    if (!orderId) {
+      alert("No Order ID provided.");
+      window.location.href = "/";
+    }
+
+    // Fetch order details
+    fetch((window.API_BASE || '') + `/api/orders/${orderId}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) {
+          alert(data.error);
+          window.location.href = "/";
+        } else {
+          const order = data.order;
+          
+          document.getElementById('order-id').innerText = order.id;
+          document.getElementById('date').innerText = new Date(order.createdAt).toLocaleDateString('ms-MY') + ' ' + new Date(order.createdAt).toLocaleTimeString('ms-MY');
+          document.getElementById('txn-id').innerText = order.payment.transactionId || 'N/A';
+          document.getElementById('customer-name').innerText = order.customerName;
+          document.getElementById('total-amount').innerText = `RM ${order.total.toFixed(2)}`;
+
+          // Populate items list
+          const container = document.getElementById('items-container');
+          container.innerHTML = '';
+          
+          order.items.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'flex justify-between text-gray-500 font-light';
+            div.innerHTML = `
+              <span>${item.title} (x${item.quantity})</span>
+              <span>RM ${(item.price * item.quantity).toFixed(2)}</span>
+            `;
+            container.appendChild(div);
+          });
+
+          // Set download PDF invoice path (served directly from the backend, wait, let's see)
+          // Since invoices are written inside `backend/invoices/invoice_<id>.pdf`,
+          // our server can serve it if we map the route! Or since it's a relative path in backend,
+          // let's make the server serve the invoices folder as static or provide a direct download route!
+          // Yes! Let's make the server expose the invoices folder under `/invoices` static or we can just download it!
+          // Actually, we can add a simple server static route in server.js or we can serve it at `/invoices/invoice_<id>.pdf`!
+          // Let's add that static route inside our server.js in the next step, or let's use the local file link!
+          // A local file link is: `/invoices/invoice_${order.id}.pdf`!
+          document.getElementById('download-pdf-btn').href = `/invoices/invoice_${order.id}.pdf`;
+        }
+      })
+      .catch(err => {
+        console.error("Error fetching order details:", err);
+      });
+  </script>
+
+</body>
+</html>

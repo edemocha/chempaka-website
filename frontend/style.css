@@ -1,0 +1,234 @@
+/* 
+   Chempaka Jewels - Keindahan Abadi
+   Core Brand Styles & Premium Styling Tokens
+*/
+
+/* Basic resets & selection styling */
+::selection {
+  background-color: #C59D5F !important; /* Chempaka Gold */
+  color: #FFFFFF !important;
+}
+
+/* Custom Scrollbar to feel premium and sleek */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F9F7F2; /* Chempaka Beige */
+}
+::-webkit-scrollbar-thumb {
+  background: #C59D5F; /* Chempaka Gold */
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #A6824D; /* Chempaka Gold Dark */
+}
+
+/* Base body style and transitions */
+body {
+  scroll-behavior: smooth;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6, .font-serif {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Ambient Shadows for luxury depth */
+.shadow-luxury {
+  box-shadow: 0 20px 40px -15px rgba(48, 48, 48, 0.08);
+}
+
+.shadow-drawer {
+  box-shadow: -10px 0 30px -5px rgba(48, 48, 48, 0.12);
+}
+
+/* Glassmorphism Classes */
+.glass-nav {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(197, 157, 95, 0.1);
+}
+
+.glass-dark {
+  background: rgba(43, 43, 43, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Underline Hover FX */
+.hover-gold-line {
+  position: relative;
+}
+.hover-gold-line::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: -4px;
+  left: 0;
+  background-color: #C59D5F;
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+.hover-gold-line:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* --- VIP CONVERSION ANIMATIONS & TOKENS --- */
+
+/* Smooth fade-in-up transition for welcome modal */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Pulsing highlight for conversion tags and welcome elements */
+@keyframes pulse-gold-glow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(197, 157, 95, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(197, 157, 95, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(197, 157, 95, 0);
+  }
+}
+.animate-pulse-gold {
+  animation: pulse-gold-glow 2s infinite;
+}
+
+/* Locked CTA text flicker effect */
+@keyframes text-flicker {
+  0%, 100% { opacity: 0.95; }
+  50% { opacity: 0.7; }
+}
+.animate-text-flicker {
+  animation: text-flicker 1.8s infinite ease-in-out;
+}
+
+/* Glassmorphism alert variant for gold alerts */
+.glass-alert-gold {
+  background: rgba(197, 157, 95, 0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(197, 157, 95, 0.2);
+  transition: all 0.3s ease;
+}
+.glass-alert-gold:hover {
+  background: rgba(197, 157, 95, 0.08);
+  border: 1px solid rgba(197, 157, 95, 0.35);
+}
+
+/* Brand-consistent luxury card hover and shadow rules */
+.luxury-card-glow {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+.luxury-card-glow:hover {
+  border-color: rgba(197, 157, 95, 0.35) !important;
+  box-shadow: 0 20px 40px -15px rgba(197, 157, 95, 0.12) !important;
+  transform: translateY(-4px);
+}
+
+/* Elegant transition overrides for premium buttons */
+.btn-luxury-transition {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-luxury-transition:hover {
+  box-shadow: 0 10px 25px -5px rgba(197, 157, 95, 0.3);
+}
+
+/* --- IMMERSIVE MOTION DESIGN SYSTEM --- */
+
+/* Scroll-linked reveal triggers */
+.reveal-element {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-element.reveal-left {
+  transform: translateX(-32px);
+}
+
+.reveal-element.reveal-right {
+  transform: translateX(32px);
+}
+
+.reveal-element.reveal-scale {
+  transform: scale(0.96);
+}
+
+.reveal-element.active {
+  opacity: 1 !important;
+  transform: translate(0) scale(1) !important;
+}
+
+/* Luxury reveal stagger delays */
+.delay-100 { transition-delay: 100ms !important; }
+.delay-200 { transition-delay: 200ms !important; }
+.delay-300 { transition-delay: 300ms !important; }
+.delay-400 { transition-delay: 400ms !important; }
+.delay-500 { transition-delay: 500ms !important; }
+.delay-600 { transition-delay: 600ms !important; }
+.delay-700 { transition-delay: 700ms !important; }
+
+/* Parallax scroll container to mask translations */
+.parallax-container {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Parallax element smoothing transition */
+.parallax-layer {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* Subtle Zoom on Hover for Campaign Visuals */
+.luxury-zoom-hover {
+  overflow: hidden;
+}
+.luxury-zoom-hover img {
+  transition: transform 2.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.luxury-zoom-hover:hover img {
+  transform: scale(1.04);
+}
+
+/* --- INFINITE HORIZONTAL MARQUEE TICKER ANIMATION --- */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}

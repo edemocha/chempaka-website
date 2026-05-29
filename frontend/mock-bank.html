@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FPX Online Banking Simulator - Chempaka Jewels</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+  <!-- Central Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #F3F4F6;
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+
+  <div class="bg-white rounded-lg shadow-xl border border-gray-100 max-w-md w-full overflow-hidden">
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-blue-700 to-indigo-800 text-white p-6 text-center">
+      <h2 class="text-xl font-bold uppercase tracking-widest text-yellow-300">FPX GATEWAY</h2>
+      <p class="text-xs text-blue-200 mt-1">Saluran Pembayaran Selamat FPX Online Banking</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="p-6">
+      <div class="text-center mb-6">
+        <span class="text-gray-400 text-xs uppercase tracking-wider block">Chempaka Jewels Official Store</span>
+        <h3 class="text-gray-800 font-semibold text-lg mt-1" id="order-id-label">Pesanan: Loading...</h3>
+        
+        <div class="bg-blue-50 border border-blue-100 text-blue-800 font-bold rounded-lg py-3 px-6 inline-block mt-4 text-xl tracking-wide" id="amount-label">
+          RM 0.00
+        </div>
+      </div>
+
+      <hr class="border-gray-100 mb-6">
+
+      <!-- FPX Bank Selector Form -->
+      <div class="space-y-4">
+        <div>
+          <label for="bank" class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Pilih Bank Pembayar / Select Bank:</label>
+          <select id="bank" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 text-sm">
+            <option value="Maybank2u">Maybank2u / Maybank</option>
+            <option value="CIMBClicks">CIMB Clicks / CIMB Bank</option>
+            <option value="PublicBank">Public Bank</option>
+            <option value="RHBNow">RHB Now / RHB Bank</option>
+            <option value="HongLeong">Hong Leong Connect</option>
+            <option value="BankIslam">Bank Islam</option>
+          </select>
+        </div>
+
+        <div class="bg-yellow-50 border border-yellow-100 text-yellow-800 text-xs p-4 rounded-md leading-relaxed flex items-start gap-2.5">
+          <svg class="w-4 h-4 text-yellow-700 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" /></svg>
+          <span><strong>Mod Sandbox:</strong> Ini adalah simulasi transaksi. Tiada wang sebenar akan ditolak dari akaun perbankan anda.</span>
+        </div>
+
+        <!-- Action Buttons -->
+        <button onclick="processPayment('success')" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3.5 px-4 rounded transition duration-200 shadow-md text-sm uppercase tracking-wider">
+          Selesaikan Transaksi (Simulate Success)
+        </button>
+
+        <button onclick="processPayment('failed')" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3.5 px-4 rounded transition duration-200 shadow-md text-sm uppercase tracking-wider">
+          Gagalkan Transaksi (Simulate Fail)
+        </button>
+
+        <button onclick="cancelPayment()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded transition duration-200 text-xs uppercase tracking-wider">
+          Kembali ke Kedai / Cancel
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="bg-gray-50 border-t border-gray-100 p-4 text-center text-[10px] text-gray-400">
+      FPX adalah tanda dagangan berdaftar PayNet Malaysia.
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = window.location.origin.includes('3000') ? '' : 'http://localhost:3000';
+    // Parse orderId from query parameter
+    const params = new URLSearchParams(window.location.search);
+    const orderId = params.get('orderId');
+
+    if (!orderId) {
+      alert("No Order ID provided.");
+      window.location.href = "/";
+    }
+
+    // Fetch order details from backend API
+    fetch(API_BASE + `/api/orders/${orderId}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) {
+          alert(data.error);
+          window.location.href = "/";
+        } else {
+          document.getElementById('order-id-label').innerText = `Rujukan Pesanan: ${data.order.id}`;
+          document.getElementById('amount-label').innerText = `RM ${data.order.total.toFixed(2)}`;
+        }
+      })
+      .catch(err => {
+        console.error("Error fetching order:", err);
+      });
+
+    // Processes the simulated payment status
+    function processPayment(status) {
+      const bankName = document.getElementById('bank').value;
+      const transactionId = 'TXN-FPX-' + Date.now();
+
+      // Trigger Webhook API callback
+      fetch(API_BASE + '/api/payment/webhook', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          orderId: orderId,
+          transactionId: transactionId,
+          status: status
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (status === 'success') {
+          // Redirect to success page
+          window.location.href = `/success.html?orderId=${orderId}`;
+        } else {
+          alert("Pembayaran Gagal/Dibatalkan. Sila cuba lagi.");
+          window.location.href = "/";
+        }
+      })
+      .catch(err => {
+        console.error("Error sending webhook:", err);
+        alert("Ralat sambungan dengan pelayan.");
+      });
+    }
+
+    function cancelPayment() {
+      window.location.href = "/";
+    }
+  </script>
+
+</body>
+</html>

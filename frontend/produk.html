@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Perincian Rekaan - Chempaka Jewels</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <!-- Google Fonts: Playfair Display for Serifs and Inter for Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+  <!-- Central Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .gold-box-frame::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border: 1px solid rgba(197, 157, 95, 0.25);
+      border-radius: 4px;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="bg-white text-[#2B2B2B] antialiased">
+
+  <!-- Dynamic Header / Navbar Placeholder -->
+  <div id="navbar-placeholder"></div>
+
+  <!-- MAIN SECTION: PRODUCT DETAIL SPREAD -->
+  <main class="py-16 md:py-24 bg-white" id="main-product-container">
+    <div class="container mx-auto px-8 lg:px-16 max-w-[1400px]">
+      
+      <!-- Back Link -->
+      <div class="mb-10">
+        <a href="/koleksi.html" class="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-semibold text-[#C59D5F] hover:text-[#2B2B2B] transition-colors duration-300">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+          Kembali ke Koleksi
+        </a>
+      </div>
+
+      <!-- Loading skeleton -->
+      <div id="product-loading" class="text-center py-24 text-gray-400">
+        <span class="text-xs uppercase tracking-[0.25em] animate-pulse block">Memuatkan perincian mahakarya emas...</span>
+      </div>
+
+      <!-- Dynamic Product Spread Card (Hidden Initially) -->
+      <div id="product-detail-card" class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start hidden">
+        
+        <!-- Left Side: Giant Widescreen Photo & Double Frame Casing (5 cols) -->
+        <div class="lg:col-span-5 w-full relative group">
+          <div class="absolute -top-4 -left-4 w-full h-full border border-[#C59D5F]/35 z-0 pointer-events-none rounded-sm"></div>
+          <div class="absolute -bottom-4 -right-4 w-full h-full border border-[#C59D5F]/15 z-0 pointer-events-none rounded-sm"></div>
+          
+          <div class="relative z-10 aspect-[4/5] overflow-hidden rounded-sm shadow-2xl border border-[#C59D5F]/15 bg-gray-50">
+            <img
+              id="detail-product-img"
+              src=""
+              alt=""
+              class="w-full h-full object-cover transition-transform duration-[6000ms] group-hover:scale-105"
+            />
+            <!-- Dark soft bottom mask -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none"></div>
+          </div>
+        </div>
+
+        <!-- Right Side: Editorial Content & Interactive Spec Box (7 cols) -->
+        <div class="lg:col-span-7 flex flex-col space-y-6 lg:pl-6">
+          <!-- Category & Purity Badges -->
+          <div class="flex items-center gap-3">
+            <span id="detail-category-badge" class="text-xs uppercase tracking-[0.25em] font-bold text-[#C59D5F] bg-[#C59D5F]/10 px-3 py-1.5 rounded-sm">Cincin</span>
+            <span id="detail-purity-badge" class="text-xs uppercase tracking-[0.25em] font-bold text-gray-900 bg-gray-100 px-3 py-1.5 rounded-sm">916 Emas</span>
+          </div>
+
+          <h1 id="detail-product-title" class="text-3xl lg:text-4xl font-serif text-gray-900 leading-tight"></h1>
+          
+          <div class="w-12 h-[1px] bg-[#C59D5F]/40 my-2"></div>
+
+          <!-- Product Heritage Description -->
+          <p id="detail-product-desc" class="text-xs text-gray-600 leading-relaxed font-light max-w-xl"></p>
+
+          <!-- Specifications Table Box -->
+          <div class="bg-[#FAF9F6] border border-gray-100 p-6 rounded-sm max-w-xl">
+            <h3 class="text-sm uppercase tracking-[0.25em] font-bold text-gray-800 mb-4 border-b border-gray-200/60 pb-2">Spesifikasi Fizikal</h3>
+            <div class="grid grid-cols-3 gap-6 text-center divide-x divide-gray-200/60">
+              <div>
+                <span class="block text-xs uppercase tracking-wider text-gray-400 font-semibold mb-1">Berat Kasar</span>
+                <span id="spec-weight" class="text-xs font-bold text-gray-900"></span>
+              </div>
+              <div>
+                <span class="block text-xs uppercase tracking-wider text-gray-400 font-semibold mb-1">Ketulenan Emas</span>
+                <span id="spec-purity" class="text-xs font-bold text-gray-900"></span>
+              </div>
+              <div>
+                <span class="block text-xs uppercase tracking-wider text-gray-400 font-semibold mb-1">Upah Pertukangan</span>
+                <span id="spec-craftsmanship" class="text-xs font-bold text-[#C59D5F]"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Price & Live Calculator Spec Box -->
+          <div class="border border-[#C59D5F]/20 p-6 rounded-sm max-w-xl bg-white relative overflow-hidden gold-box-frame">
+            <h3 class="text-sm uppercase tracking-[0.25em] font-bold text-[#C59D5F] mb-4 border-b border-[#C59D5F]/15 pb-2">Kalkulator Nilai Emas Semasa</h3>
+            
+            <div class="space-y-4">
+              <!-- Live rate notice -->
+              <div class="flex justify-between items-center text-xs text-gray-400 font-medium">
+                <span>Kadar Live Pasaran:</span>
+                <span id="live-calc-rate" class="text-emerald-600 font-semibold uppercase tracking-wider"></span>
+              </div>
+
+              <!-- Price breakdown details -->
+              <div class="space-y-2 text-xs text-gray-600 border-b border-gray-100 pb-3 font-light">
+                <div class="flex justify-between">
+                  <span>Nilai Emas Tulen (Berat × Kadar Pasaran):</span>
+                  <span id="calc-gold-value" class="font-semibold text-gray-800"></span>
+                </div>
+                <div class="flex justify-between">
+                  <span>Upah Rekaan Tukang Emas Chempaka:</span>
+                  <span id="calc-craft-fee" class="font-semibold text-gray-800"></span>
+                </div>
+              </div>
+
+              <!-- Final Pricing Block -->
+              <div class="pt-2">
+                <!-- Guest Standard Price -->
+                <div id="pricing-standard-row" class="flex justify-between items-baseline mb-2">
+                  <span class="text-sm font-semibold uppercase tracking-wider text-gray-500">Harga Biasa (Bukan Ahli):</span>
+                  <span id="pricing-standard" class="text-sm font-bold text-gray-800"></span>
+                </div>
+
+                <!-- VIP Discounted Price -->
+                <div id="pricing-vip-row" class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 bg-yellow-500/5 p-4 border border-[#C59D5F]/20 rounded-sm">
+                  <div>
+                    <span class="text-[#C59D5F] text-xs uppercase tracking-[0.25em] font-bold block mb-1">Harga Istimewa Kelab Elit</span>
+                    <div class="flex items-baseline gap-2">
+                      <span id="pricing-vip" class="text-sm font-bold text-[#C59D5F]"></span>
+                      <span id="pricing-vip-strike" class="text-xs text-gray-400 line-through hidden"></span>
+                    </div>
+                  </div>
+                  
+                  <!-- Guest Call-to-action to register -->
+                  <a id="vip-onboard-nudge" href="https://docs.google.com/forms/d/e/1FAIpQLScnTbJ8QEIXe_ENrZbqYr0cVUfvSJPm6gyZzrH3z34nNSnU3Q/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="hidden inline-flex items-center justify-center gap-2.5 text-sm uppercase tracking-wider font-bold bg-[#C59D5F] text-white hover:bg-black px-4 py-2.5 rounded-sm transition-colors duration-300 shadow-md">
+                    <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" /></svg>
+                    <span>Daftar VIP & Jimat!</span>
+                  </a>
+                  <span id="vip-active-label" class="hidden text-xs bg-green-100 text-green-800 font-bold px-2 py-1 rounded-sm uppercase tracking-wider">Keahlian VIP Aktif (Rebat 15%)</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Product Sizing & Length Options Block -->
+          <div id="product-options-block" class="max-w-xl space-y-6 pt-4 pb-2 hidden">
+            <!-- Size Selector -->
+            <div id="size-selector-wrapper" class="hidden">
+              <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2.5">Pilih Saiz Anda:</label>
+              <div id="size-pills-container" class="flex flex-wrap gap-2.5">
+                <!-- Size pills loaded dynamically -->
+              </div>
+              <input type="hidden" id="selected-product-size" value="">
+            </div>
+
+            <!-- Length Selector -->
+            <div id="length-selector-wrapper" class="hidden">
+              <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2.5">Pilih Panjang:</label>
+              <div id="length-pills-container" class="flex flex-wrap gap-2.5">
+                <!-- Length pills loaded dynamically -->
+              </div>
+              <input type="hidden" id="selected-product-length" value="">
+            </div>
+          </div>
+
+          <!-- Checkout & Cart actions -->
+          <div class="flex flex-col sm:flex-row gap-4 max-w-xl pt-4">
+            <!-- Tambah ke Troli -->
+            <button id="add-to-cart-btn" class="w-full border-2 border-black text-black hover:bg-[#2B2B2B] hover:text-white hover:border-[#2B2B2B] py-4 text-sm uppercase tracking-[0.25em] font-bold transition-all duration-300 rounded-sm btn-luxury-transition">
+              Tambah Ke Troli
+            </button>
+            
+            <!-- Direct Checkout -->
+            <button id="direct-buy-btn" class="w-full bg-[#C59D5F] text-white hover:bg-black py-4 text-sm uppercase tracking-[0.25em] font-bold transition-all duration-300 rounded-sm shadow-lg hover:shadow-xl">
+              Beli Sekarang (FPX)
+            </button>
+          </div>
+
+          <!-- WhatsApp Boutique Concierge Desk -->
+          <div class="max-w-xl pt-2 border-t border-gray-100">
+            <a id="boutique-concierge-link" href="" target="_blank" class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-bold text-gray-500 hover:text-[#C59D5F] transition-all duration-300 py-2">
+              <svg class="w-4 h-4 text-emerald-500 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.739-1.456L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 2.025 14.07 1 11.955 1 6.518 1 2.096 5.37 2.093 10.799c0 1.7.456 3.36 1.32 4.823l-.999 3.648 3.733-.976z"/></svg>
+              Tanya Concierge Butik Chempaka
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- RELATED PRODUCTS SECTION -->
+      <section class="mt-28 border-t border-gray-100 pt-20" id="related-products-section">
+        <div class="mb-12">
+          <span class="text-[#C59D5F] text-xs uppercase tracking-[0.4em] font-bold block mb-3">Pilihan Mahakarya</span>
+          <h3 class="text-3xl font-serif text-gray-900 tracking-wider">Anda Mungkin Juga Menyukai</h3>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12" id="related-products-grid">
+          <!-- Loaded dynamically -->
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Dynamic Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Dynamic Cart Drawer Placeholder -->
+  <div id="cart-placeholder"></div>
+
+  <!-- Shared Application State Manager & Assets Injector -->
+  <script src="js/shared.js"></script>
+
+  <!-- CUSTOM PRODUCT DETAILS SCRIPT -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Parse Product ID from URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const productId = urlParams.get('id');
+
+      if (!productId) {
+        // Fallback: Redirect to Koleksi
+        window.location.href = '/koleksi.html';
+        return;
+      }
+
+      // 2. Fetch the dynamic catalog to find the target product
+      loadProductDetails(productId);
+    });
+
+    function loadProductDetails(productId) {
+      const headers = {};
+      const token = localStorage.getItem('chempaka_token');
+      if (token) {
+        headers['Authorization'] = token;
+      }
+
+      // Fetch products list from API server
+      fetch((window.API_BASE || '') + '/api/products', { headers })
+        .then(res => res.json())
+        .then(data => {
+          const product = data.products.find(p => p.id === productId || p.id == productId);
+          if (!product) {
+            document.getElementById('product-loading').innerHTML = `
+              <div class="py-20 text-center text-red-500 font-serif text-sm">
+                <p>Maaf, produk tidak ditemui.</p>
+                <a href="/koleksi.html" class="text-xs uppercase tracking-widest text-[#C59D5F] underline mt-4 block">Kembali ke Koleksi</a>
+              </div>
+            `;
+            return;
+          }
+
+          // Fetch dynamic gold rates
+          fetch((window.API_BASE || '') + '/api/gold-rates')
+            .then(rateRes => rateRes.json())
+            .then(rateData => {
+              renderProductSpread(product, rateData.rates, data.isMember);
+              renderRelatedProducts(product, data.products);
+            })
+            .catch(err => {
+              // Fallback rate parameters
+              const fallbackRates = { gold999: 385.20, gold916: 368.50 };
+              renderProductSpread(product, fallbackRates, data.isMember);
+              renderRelatedProducts(product, data.products);
+            });
+        })
+        .catch(err => {
+          console.error("Error loading product details:", err);
+          document.getElementById('product-loading').innerHTML = `
+            <div class="py-20 text-center text-red-500 font-serif text-sm">
+              <p>Gagal menyambung ke pelayan backend.</p>
+              <p class="text-xs text-gray-400 mt-2">Sila pastikan server Express anda sedang aktif.</p>
+            </div>
+          `;
+        });
+    }
+
+    function renderProductSpread(product, rates, isMember) {
+      // 1. Hide loading skeleton, show product spread card
+      document.getElementById('product-loading').classList.add('hidden');
+      document.getElementById('product-detail-card').classList.remove('hidden');
+
+      // 2. Set static data
+      document.getElementById('detail-product-img').src = product.image;
+      document.getElementById('detail-product-img').alt = product.title;
+      document.getElementById('detail-product-title').innerText = product.title;
+      document.getElementById('detail-product-desc').innerText = product.description || "Rekaan emas murni Chempaka Jewels yang menampilkan perincian premium, ketulenan tinggi, dan kemegahan abadi seni tangan pertukangan tukang emas tempatan.";
+      
+      // Badges & Specs
+      const categoryLabel = product.category === 'cincin' ? 'Cincin' : (product.category === 'rantai' ? 'Rantai Leher' : 'Gelang Tangan');
+      document.getElementById('detail-category-badge').innerText = categoryLabel;
+      document.getElementById('detail-purity-badge').innerText = product.purity;
+
+      document.getElementById('spec-weight').innerText = `${product.weight.toFixed(2)} g`;
+      document.getElementById('spec-purity').innerText = product.purity;
+      document.getElementById('spec-craftsmanship').innerText = `RM ${product.craftsmanship.toFixed(2)}`;
+
+      // 3. Calculator Calculations
+      const is999 = product.purity && (product.purity.includes("999") || product.purity.includes("24K"));
+      const activeRate = is999 ? rates.gold999 : rates.gold916;
+      const rawGoldValue = product.weight * activeRate;
+      
+      // Update Live notice
+      document.getElementById('live-calc-rate').innerText = `Emas ${is999 ? '999.9' : '916'} @ RM${activeRate.toFixed(2)}/g`;
+      document.getElementById('calc-gold-value').innerText = `RM ${rawGoldValue.toFixed(2)}`;
+      document.getElementById('calc-craft-fee').innerText = `RM ${product.craftsmanship.toFixed(2)}`;
+
+      // Pricing values
+      const standardPrice = rawGoldValue + product.craftsmanship;
+      const vipPrice = standardPrice * 0.85;
+
+      document.getElementById('pricing-standard').innerText = `RM ${standardPrice.toFixed(2)}`;
+      document.getElementById('pricing-vip').innerText = `RM ${vipPrice.toFixed(2)}`;
+
+      // 4. Update VIP elements based on authentication
+      if (isMember) {
+        document.getElementById('pricing-standard').classList.add('line-through', 'text-gray-400');
+        document.getElementById('pricing-standard').classList.remove('text-gray-800');
+        document.getElementById('pricing-vip-strike').innerText = `RM ${standardPrice.toFixed(2)}`;
+        document.getElementById('pricing-vip-strike').classList.remove('hidden');
+        document.getElementById('vip-active-label').classList.remove('hidden');
+        document.getElementById('vip-onboard-nudge').classList.add('hidden');
+      } else {
+        document.getElementById('pricing-standard').classList.remove('line-through', 'text-gray-400');
+        document.getElementById('pricing-standard').classList.add('text-gray-800');
+        document.getElementById('pricing-vip-strike').classList.add('hidden');
+        document.getElementById('vip-active-label').classList.add('hidden');
+        document.getElementById('vip-onboard-nudge').classList.remove('hidden');
+      }
+
+      // 4b. Dynamic Sizing & Length Pills Rendering
+      const optionsBlock = document.getElementById('product-options-block');
+      const sizeWrapper = document.getElementById('size-selector-wrapper');
+      const sizeContainer = document.getElementById('size-pills-container');
+      const lengthWrapper = document.getElementById('length-selector-wrapper');
+      const lengthContainer = document.getElementById('length-pills-container');
+      
+      let hasOptions = false;
+      
+      // Sizes processing
+      sizeContainer.innerHTML = '';
+      document.getElementById('selected-product-size').value = '';
+      if (product.sizes && Array.isArray(product.sizes) && product.sizes.length > 0 && !product.sizes.includes('Tiada')) {
+        hasOptions = true;
+        sizeWrapper.classList.remove('hidden');
+        product.sizes.forEach(size => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'px-4 py-2 border border-gray-200 text-[#2B2B2B] text-xs font-mono tracking-wider font-medium hover:border-[#C59D5F] hover:text-[#C59D5F] transition-all duration-200 cursor-pointer rounded-sm bg-white';
+          btn.innerText = size;
+          btn.onclick = () => {
+            Array.from(sizeContainer.children).forEach(child => {
+              child.className = 'px-4 py-2 border border-gray-200 text-[#2B2B2B] text-xs font-mono tracking-wider font-medium hover:border-[#C59D5F] hover:text-[#C59D5F] transition-all duration-200 cursor-pointer rounded-sm bg-white';
+            });
+            btn.className = 'px-4 py-2 border-2 border-[#C59D5F] text-[#C59D5F] text-xs font-mono tracking-wider font-extrabold transition-all duration-200 cursor-pointer rounded-sm bg-[#C59D5F]/5';
+            document.getElementById('selected-product-size').value = size;
+          };
+          sizeContainer.appendChild(btn);
+        });
+      } else {
+        sizeWrapper.classList.add('hidden');
+      }
+
+      // Length processing
+      lengthContainer.innerHTML = '';
+      document.getElementById('selected-product-length').value = '';
+      if (product.length && product.length !== 'Tiada') {
+        hasOptions = true;
+        lengthWrapper.classList.remove('hidden');
+        const lengthOptions = product.length.split(',').map(l => l.trim()).filter(Boolean);
+        lengthOptions.forEach(length => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'px-4 py-2 border border-gray-200 text-[#2B2B2B] text-xs font-mono tracking-wider font-medium hover:border-[#C59D5F] hover:text-[#C59D5F] transition-all duration-200 cursor-pointer rounded-sm bg-white';
+          btn.innerText = length;
+          btn.onclick = () => {
+            Array.from(lengthContainer.children).forEach(child => {
+              child.className = 'px-4 py-2 border border-gray-200 text-[#2B2B2B] text-xs font-mono tracking-wider font-medium hover:border-[#C59D5F] hover:text-[#C59D5F] transition-all duration-200 cursor-pointer rounded-sm bg-white';
+            });
+            btn.className = 'px-4 py-2 border-2 border-[#C59D5F] text-[#C59D5F] text-xs font-mono tracking-wider font-extrabold transition-all duration-200 cursor-pointer rounded-sm bg-[#C59D5F]/5';
+            document.getElementById('selected-product-length').value = length;
+          };
+          lengthContainer.appendChild(btn);
+        });
+      } else {
+        lengthWrapper.classList.add('hidden');
+      }
+
+      if (hasOptions) {
+        optionsBlock.classList.remove('hidden');
+      } else {
+        optionsBlock.classList.add('hidden');
+      }
+
+      // 5. Button Actions & WhatsApp inquiries
+      // Cart action
+      const cartBtn = document.getElementById('add-to-cart-btn');
+      cartBtn.onclick = () => {
+        const hasSizes = product.sizes && Array.isArray(product.sizes) && product.sizes.length > 0 && !product.sizes.includes('Tiada');
+        const hasLengths = product.length && product.length !== 'Tiada';
+        
+        const selSize = document.getElementById('selected-product-size').value;
+        const selLength = document.getElementById('selected-product-length').value;
+
+        if (hasSizes && !selSize) {
+          alert("Sila pilih saiz sebelum menambah ke troli.");
+          return;
+        }
+        if (hasLengths && !selLength) {
+          alert("Sila pilih panjang sebelum menambah ke troli.");
+          return;
+        }
+
+        addToCart(product.id, product.title, product.purity, product.weight, standardPrice, product.image, selSize, selLength);
+      };
+
+      // Direct Buy Action
+      const buyBtn = document.getElementById('direct-buy-btn');
+      buyBtn.onclick = () => {
+        const hasSizes = product.sizes && Array.isArray(product.sizes) && product.sizes.length > 0 && !product.sizes.includes('Tiada');
+        const hasLengths = product.length && product.length !== 'Tiada';
+        
+        const selSize = document.getElementById('selected-product-size').value;
+        const selLength = document.getElementById('selected-product-length').value;
+
+        if (hasSizes && !selSize) {
+          alert("Sila pilih saiz sebelum membeli.");
+          return;
+        }
+        if (hasLengths && !selLength) {
+          alert("Sila pilih panjang sebelum membeli.");
+          return;
+        }
+
+        const isMemberUser = currentUser && currentUser.role === 'member';
+        const finalPrice = isMemberUser ? vipPrice : standardPrice;
+        
+        // Simulating FPX
+        localStorage.setItem('chempaka_cart', JSON.stringify([{
+          id: product.id,
+          cartItemId: product.id + "_" + product.title + (selSize ? "_" + selSize : "") + (selLength ? "_" + selLength : ""),
+          title: product.title,
+          purity: product.purity,
+          weight: product.weight,
+          basePrice: standardPrice,
+          image: product.image,
+          quantity: 1,
+          size: selSize || null,
+          length: selLength || null
+        }]));
+        
+        // Re-load cart array in shared scope
+        cart = JSON.parse(localStorage.getItem('chempaka_cart'));
+        updateCartBadge();
+        simulateCheckout();
+      };
+
+      // WhatsApp concierge link
+      const whatsAppLink = document.getElementById('boutique-concierge-link');
+      const textMessage = encodeURIComponent(`Assalamualaikum Chempaka Jewels, saya berminat dengan mahakarya emas "${product.title}" (${product.purity}, ${product.weight.toFixed(2)}g). Boleh saya buat janji temu Viewing Eksklusif di butik untuk merasai sendiri keindahan rekaan ini? Terima kasih!`);
+      whatsAppLink.href = `https://wa.me/60111222333?text=${textMessage}`;
+
+      // Dynamic updates for Mobile Sticky Bottom Buy Bar
+      const stickyTitle = document.getElementById('sticky-bar-title');
+      const stickyPrice = document.getElementById('sticky-bar-price');
+      if (stickyTitle) stickyTitle.innerText = product.title;
+      if (stickyPrice) {
+        const finalPrice = isMember ? vipPrice : standardPrice;
+        stickyPrice.innerText = `RM ${finalPrice.toFixed(2)}`;
+      }
+
+      // Sticky buy bar scroll triggered glide transition
+      const stickyBar = document.getElementById('mobile-sticky-buy-bar');
+      const mainBuyBtn = document.getElementById('add-to-cart-btn');
+      
+      if (stickyBar && mainBuyBtn) {
+        if (window._stickyScrollHandler) {
+          window.removeEventListener('scroll', window._stickyScrollHandler);
+        }
+        
+        window._stickyScrollHandler = () => {
+          const rect = mainBuyBtn.getBoundingClientRect();
+          if (rect.bottom < 0) {
+            stickyBar.classList.remove('translate-y-full');
+          } else {
+            stickyBar.classList.add('translate-y-full');
+          }
+        };
+        
+        window.addEventListener('scroll', window._stickyScrollHandler);
+      }
+    }
+
+    function renderRelatedProducts(currentProduct, allProducts) {
+      const grid = document.getElementById('related-products-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      // Filter products in same category, exclude current product
+      let related = allProducts.filter(p => p.category === currentProduct.category && p.id !== currentProduct.id && p.status === 'active');
+      
+      // If not enough related products, select from any category
+      if (related.length < 3) {
+        const remaining = allProducts.filter(p => p.id !== currentProduct.id && p.status === 'active');
+        related = [...related, ...remaining].slice(0, 3);
+      } else {
+        related = related.slice(0, 3);
+      }
+
+      related.forEach((p, idx) => {
+        const div = document.createElement('a');
+        div.href = `/produk.html?id=${p.id}`;
+        const delayClass = `delay-${(idx % 3 + 1) * 100}`;
+        div.className = `group bg-white p-6 pb-8 flex flex-col justify-between rounded-sm border border-gray-100 hover:border-[#C59D5F]/20 transition-all duration-300 shadow-sm hover:shadow-md flex-shrink-0 reveal-element reveal-scale ${delayClass}`;
+        div.innerHTML = `
+          <div>
+            <div class="aspect-[4/5] overflow-hidden mb-6 bg-gray-50 relative">
+              <span class="absolute top-4 left-4 bg-[#C59D5F] text-white text-xs uppercase tracking-[0.1em] px-3 py-1 font-semibold z-10">${p.purity}</span>
+              <img alt="${p.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="${p.image}"/>
+            </div>
+            <div class="text-center px-4">
+              <span class="text-xs uppercase tracking-[0.2em] text-gray-400 font-medium mb-1 block">${p.weight.toFixed(2)}g</span>
+              <h4 class="text-sm font-serif mb-2 text-gray-900 group-hover:text-[#C59D5F] transition-colors duration-300">${p.title}</h4>
+              <p class="text-sm font-bold text-gray-800 mb-4">RM ${p.displayPrice.toFixed(2)}</p>
+            </div>
+          </div>
+          <div class="text-center px-4">
+            <span class="inline-flex w-full justify-center items-center gap-1 border border-black hover:bg-black hover:text-white py-3 uppercase tracking-[0.15em] font-semibold text-sm btn-luxury-transition">
+              Lihat Perincian
+            </span>
+          </div>
+        `;
+        grid.appendChild(div);
+      });
+
+      // Sync scroll animations observer
+      if (typeof window.syncRevealObserver === 'function') {
+        window.syncRevealObserver();
+      }
+    }
+  </script>
+
+  <!-- Mobile Sticky Bottom Buy Bar (Visible on mobile/tablet only when scrolling) -->
+  <div id="mobile-sticky-buy-bar" class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-100 px-6 py-3.5 z-40 flex items-center justify-between shadow-2xl transition-all duration-500 translate-y-full lg:hidden">
+    <div class="flex flex-col text-left max-w-[60%]">
+      <span id="sticky-bar-title" class="text-xs font-serif font-bold text-gray-900 truncate"></span>
+      <span id="sticky-bar-price" class="text-[#C59D5F] font-mono font-bold text-xs mt-0.5"></span>
+    </div>
+    <button onclick="triggerStickyAddToCart()" class="bg-[#C59D5F] hover:bg-[#A6824D] text-white text-[10px] uppercase tracking-[0.15em] font-bold px-6 py-3 rounded-sm shadow-md transition-all duration-300">
+      Beli
+    </button>
+  </div>
+
+  <script>
+    window.triggerStickyAddToCart = function() {
+      const mainBuyBtn = document.getElementById('add-to-cart-btn');
+      if (mainBuyBtn) {
+        mainBuyBtn.click();
+      }
+    };
+  </script>
+</body>
+</html>

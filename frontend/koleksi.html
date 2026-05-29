@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Koleksi Agung - Chempaka Jewels</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <!-- Google Fonts: Playfair Display for Serifs and Inter for Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+  <!-- Central Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-white text-[#2B2B2B] antialiased">
+
+  <!-- Dynamic Header / Navbar Placeholder -->
+  <div id="navbar-placeholder"></div>
+
+  <!-- SECTION: HIGH-FASHION SPLIT HERO -->
+  <section class="bg-[#FAF7F2] py-20 lg:py-24 relative overflow-hidden border-b border-[#EAE6DF]">
+    <!-- Ambient Champagne Glow -->
+    <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-[#C59D5F]/3 blur-[80px] pointer-events-none"></div>
+    
+    <div class="container mx-auto px-8 lg:px-16 max-w-[1400px] relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <!-- Left Column: Editorial Typography -->
+        <div class="lg:col-span-7 text-left space-y-6 reveal-element reveal-left delay-100">
+          <span class="text-[#C59D5F] text-xs uppercase tracking-[0.4em] font-bold block">Mahakarya Emas 916</span>
+          <h1 class="text-4xl lg:text-5xl font-serif tracking-[0.03em] text-[#2B2B2B] leading-tight">
+            Koleksi Agung<br/>
+            <span class="font-serif italic font-normal text-[#C59D5F]">Warisan Chempaka</span>
+          </h1>
+          <div class="w-20 h-[1.5px] bg-[#C59D5F]/50"></div>
+          <p class="text-sm text-gray-500 leading-relaxed font-light max-w-xl">
+            Hayati keindahan abadi dan ketelitian seni pertukangan emas warisan Melayu yang eksklusif, direka khas untuk melambangkan prestij, kehalusan seni tangan, dan keanggunan sejati. Setiap rekaan adalah simbol warisan abadi keluarga anda.
+          </p>
+          <div class="pt-4 flex flex-wrap gap-4 text-xs font-bold uppercase tracking-wider text-gray-400">
+            <span class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#C59D5F]"></span> Ketulenan Emas 916
+            </span>
+            <span class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#C59D5F]"></span> Hasil Seni Halus
+            </span>
+            <span class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#C59D5F]"></span> Keahlian VIP 15%
+            </span>
+          </div>
+        </div>
+
+        <!-- Right Column: Vertical Luxury Campaign Frame -->
+        <div class="lg:col-span-5 relative w-full flex justify-center reveal-element reveal-right delay-200">
+          <div class="absolute -top-4 -left-4 w-full h-full border border-[#C59D5F]/20 pointer-events-none rounded-sm translate-x-3 translate-y-3 z-0"></div>
+          <div class="relative z-10 w-full aspect-[4/5] overflow-hidden shadow-xl border border-[#C59D5F]/30 bg-[#F4EFEA] rounded-sm max-w-sm lg:max-w-none">
+            <img 
+              alt="Chempaka Campaign Gold Showcase" 
+              class="w-full h-[120%] absolute -top-[10%] left-0 object-cover object-center parallax-layer" 
+              data-parallax-speed="0.05"
+              src="Model/WhatsApp Image 2026-05-24 at 5.35.00 PM (2).jpeg"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent z-10"></div>
+            <!-- Bottom visual label -->
+            <div class="absolute bottom-5 left-5 right-5 text-white flex justify-between items-end z-20">
+              <div>
+                <span class="text-[9px] uppercase tracking-[0.25em] text-[#C59D5F] font-bold block mb-0.5">Siri Kempen 2026</span>
+                <span class="font-serif text-sm tracking-wide">Chempaka Elite Royale</span>
+              </div>
+              <span class="text-[10px] uppercase tracking-[0.2em] font-semibold border-b border-white/40 pb-0.5">Lihat Butiran</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Search, Filtering, and Sorting Deck -->
+  <section class="bg-white py-24 lg:py-32 relative z-20 border-b border-[#EAE6DF]/60 reveal-element">
+    <div class="container mx-auto px-8 lg:px-16 max-w-[1400px]">
+      
+      <!-- Control Deck Wrapper -->
+      <div class="flex flex-col lg:flex-row gap-8 justify-between items-center mb-16 pb-8 border-b border-gray-100">
+        <!-- Search Input with Filter Drawer Trigger -->
+        <div class="w-full lg:max-w-xl flex gap-3 items-center">
+          <div class="relative flex-grow">
+            <input type="text" id="search-input" oninput="handleFilterChange()" placeholder="Cari rekaan emas (cth: Cincin, Rantai, Gelang)..." class="w-full text-sm border-gray-200 focus:border-[#C59D5F] focus:ring-0 py-3.5 pl-11 pr-4 rounded-sm text-gray-800 placeholder-gray-400 shadow-sm transition-all duration-300">
+            <span class="absolute left-4 top-[15px] text-gray-400">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+            </span>
+          </div>
+          <button onclick="toggleFilterDrawer(true)" class="flex items-center gap-2 bg-white hover:bg-gray-50 border border-gray-200 hover:border-[#C59D5F]/30 px-5 py-3.5 text-sm uppercase tracking-wider font-semibold rounded-sm shadow-sm transition-all duration-300">
+            <svg class="w-4 h-4 stroke-[#C59D5F] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+            <span class="whitespace-nowrap">Tapis</span>
+          </button>
+        </div>
+
+        <!-- Sorting Selector -->
+        <div class="w-full lg:w-auto flex items-center gap-3 justify-end">
+          <span class="text-sm text-gray-500 font-semibold uppercase tracking-wider whitespace-nowrap">Susun:</span>
+          <select id="sort-select" onchange="handleFilterChange()" class="text-sm border-gray-200 focus:border-[#C59D5F] focus:ring-0 py-3 px-4 rounded-sm text-gray-700 bg-white cursor-pointer shadow-sm w-full lg:w-56 transition-all">
+            <option value="default">Pilihan Editor (Lalai)</option>
+            <option value="price-low">Harga: Rendah ke Tinggi</option>
+            <option value="price-high">Harga: Tinggi ke Rendah</option>
+            <option value="weight-low">Berat: Ringan ke Berat</option>
+            <option value="weight-high">Berat: Berat ke Ringan</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Categories Filter Tabs -->
+      <div class="flex justify-center flex-wrap gap-4 mb-16">
+        <button id="tab-all" onclick="filterCategory('all')" class="px-6 py-3 text-xs font-bold uppercase tracking-[0.2em] rounded-sm transition-all duration-300 border bg-[#2B2B2B] text-white border-transparent shadow-sm">Semua</button>
+        <button id="tab-cincin" onclick="filterCategory('cincin')" class="px-6 py-3 text-xs font-bold uppercase tracking-[0.2em] rounded-sm transition-all duration-300 border bg-[#FCFBF9] text-gray-700 border-[#EAE6DF] hover:border-[#C59D5F]/40 shadow-sm">Cincin</button>
+        <button id="tab-rantai" onclick="filterCategory('rantai')" class="px-6 py-3 text-xs font-bold uppercase tracking-[0.2em] rounded-sm transition-all duration-300 border bg-[#FCFBF9] text-gray-700 border-[#EAE6DF] hover:border-[#C59D5F]/40 shadow-sm">Rantai Leher</button>
+        <button id="tab-gelang" onclick="filterCategory('gelang')" class="px-6 py-3 text-xs font-bold uppercase tracking-[0.2em] rounded-sm transition-all duration-300 border bg-[#FCFBF9] text-gray-700 border-[#EAE6DF] hover:border-[#C59D5F]/40 shadow-sm">Gelang Tangan</button>
+      </div>
+
+      <!-- Dynamic Catalog Grid -->
+      <div id="dynamic-catalog-grid" class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 lg:gap-12 min-h-[400px]">
+        <!-- Dynamic Cards Loaded via AJAX -->
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- SECTION: CHAMPAGNE GOLD VELVET SPREAD (VIP MEMBERSHIP) -->
+  <section class="bg-[#FAF9F6] py-24 lg:py-32 border-t border-[#EAE6DF]/60 reveal-element" id="membership-section">
+    <div class="container mx-auto px-8 lg:px-16 max-w-4xl text-center">
+      <!-- Section Header -->
+      <span class="text-[#C59D5F] text-xs uppercase tracking-[0.35em] font-bold block mb-4">Jemputan Kelab Elit</span>
+      <h2 class="text-3xl lg:text-4xl font-serif text-gray-900 leading-tight mb-6">
+        Sertai Kelab VIP Chempaka
+      </h2>
+      <p class="text-[#777777] text-xs leading-relaxed max-w-xl mx-auto mb-16 font-light">
+        Daftar percuma keahlian Kelab Elit Chempaka hari ini demi memulakan penjimatan seumur hidup dan mengumpul kelebihan eksklusif bagi setiap koleksi emas murni kami.
+      </p>
+
+      <!-- Minimalist 3-Column Perks Row -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-4 text-center mb-16 items-start divide-y md:divide-y-0 md:divide-x divide-gray-200">
+        <!-- Perk 1 -->
+        <div class="px-4 pt-6 md:pt-0">
+          <h4 class="text-[#2B2B2B] font-bold text-xs uppercase tracking-wider mb-2">Rebat Tetap 15%</h4>
+          <p class="text-gray-500 text-[11px] font-light leading-relaxed">Diskaun VIP 15% seumur hidup ke atas semua koleksi perhiasan emas murni kami.</p>
+        </div>
+
+        <!-- Perk 2 -->
+        <div class="px-4 pt-6 md:pt-0">
+          <h4 class="text-[#2B2B2B] font-bold text-xs uppercase tracking-wider mb-2">Akses Royale Awal</h4>
+          <p class="text-gray-500 text-[11px] font-light leading-relaxed">Undangan khas bertaraf VIP ke butik fizikal untuk pelancaran rekaan eksklusif.</p>
+        </div>
+
+        <!-- Perk 3 -->
+        <div class="px-4 pt-6 md:pt-0">
+          <h4 class="text-[#2B2B2B] font-bold text-xs uppercase tracking-wider mb-2">Penghantaran Premium</h4>
+          <p class="text-gray-500 text-[11px] font-light leading-relaxed">Penghantaran kurier khas berasurans penuh secara PERCUMA terus ke rumah anda.</p>
+        </div>
+      </div>
+
+      <!-- CTA Action Button -->
+      <div class="flex flex-col items-center gap-3">
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLScnTbJ8QEIXe_ENrZbqYr0cVUfvSJPm6gyZzrH3z34nNSnU3Q/viewform?usp=dialog"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center gap-2 bg-[#2B2B2B] hover:bg-[#C59D5F] text-white px-10 py-4 text-xs uppercase tracking-[0.25em] font-bold transition-all duration-300 rounded-sm hover:-translate-y-0.5"
+        >
+          <span>Daftar Keahlian VIP</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+        </a>
+        <span class="text-[9px] text-gray-400 uppercase tracking-widest mt-1">Sertai Tanpa Sebarang Yuran</span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Dynamic Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Dynamic Cart Drawer Placeholder -->
+  <div id="cart-placeholder"></div>
+
+  <!-- Slide-out Left Filter Drawer -->
+  <div id="filter-drawer" class="fixed inset-0 z-50 overflow-hidden pointer-events-none transition-all duration-500 opacity-0">
+    <!-- Backdrop Overlay -->
+    <div onclick="toggleFilterDrawer(false)" id="filter-backdrop" class="absolute inset-0 bg-black/45 backdrop-blur-sm opacity-0 transition-opacity duration-500 ease-in-out cursor-pointer pointer-events-none"></div>
+    
+    <!-- Drawer Panel -->
+    <div id="filter-panel" class="absolute inset-y-0 left-0 max-w-md w-full bg-white shadow-2xl flex flex-col translate-x-[-100%] transition-transform duration-500 ease-in-out pointer-events-auto">
+      <!-- Drawer Header -->
+      <div class="px-6 py-6 border-b border-gray-100 flex items-center justify-between">
+        <div>
+          <span class="text-[#C59D5F] text-[10px] uppercase tracking-[0.3em] font-bold block mb-1">Cari Yang Sempurna</span>
+          <h3 class="text-lg font-serif text-gray-900">Penapisan Koleksi</h3>
+        </div>
+        <button onclick="toggleFilterDrawer(false)" class="text-gray-400 hover:text-[#C59D5F] transition-colors p-2" aria-label="Tutup Panel">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Drawer Body (Scrollable) -->
+      <div class="flex-1 overflow-y-auto p-6 space-y-8">
+        <!-- 1. Price Range Filters -->
+        <div class="space-y-4">
+          <span class="block text-xs font-bold uppercase tracking-wider text-gray-400">Had Belanjawan (RM)</span>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="filter-price-min" class="block text-[10px] uppercase tracking-wider text-gray-400 mb-1">Min (RM)</label>
+              <input type="number" id="filter-price-min" oninput="handleFilterChange()" placeholder="0" class="w-full text-sm border-gray-200 focus:border-[#C59D5F] focus:ring-0 py-2.5 px-3 rounded-sm">
+            </div>
+            <div>
+              <label for="filter-price-max" class="block text-[10px] uppercase tracking-wider text-gray-400 mb-1">Max (RM)</label>
+              <input type="number" id="filter-price-max" oninput="handleFilterChange()" placeholder="10000" class="w-full text-sm border-gray-200 focus:border-[#C59D5F] focus:ring-0 py-2.5 px-3 rounded-sm">
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Weight Range Filter -->
+        <div class="space-y-4">
+          <div class="flex justify-between items-center">
+            <span class="block text-xs font-bold uppercase tracking-wider text-gray-400">Berat Maksimum (g)</span>
+            <span id="filter-weight-display" class="text-sm font-bold text-[#C59D5F]">30.00 g</span>
+          </div>
+          <input type="range" id="filter-weight-slider" min="0.5" max="30" step="0.5" value="30" oninput="syncWeightFilterDisplay(this.value)" class="w-full h-1 bg-gray-100 rounded-lg appearance-none cursor-pointer accent-[#C59D5F]">
+          <div class="flex justify-between text-[10px] text-gray-400 uppercase font-semibold">
+            <span>0.5 g</span>
+            <span>15.0 g</span>
+            <span>30.0 g</span>
+          </div>
+        </div>
+
+        <!-- 3. Purity Tags Filter -->
+        <div class="space-y-4">
+          <span class="block text-xs font-bold uppercase tracking-wider text-gray-400">Mutu / Jenis Emas</span>
+          <div class="flex flex-wrap gap-2" id="filter-purity-chips">
+            <button onclick="togglePurityFilter('all')" id="chip-all" class="filter-chip text-xs font-semibold px-4 py-2 border rounded-sm transition-all duration-300 bg-[#2B2B2B] text-white border-[#C59D5F] shadow-[0_0_12px_rgba(197,157,95,0.25)]">
+              Semua Mutu
+            </button>
+            <button onclick="togglePurityFilter('emas916')" id="chip-emas916" class="filter-chip text-xs font-semibold px-4 py-2 border rounded-sm transition-all duration-300 bg-gray-50 text-gray-600 border-gray-200 hover:border-[#C59D5F]/30">
+              Emas 916 Tulen
+            </button>
+            <button onclick="togglePurityFilter('gemstone')" id="chip-gemstone" class="filter-chip text-xs font-semibold px-4 py-2 border rounded-sm transition-all duration-300 bg-gray-50 text-gray-600 border-gray-200 hover:border-[#C59D5F]/30">
+              Emas Bertatah Permata
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Drawer Footer -->
+      <div class="p-6 border-t border-gray-100 grid grid-cols-2 gap-4">
+        <button onclick="resetAllFilters()" class="w-full py-3.5 border border-gray-200 text-xs font-bold uppercase tracking-wider hover:bg-gray-50 transition-colors text-center text-gray-500 rounded-sm">
+          Reset Semua
+        </button>
+        <button onclick="toggleFilterDrawer(false)" class="w-full py-3.5 bg-[#C59D5F] hover:bg-[#A6824D] text-white text-xs font-bold uppercase tracking-wider transition-colors text-center shadow-md rounded-sm">
+          Tunjukkan Hasil
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Central JS State Managers -->
+  <script src="js/shared.js"></script>
+
+  <!-- Interactive Page Controller Script -->
+  <script>
+    let activeCategory = 'all';
+    let allProducts = [];
+    let searchKeyword = '';
+    let sortOption = 'default';
+    let activePurityFilter = 'all';
+
+    // Toggle slide-out filter drawer visibility and transitions
+    function toggleFilterDrawer(isOpen) {
+      const drawer = document.getElementById('filter-drawer');
+      const backdrop = document.getElementById('filter-backdrop');
+      const panel = document.getElementById('filter-panel');
+      if (!drawer || !backdrop || !panel) return;
+
+      if (isOpen) {
+        drawer.classList.remove('pointer-events-none');
+        drawer.classList.add('opacity-100');
+        
+        backdrop.classList.remove('pointer-events-none');
+        backdrop.classList.add('opacity-100');
+        
+        panel.classList.remove('translate-x-[-100%]');
+        panel.classList.add('translate-x-0');
+      } else {
+        drawer.classList.add('pointer-events-none');
+        drawer.classList.remove('opacity-100');
+        
+        backdrop.classList.add('pointer-events-none');
+        backdrop.classList.remove('opacity-100');
+        
+        panel.classList.remove('translate-x-0');
+        panel.classList.add('translate-x-[-100%]');
+      }
+    }
+
+    // Sync Slider weight display value and filter in real-time
+    function syncWeightFilterDisplay(val) {
+      const display = document.getElementById('filter-weight-display');
+      if (display) {
+        display.innerText = parseFloat(val).toFixed(2) + ' g';
+      }
+      handleFilterChange();
+    }
+
+    // Toggle active visual chips and filter in real-time
+    function togglePurityFilter(purityType) {
+      activePurityFilter = purityType;
+      
+      const chips = ['all', 'emas916', 'gemstone'];
+      chips.forEach(c => {
+        const el = document.getElementById(`chip-${c}`);
+        if (el) {
+          if (c === purityType) {
+            el.className = "filter-chip text-xs font-semibold px-4 py-2 border rounded-sm transition-all duration-300 bg-[#2B2B2B] text-white border-[#C59D5F] shadow-[0_0_12px_rgba(197,157,95,0.25)]";
+          } else {
+            el.className = "filter-chip text-xs font-semibold px-4 py-2 border rounded-sm transition-all duration-300 bg-gray-50 text-gray-600 border-gray-200 hover:border-[#C59D5F]/30";
+          }
+        }
+      });
+      handleFilterChange();
+    }
+
+    // Reset all filter fields to their initial states
+    function resetAllFilters() {
+      // 1. Reset inputs
+      document.getElementById('filter-price-min').value = '';
+      document.getElementById('filter-price-max').value = '';
+      
+      const slider = document.getElementById('filter-weight-slider');
+      if (slider) {
+        slider.value = 30;
+        document.getElementById('filter-weight-display').innerText = '30.00 g';
+      }
+
+      // 2. Reset chips
+      togglePurityFilter('all');
+
+      // 3. Reset general search & sort options
+      document.getElementById('search-input').value = '';
+      searchKeyword = '';
+      
+      document.getElementById('sort-select').value = 'default';
+      sortOption = 'default';
+
+      // 4. Reset category tabs
+      filterCategory('all');
+    }
+
+    // On Load, fetch catalog and read URL parameters
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Read URL Category parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const catParam = urlParams.get('category');
+      if (catParam && ['cincin', 'rantai', 'gelang'].includes(catParam)) {
+        activeCategory = catParam;
+      }
+      
+      // 2. Load the dynamic catalog
+      loadDynamicCatalog();
+    });
+
+    function loadDynamicCatalog() {
+      const headers = {};
+      const token = localStorage.getItem('chempaka_token');
+      if (token) {
+        headers['Authorization'] = token;
+      }
+
+      fetch((window.API_BASE || '') + '/api/products', { headers })
+        .then(res => res.json())
+        .then(data => {
+          allProducts = data.products;
+          
+          // Initial tab state rendering based on activeCategory
+          updateTabButtonsUI();
+          renderCatalog();
+        })
+        .catch(err => {
+          console.error("Error loading products:", err);
+          document.getElementById('dynamic-catalog-grid').innerHTML = `
+            <div class="text-center py-20 col-span-1 md:col-span-2 lg:col-span-3">
+              <p class="text-red-500 font-serif text-sm mb-2">Gagal menyambung ke pelayan backend.</p>
+              <p class="text-xs text-gray-400">Sila pastikan server Express anda sedang berjalan.</p>
+            </div>
+          `;
+        });
+    }
+
+    function filterCategory(cat) {
+      activeCategory = cat;
+      
+      // Update URL query parameter smoothly without reload
+      const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + (cat !== 'all' ? `?category=${cat}` : '');
+      window.history.pushState({ path: newUrl }, '', newUrl);
+
+      updateTabButtonsUI();
+      renderCatalog();
+    }
+
+    function updateTabButtonsUI() {
+      ['all', 'cincin', 'rantai', 'gelang'].forEach(c => {
+        const btn = document.getElementById(`tab-${c}`);
+        if (!btn) return;
+        if (c === activeCategory) {
+          btn.className = "px-6 py-3 text-xs font-bold uppercase tracking-[0.2em] rounded-sm transition-all duration-300 border bg-[#2B2B2B] text-white border-transparent shadow-sm";
+        } else {
+          btn.className = "px-6 py-3 text-xs font-bold uppercase tracking-[0.2em] rounded-sm transition-all duration-300 border bg-[#FCFBF9] text-gray-700 border-[#EAE6DF] hover:border-[#C59D5F]/40 shadow-sm";
+        }
+      });
+    }
+
+    function handleFilterChange() {
+      searchKeyword = document.getElementById('search-input').value.toLowerCase().trim();
+      sortOption = document.getElementById('sort-select').value;
+      renderCatalog();
+    }
+
+    function renderCatalog() {
+      const grid = document.getElementById('dynamic-catalog-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      // 1. Category Filtering
+      let filtered = activeCategory === 'all' 
+        ? allProducts 
+        : allProducts.filter(p => p.category === activeCategory);
+
+      // Only show active products
+      filtered = filtered.filter(p => p.status === 'active');
+
+      // 1b. Price Min / Max Penapisan
+      const minPrice = parseFloat(document.getElementById('filter-price-min').value) || 0;
+      const maxPrice = parseFloat(document.getElementById('filter-price-max').value) || Infinity;
+      filtered = filtered.filter(p => p.displayPrice >= minPrice && p.displayPrice <= maxPrice);
+
+      // 1c. Weight Penapisan
+      const weightSlider = document.getElementById('filter-weight-slider');
+      const maxWeight = weightSlider ? parseFloat(weightSlider.value) : 30;
+      filtered = filtered.filter(p => p.weight <= maxWeight);
+
+      // 1d. Purity / Gold Type Penapisan
+      if (activePurityFilter === 'emas916') {
+        filtered = filtered.filter(p => {
+          const pur = p.purity.toLowerCase();
+          return pur.includes("916") && !pur.includes("berlian") && !pur.includes("nilam");
+        });
+      } else if (activePurityFilter === 'gemstone') {
+        filtered = filtered.filter(p => {
+          const pur = p.purity.toLowerCase();
+          return pur.includes("berlian") || pur.includes("nilam");
+        });
+      }
+
+      // 2. Keyword Search Filtering
+      if (searchKeyword) {
+        filtered = filtered.filter(p => 
+          p.title.toLowerCase().includes(searchKeyword) || 
+          p.purity.toLowerCase().includes(searchKeyword) || 
+          (p.description && p.description.toLowerCase().includes(searchKeyword))
+        );
+      }
+
+      // 3. Sorting
+      if (sortOption === 'price-low') {
+        filtered.sort((a, b) => a.displayPrice - b.displayPrice);
+      } else if (sortOption === 'price-high') {
+        filtered.sort((a, b) => b.displayPrice - a.displayPrice);
+      } else if (sortOption === 'weight-low') {
+        filtered.sort((a, b) => a.weight - b.weight);
+      } else if (sortOption === 'weight-high') {
+        filtered.sort((a, b) => b.weight - a.weight);
+      }
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="text-center py-20 col-span-1 md:col-span-2 lg:col-span-3 text-gray-400">
+            <svg class="w-10 h-10 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" stroke-width="1.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path></svg>
+            <p class="font-serif text-sm mb-1">Tiada produk ditemui</p>
+            <p class="text-xs text-gray-400 leading-relaxed max-w-xs mx-auto">Cuba gunakan kata kunci yang berbeza atau tukar kategori tapis anda.</p>
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach((p, idx) => {
+        const div = document.createElement('div');
+        const delayClass = `delay-${(idx % 3 + 1) * 100}`;
+        div.className = `group bg-white p-2.5 sm:p-4 pb-4 sm:pb-6 flex flex-col justify-between rounded-sm border border-[#EAE6DF] hover:border-[#C59D5F]/40 hover:shadow-[0_12px_24px_rgba(197,157,95,0.06)] transition-all duration-500 overflow-hidden relative reveal-element reveal-scale ${delayClass}`;
+        div.innerHTML = `
+          <div>
+            <a href="/produk.html?id=${p.id}" class="block aspect-[3/4] overflow-hidden mb-3 sm:mb-5 bg-[#FAF7F2] relative rounded-sm">
+              <span class="absolute top-2 sm:top-3 left-2 sm:left-3 bg-[#C59D5F] text-white text-[8px] sm:text-[9px] uppercase tracking-wider px-1.5 sm:px-2.5 py-0.5 sm:py-1 z-10 font-bold rounded-sm shadow-sm">${p.purity}</span>
+              <img alt="${p.title}" class="w-full h-full object-cover transition-transform duration-[1500ms] ease-out group-hover:scale-105" src="${p.image}"/>
+            </a>
+            
+            <div class="text-center px-1 sm:px-2">
+              <span class="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-[#C59D5F] font-bold mb-0.5 sm:mb-1 block">${p.weight.toFixed(2)}g</span>
+              <a href="/produk.html?id=${p.id}" class="block hover:underline mb-1 sm:mb-2">
+                <h3 class="text-xs sm:text-sm font-serif text-gray-900 group-hover:text-[#C59D5F] transition-colors duration-300 leading-snug line-clamp-2 min-h-[32px] sm:min-h-[40px]">${p.title}</h3>
+              </a>
+              
+              <!-- Aligned Luxury Pricing -->
+              <div class="flex flex-col items-center justify-center gap-1 min-h-[48px] sm:min-h-[52px]">
+                ${p.discountApplied ? `
+                  <span class="text-[#C59D5F] font-bold text-xs sm:text-sm tracking-wide">RM ${p.displayPrice.toFixed(2)}</span>
+                  <div class="flex items-center justify-center gap-1 sm:gap-1.5">
+                    <span class="text-[9px] sm:text-[10px] text-gray-400 line-through">RM ${p.standardPrice.toFixed(2)}</span>
+                    <span class="text-[7px] sm:text-[8px] bg-yellow-100 text-yellow-800 font-bold px-1 sm:px-1.5 py-0.5 rounded-sm uppercase tracking-widest">Ahli VIP</span>
+                  </div>
+                ` : `
+                  <span class="text-gray-900 font-semibold text-xs sm:text-sm">RM ${p.standardPrice.toFixed(2)}</span>
+                  <a href="https://docs.google.com/forms/d/e/1FAIpQLScnTbJ8QEIXe_ENrZbqYr0cVUfvSJPm6gyZzrH3z34nNSnU3Q/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();" class="flex items-center justify-center gap-1 mt-0.5 sm:mt-1 text-[8px] sm:text-[9px] text-[#C59D5F] uppercase tracking-wider font-bold hover:underline">
+                    <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#C59D5F]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" /></svg>
+                    <span>Harga VIP: RM ${p.memberPrice.toFixed(2)}</span>
+                  </a>
+                `}
+              </div>
+            </div>
+          </div>
+
+          <!-- relative slide-up container for specifications vs button (Desktop Only transitions) -->
+          <div class="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-[#EAE6DF]/60 relative h-10 sm:h-12 overflow-hidden">
+            <!-- Normal State: Specification details -->
+            <div class="absolute inset-0 flex items-center justify-center transition-all duration-300 transform lg:group-hover:-translate-y-full lg:group-hover:opacity-0">
+              <span class="text-[9px] sm:text-[10px] uppercase tracking-[0.15em] text-gray-400 font-bold flex items-center gap-1">
+                <span>Perincian Rekaan</span>
+                <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3 stroke-current" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              </span>
+            </div>
+            
+            <!-- Hover State: Slide-up Gold Cart Button -->
+            <div class="absolute inset-0 transition-all duration-300 transform lg:translate-y-full lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100">
+              <button onclick="event.stopPropagation(); addToCart('${p.id}', '${p.title.replace(/'/g, "\\'")}', '${p.purity}', ${p.weight}, ${p.standardPrice}, '${p.image}')" class="w-full h-full bg-[#C59D5F] hover:bg-[#A6824D] text-white text-[9px] sm:text-[10px] uppercase tracking-[0.25em] font-bold transition-all duration-300 shadow-md flex items-center justify-center gap-1.5 sm:gap-2 rounded-sm border border-transparent">
+                <svg class="w-3 sm:w-3.5 h-3 sm:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                <span>Tambah Ke Troli</span>
+              </button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(div);
+      });
+
+      // Synchronize Intersection Observer for dynamic content
+      if (typeof window.syncRevealObserver === 'function') {
+        window.syncRevealObserver();
+      }
+    }
+  </script>
+</body>
+</html>

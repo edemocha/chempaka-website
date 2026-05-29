@@ -1,0 +1,2325 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Pentadbir Chempaka - E-Commerce Control Suite</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <!-- Google Fonts: Playfair Display for Serifs and Inter for Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+  <!-- Central Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Premium Dashboard Styles */
+    body {
+      background-color: #FAF9F6;
+      color: #2B2B2B;
+    }
+    .text-gold {
+      color: #C59D5F;
+    }
+    .bg-gold {
+      background-color: #C59D5F;
+    }
+    .border-gold {
+      border-color: rgba(197, 157, 95, 0.25);
+    }
+    .glass-sidebar {
+      background: #FFFFFF;
+      border-right: 1px solid rgba(197, 157, 95, 0.15);
+      box-shadow: 4px 0 20px -2px rgba(0, 0, 0, 0.02);
+    }
+    .glass-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(197, 157, 95, 0.1);
+      box-shadow: 0 4px 20px -2px rgba(197, 157, 95, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    }
+    /* Toggle Switch Custom Styling */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 22px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #E5E7EB;
+      transition: .4s;
+      border-radius: 34px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+    input:checked + .slider {
+      background-color: #C59D5F;
+    }
+    input:checked + .slider:before {
+      transform: translateX(22px);
+    }
+    /* Pulsing Status Dot */
+    .pulse-green {
+      animation: pulse-g 2.5s infinite;
+    }
+    @keyframes pulse-g {
+      0% { transform: scale(0.9); opacity: 0.5; }
+      50% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 8px #10B981; }
+      100% { transform: scale(0.9); opacity: 0.5; }
+    }
+
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-[#FAF9F6] text-[#2B2B2B]">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 w-full glass-nav z-40 border-b border-gray-200/60 bg-white/95 backdrop-blur-md">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center py-4 md:py-0 md:h-20 gap-4 md:gap-0">
+      <!-- Logo & Branding -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-sm bg-[#C59D5F] flex items-center justify-center text-white font-serif text-lg font-bold shadow-md">C</div>
+        <div>
+          <h1 class="text-base font-serif tracking-[0.2em] text-[#2B2B2B] font-bold uppercase leading-none">Chempaka</h1>
+          <span class="text-[9px] uppercase tracking-[0.25em] text-[#C59D5F] font-bold block mt-1">SaaS Control Suite</span>
+        </div>
+      </div>
+      
+      <!-- Top Navigation Links -->
+      <nav class="flex items-center gap-1.5 sm:gap-4 md:gap-6 overflow-x-auto max-w-full no-scrollbar whitespace-nowrap py-1">
+        <button id="nav-btn-overview" onclick="switchTab('overview')" class="flex items-center gap-2 px-3 py-2 text-[10px] sm:text-xs uppercase tracking-wider font-semibold rounded-sm transition-all duration-200 bg-[#C59D5F]/10 text-[#C59D5F]">
+          Overview
+        </button>
+        <button id="nav-btn-inventory" onclick="switchTab('inventory')" class="flex items-center gap-2 px-3 py-2 text-[10px] sm:text-xs uppercase tracking-wider font-semibold rounded-sm transition-all duration-200 text-gray-600 hover:text-[#C59D5F]">
+          Inventory
+        </button>
+        <button id="nav-btn-orders" onclick="switchTab('orders')" class="flex items-center gap-2 px-3 py-2 text-[10px] sm:text-xs uppercase tracking-wider font-semibold rounded-sm transition-all duration-200 text-gray-600 hover:text-[#C59D5F]">
+          Orders
+        </button>
+        <button id="nav-btn-vouchers" onclick="switchTab('vouchers')" class="flex items-center gap-2 px-3 py-2 text-[10px] sm:text-xs uppercase tracking-wider font-semibold rounded-sm transition-all duration-200 text-gray-600 hover:text-[#C59D5F]">
+          Vouchers
+        </button>
+        <button id="nav-btn-users" onclick="switchTab('users')" class="flex items-center gap-2 px-3 py-2 text-[10px] sm:text-xs uppercase tracking-wider font-semibold rounded-sm transition-all duration-200 text-gray-600 hover:text-[#C59D5F]">
+          Users
+        </button>
+      </nav>
+      
+      <!-- Logout & User profile -->
+      <div class="flex items-center gap-4">
+        <span class="hidden md:inline text-[10px] text-gray-500 font-medium font-mono" id="admin-user-tag">Admin: Loading...</span>
+        <button onclick="handleLogout()" class="flex items-center gap-2 px-4 py-2 border border-red-200 text-red-500 hover:bg-red-50 text-[10px] uppercase tracking-widest font-bold transition-all duration-200 rounded-sm">
+          Logout
+        </button>
+      </div>
+    </div>
+    
+    <!-- Sticky Global Stats & Live Gold Rates Stats Bar -->
+    <div class="bg-[#FCFBFA] border-t border-gray-100 py-3.5 px-6 lg:px-12 relative z-30">
+      <div class="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+        <!-- Live System Status Indicator -->
+        <div class="flex items-center gap-3">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 pulse-green"></span>
+          <div class="text-[10px] uppercase tracking-widest text-gray-500 font-bold leading-tight">
+            Gateway Status: <span class="text-emerald-600">Active (Sandbox Mode)</span>
+          </div>
+        </div>
+        
+        <!-- Current Gold Price Metrics -->
+        <div class="flex items-center gap-6 text-[10px] tracking-wider text-gray-600">
+          <div class="flex items-center gap-2 border-r border-gray-200 pr-6">
+            <span class="font-bold text-gray-400">EMAS 916:</span>
+            <strong class="font-mono text-gray-900" id="global-gold-916-label">RM 368.50</strong>
+          </div>
+          <div class="flex items-center gap-2 pr-6">
+            <span class="font-bold text-gray-400">EMAS 999:</span>
+            <strong class="font-mono text-gray-900" id="global-gold-999-label">RM 385.20</strong>
+          </div>
+          
+          <!-- Slide-down Edit Button Trigger -->
+          <button onclick="toggleGoldPopover()" class="inline-flex items-center gap-1.5 text-[9px] uppercase tracking-widest bg-[#C59D5F] hover:bg-[#A6824D] text-white py-1.5 px-3 rounded-sm font-bold transition-all shadow-sm">
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Kemaskini Harga
+          </button>
+        </div>
+      </div>
+      
+      <!-- Slide-down Gold Prices Popover Modal -->
+      <div id="gold-popover-panel" class="hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-2xl py-6 px-6 lg:px-12 z-50 animate-fadeInUp">
+        <div class="max-w-md mx-auto bg-white border border-[#C59D5F]/15 p-6 rounded-sm shadow-lg space-y-4">
+          <div class="text-xs uppercase tracking-[0.2em] text-[#C59D5F] font-bold text-center border-b border-gray-100 pb-2">Kemaskini Harga Emas Semasa</div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-[9px] text-gray-500 uppercase tracking-widest mb-1.5">Emas 916 (22K) RM/g:</label>
+              <input type="number" id="admin-gold-916" step="0.01" value="368.50" class="w-full bg-white border border-gray-200 text-[#2B2B2B] focus:border-[#C59D5F] focus:ring-0 text-xs py-2 px-3 rounded-sm font-mono text-center shadow-sm">
+            </div>
+            <div>
+              <label class="block text-[9px] text-gray-500 uppercase tracking-widest mb-1.5">Emas 999.9 (24K) RM/g:</label>
+              <input type="number" id="admin-gold-999" step="0.01" value="385.20" class="w-full bg-white border border-gray-200 text-[#2B2B2B] focus:border-[#C59D5F] focus:ring-0 text-xs py-2 px-3 rounded-sm font-mono text-center shadow-sm">
+            </div>
+          </div>
+          <div class="flex gap-3 pt-2">
+            <button onclick="toggleGoldPopover()" class="w-1/2 border border-gray-200 hover:border-gray-800 text-[#2B2B2B] text-[10px] uppercase tracking-wider font-bold py-2.5 transition-colors rounded-sm">
+              Batal
+            </button>
+            <button onclick="updateAdminGoldRates()" class="w-1/2 bg-[#C59D5F] hover:bg-[#A6824D] text-white text-[10px] uppercase tracking-wider font-bold py-2.5 transition-colors rounded-sm shadow-md btn-luxury-transition">
+              Simpan Harga
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Space -->
+  <main class="flex-grow p-8 lg:p-12 max-w-[1400px] w-full mx-auto">
+
+    <!-- TAB 0: DASHBOARD OVERVIEW -->
+    <section id="tab-section-overview" class="space-y-8 animate-fadeIn">
+      <!-- Section Header -->
+      <div class="flex justify-between items-center border-b border-gray-200/60 pb-6">
+        <div>
+          <span class="text-[#C59D5F] text-[10px] uppercase tracking-[0.25em] font-bold block mb-1">Boutique Insights</span>
+          <h2 class="text-2xl lg:text-3xl font-serif text-[#2B2B2B]">Dashboard Ringkasan</h2>
+        </div>
+        <div class="text-xs text-gray-500 tracking-wider font-medium font-mono" id="overview-live-date">
+          Sesi Semasa Live
+        </div>
+      </div>
+
+      <!-- KPI Summary Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Total Sales KPI -->
+        <div class="glass-card p-6 rounded-sm flex flex-col justify-between">
+          <div>
+            <span class="text-gray-400 text-[10px] uppercase tracking-wider font-semibold block mb-2">Jumlah Jualan Kasar</span>
+            <h3 class="text-xl font-mono font-bold text-gray-900" id="kpi-total-sales">RM 0.00</h3>
+          </div>
+          <div class="mt-4 pt-3 border-t border-gray-100 text-[9px] text-gray-500 uppercase tracking-widest font-semibold flex justify-between">
+            <span>Volume Jualan</span>
+            <span class="text-[#C59D5F]" id="kpi-sales-sub">Live</span>
+          </div>
+        </div>
+
+        <!-- Orders Count KPI -->
+        <div class="glass-card p-6 rounded-sm flex flex-col justify-between">
+          <div>
+            <span class="text-gray-400 text-[10px] uppercase tracking-wider font-semibold block mb-2">Resit Berjaya</span>
+            <h3 class="text-xl font-mono font-bold text-gray-900" id="kpi-total-orders">0 Orders</h3>
+          </div>
+          <div class="mt-4 pt-3 border-t border-gray-100 text-[9px] text-gray-500 uppercase tracking-widest font-semibold flex justify-between">
+            <span>Transaksi FPX</span>
+            <span class="text-emerald-600" id="kpi-orders-sub">100% Paid</span>
+          </div>
+        </div>
+
+        <!-- AOV KPI -->
+        <div class="glass-card p-6 rounded-sm flex flex-col justify-between">
+          <div>
+            <span class="text-gray-400 text-[10px] uppercase tracking-wider font-semibold block mb-2">Purata Nilai Pesanan</span>
+            <h3 class="text-xl font-mono font-bold text-gray-900" id="kpi-aov">RM 0.00</h3>
+          </div>
+          <div class="mt-4 pt-3 border-t border-gray-100 text-[9px] text-gray-500 uppercase tracking-widest font-semibold flex justify-between">
+            <span>Average Order Value</span>
+            <span class="text-[#C59D5F]">AOV</span>
+          </div>
+        </div>
+
+        <!-- VIP splits & Savings KPI -->
+        <div class="glass-card p-6 rounded-sm flex flex-col justify-between">
+          <div>
+            <span class="text-gray-400 text-[10px] uppercase tracking-wider font-semibold block mb-2">Sumbangan VIP vs Pelawat</span>
+            <h3 class="text-xs font-mono font-semibold text-gray-900" id="kpi-vip-guest">VIP: RM0 | Guest: RM0</h3>
+          </div>
+          <div class="mt-4 pt-3 border-t border-gray-100 text-[9px] text-gray-500 uppercase tracking-widest font-semibold flex justify-between">
+            <span>Jumlah Rebat VIP</span>
+            <span class="text-emerald-600 font-bold font-mono" id="kpi-savings">RM 0.00</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sales Analytics Trend Graph & Export desk -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        
+        <!-- Left: Sales Chart Card (8 cols) -->
+        <div class="lg:col-span-8 glass-card p-6 rounded-sm shadow-lg flex flex-col justify-between relative overflow-hidden">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+            <div class="flex items-center gap-4">
+              <div class="flex gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-500/60"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/60"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-green-500/60"></span>
+              </div>
+              <div class="flex items-center gap-1 bg-gray-50 border border-gray-200/60 p-1 rounded-sm shadow-sm" id="chart-interval-filters">
+                <button onclick="setChartInterval('daily')" id="chart-filter-daily" class="px-3 py-1 text-[9px] uppercase tracking-wider font-bold rounded-sm transition-all duration-200 bg-[#C59D5F] text-white shadow-sm">Daily</button>
+                <button onclick="setChartInterval('weekly')" id="chart-filter-weekly" class="px-3 py-1 text-[9px] uppercase tracking-wider font-bold rounded-sm transition-all duration-200 text-gray-600 hover:text-black">Weekly</button>
+                <button onclick="setChartInterval('monthly')" id="chart-filter-monthly" class="px-3 py-1 text-[9px] uppercase tracking-wider font-bold rounded-sm transition-all duration-200 text-gray-600 hover:text-black">Monthly</button>
+              </div>
+            </div>
+            <div class="text-xs uppercase tracking-widest text-[#C59D5F] font-bold">
+              Trend Jualan Kedai Emas
+            </div>
+          </div>
+
+          <!-- Sales SVG Line Chart -->
+          <div class="w-full relative" id="sales-chart-container">
+            <!-- Rendered dynamically via Javascript -->
+            <svg id="overview-sales-chart" class="w-full h-auto" viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+              <!-- Grid and line will be populated dynamically -->
+            </svg>
+          </div>
+          
+          <div class="mt-4 text-[10px] text-gray-400 font-light flex justify-between items-center border-t border-gray-100 pt-4">
+            <span>*Berdasarkan sejarah pesanan masa nyata pangkalan data Chempaka Jewels.</span>
+            <span class="text-[#C59D5F] font-semibold uppercase tracking-wider">Keagungan Statistik</span>
+          </div>
+        </div>
+
+        <!-- Right: Export Desk (4 cols) -->
+        <div class="lg:col-span-4 glass-card p-6 rounded-sm shadow-lg flex flex-col justify-between">
+          <div>
+            <h3 class="text-sm font-serif uppercase tracking-wider text-gray-800 mb-2 border-b border-gray-100 pb-2">Eksport Data &amp; Sandaran</h3>
+            <p class="text-[11px] text-gray-500 leading-relaxed font-light mb-6">
+              Muat turun rekod pangkalan data dalam format CSV untuk analisis spreadsheet Excel atau salin sandaran sistem pangkalan data JSON sepenuhnya.
+            </p>
+
+            <div class="space-y-4">
+              <!-- Export Orders -->
+              <button onclick="exportOrdersCSV()" class="w-full border border-[#C59D5F]/40 hover:bg-[#C59D5F]/5 text-gray-700 hover:text-black py-3.5 px-4 text-[10px] uppercase tracking-[0.15em] font-bold rounded-sm transition-all duration-300 flex items-center justify-center gap-2">
+                <svg class="w-3.5 h-3.5 text-[#C59D5F] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
+                <span>Muat Turun Orders (CSV)</span>
+              </button>
+
+              <!-- Export Products -->
+              <button onclick="exportProductsCSV()" class="w-full border border-[#C59D5F]/40 hover:bg-[#C59D5F]/5 text-gray-700 hover:text-black py-3.5 px-4 text-[10px] uppercase tracking-[0.15em] font-bold rounded-sm transition-all duration-300 flex items-center justify-center gap-2">
+                <svg class="w-3.5 h-3.5 text-[#C59D5F] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
+                <span>Muat Turun Products (CSV)</span>
+              </button>
+
+              <hr class="border-gray-100 my-2">
+
+              <!-- Full JSON Backup -->
+              <button onclick="downloadDatabaseJSON()" class="w-full bg-[#2B2B2B] hover:bg-[#C59D5F] text-white py-3.5 px-4 text-[10px] uppercase tracking-[0.15em] font-bold rounded-sm transition-all duration-300 flex items-center justify-center gap-2">
+                <svg class="w-3.5 h-3.5 text-white flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 13.5l3 3m0 0l3-3m-3 3v-6m1.06-4.19l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" /></svg>
+                <span>Muat Turun Backup (JSON)</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="text-[9px] text-gray-400 text-center font-light uppercase tracking-wider border-t border-gray-100 pt-4 mt-6">
+            Chempaka E-Commerce Suite
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 1: INVENTORY MANAGEMENT -->
+    <section id="tab-section-inventory" class="space-y-8 hidden animate-fadeIn">
+      <!-- simple header with "+ Tambah Produk Baharu" button -->
+      <div class="flex justify-between items-center border-b border-gray-200/60 pb-6">
+        <div>
+          <span class="text-[#C59D5F] text-[10px] uppercase tracking-[0.25em] font-bold block mb-1">Catalog Database</span>
+          <h2 class="text-2xl lg:text-3xl font-serif text-[#2B2B2B]">Pengurusan Inventori</h2>
+        </div>
+        <button onclick="toggleAddModal(true)" class="bg-[#C59D5F] hover:bg-[#A6824D] text-white text-[10px] uppercase tracking-[0.2em] font-bold px-6 py-3 transition-colors shadow-lg rounded-sm">
+          + Tambah Produk Baharu
+        </button>
+      </div>
+
+      <!-- Master Product Table -->
+      <div class="glass-card rounded-sm overflow-hidden p-6 shadow-xl">
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left border-collapse min-w-[800px]">
+            <thead>
+              <tr class="text-gray-500 font-bold uppercase tracking-wider border-b border-gray-100 pb-4">
+                <th class="py-4 px-2">Gambar</th>
+                <th class="py-4 px-4">Nama Produk</th>
+                <th class="py-4 px-4">Harga Kasar (Guest)</th>
+                <th class="py-4 px-4">Harga VIP (Harga Emas)</th>
+                <th class="py-4 px-4">Status Paparan</th>
+                <th class="py-4 px-2 text-right">Tindakan Toggle</th>
+              </tr>
+            </thead>
+            <tbody id="inventory-table-body" class="divide-y divide-gray-100">
+              <!-- Loaded dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: ORDER LOGS -->
+    <section id="tab-section-orders" class="space-y-8 hidden animate-fadeIn">
+      <!-- Section Header -->
+      <div class="flex justify-between items-center border-b border-gray-200/60 pb-6">
+        <div>
+          <span class="text-[#C59D5F] text-[10px] uppercase tracking-[0.25em] font-bold block mb-1">Boutique Sales Logs</span>
+          <h2 class="text-2xl lg:text-3xl font-serif text-[#2B2B2B]">Log Pesanan Butik (Read-Only)</h2>
+        </div>
+        <span class="inline-flex items-center gap-1.5 bg-red-50 text-red-600 border border-red-100 text-[9px] uppercase tracking-widest px-3 py-1.5 font-bold rounded-sm shadow-sm">
+          <svg class="w-3.5 h-3.5 text-red-600 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg>
+          <span>Read-Only Shield</span>
+        </span>
+      </div>
+
+      <!-- Real-Time Search Bar -->
+      <div class="relative w-full max-w-lg mb-4">
+        <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+        </span>
+        <input type="text" id="order-search-input" onkeyup="filterOrdersTable()" placeholder="Cari pesanan berdasarkan ID, nama pembeli, purity, status..." class="w-full bg-white border border-gray-200 text-gray-800 placeholder-gray-400 focus:border-[#C59D5F] focus:ring-0 text-xs py-3.5 pl-10 pr-4 rounded-sm shadow-sm">
+      </div>
+
+      <!-- Orders Table -->
+      <div class="glass-card rounded-sm overflow-hidden p-6 shadow-xl">
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left border-collapse min-w-[900px]">
+            <thead>
+              <tr class="text-gray-500 font-bold uppercase tracking-wider border-b border-gray-100 pb-4">
+                <th class="py-4 px-2">Rujukan &amp; Tarikh</th>
+                <th class="py-4 px-4">Nama &amp; Maklumat Pelanggan</th>
+                <th class="py-4 px-4">Jumlah Bayaran (RM)</th>
+                <th class="py-4 px-4">Status Transaksi FPX</th>
+                <th class="py-4 px-2 text-right">Resit PDF &amp; Emel</th>
+              </tr>
+            </thead>
+            <tbody id="orders-table-body" class="divide-y divide-gray-100">
+              <!-- Loaded dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: VOUCHERS MANAGEMENT -->
+    <section id="tab-section-vouchers" class="space-y-8 hidden animate-fadeIn">
+      <!-- Section Header -->
+      <div class="flex justify-between items-center border-b border-gray-200/60 pb-6">
+        <div>
+          <span class="text-[#C59D5F] text-[10px] uppercase tracking-[0.25em] font-bold block mb-1">Butik Discounts Engine</span>
+          <h2 class="text-2xl lg:text-3xl font-serif text-[#2B2B2B]">Pengurusan Baucar Diskaun</h2>
+        </div>
+        <button onclick="toggleVoucherModal(true)" class="bg-[#C59D5F] hover:bg-[#A6824D] text-white text-[10px] uppercase tracking-[0.2em] font-bold px-6 py-3 transition-colors shadow-lg rounded-sm">
+          + Cipta Baucar Baharu
+        </button>
+      </div>
+
+      <!-- Vouchers Spreadsheet Table -->
+      <div class="glass-card rounded-sm overflow-hidden p-6 shadow-xl bg-white">
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left border-collapse min-w-[800px]">
+            <thead>
+              <tr class="text-gray-500 font-bold uppercase tracking-wider border-b border-gray-100 pb-4">
+                <th class="py-4 px-2">Kod Baucar</th>
+                <th class="py-4 px-4">Nilai Rebat</th>
+                <th class="py-4 px-4">Jenis Rebat</th>
+                <th class="py-4 px-4">Pembelian Minimum</th>
+                <th class="py-4 px-4">Tarikh Dicipta</th>
+                <th class="py-4 px-2 text-right">Tindakan</th>
+              </tr>
+            </thead>
+            <tbody id="vouchers-table-body" class="divide-y divide-gray-100">
+              <!-- Loaded dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: USERS MANAGEMENT -->
+    <section id="tab-section-users" class="space-y-8 hidden animate-fadeIn">
+      <!-- Section Header -->
+      <div class="flex justify-between items-center border-b border-gray-200/60 pb-6">
+        <div>
+          <span class="text-[#C59D5F] text-[10px] uppercase tracking-[0.25em] font-bold block mb-1">VIP & Client base</span>
+          <h2 class="text-2xl lg:text-3xl font-serif text-[#2B2B2B]">Kelulusan Keahlian VIP</h2>
+        </div>
+      </div>
+
+      <!-- Users KPI Summary Counters -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div class="glass-card p-5 rounded-sm flex justify-between items-center shadow-sm">
+          <div>
+            <span class="text-gray-400 text-[10px] uppercase tracking-wider font-semibold block mb-1">Jumlah Berdaftar</span>
+            <h3 class="text-xl font-mono font-bold text-gray-900" id="users-kpi-total">0</h3>
+          </div>
+          <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+          </div>
+        </div>
+        <div class="glass-card p-5 rounded-sm flex justify-between items-center shadow-sm">
+          <div>
+            <span class="text-gray-400 text-[10px] uppercase tracking-wider font-semibold block mb-1">Ahli VIP Aktif</span>
+            <h3 class="text-xl font-mono font-bold text-[#C59D5F]" id="users-kpi-vip">0</h3>
+          </div>
+          <div class="w-10 h-10 rounded-full bg-amber-50 text-[#C59D5F] flex items-center justify-center border border-[#C59D5F]/20">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+          </div>
+        </div>
+        <div class="glass-card p-5 rounded-sm flex justify-between items-center shadow-sm">
+          <div>
+            <span class="text-gray-400 text-[10px] uppercase tracking-wider font-semibold block mb-1">Permohonan VIP Menunggu</span>
+            <h3 class="text-xl font-mono font-bold text-blue-600" id="users-kpi-pending">0</h3>
+          </div>
+          <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- DEDICATED SECTION: Permohonan VIP Terbaru (Pending Approval) -->
+      <div id="pending-users-section" class="space-y-4 hidden border border-[#C59D5F]/20 bg-[#C59D5F]/3 p-6 rounded-sm transition-all duration-300">
+        <div class="flex items-center gap-3">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#C59D5F] animate-ping flex-shrink-0"></span>
+          <h3 class="text-sm font-serif font-bold text-[#2B2B2B] uppercase tracking-[0.18em]">Permohonan VIP Terbaru (Menunggu Kelulusan)</h3>
+        </div>
+        <div class="overflow-x-auto bg-white rounded-sm border border-gray-100 shadow-md">
+          <table class="w-full text-xs text-left border-collapse min-w-[800px]">
+            <thead>
+              <tr class="text-gray-500 font-bold uppercase tracking-wider border-b border-gray-100 pb-4 bg-gray-50/50">
+                <th class="py-4 px-4">ID Pengguna</th>
+                <th class="py-4 px-4">Nama Pengguna</th>
+                <th class="py-4 px-4">Alamat Emel</th>
+                <th class="py-4 px-4">Status Pendaftaran</th>
+                <th class="py-4 px-2 text-right">Tindakan Lulus</th>
+              </tr>
+            </thead>
+            <tbody id="pending-users-table-body" class="divide-y divide-gray-100">
+              <!-- Loaded dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- MASTER USER ROSTER SECTION -->
+      <div class="space-y-4">
+        <h3 class="text-xs uppercase tracking-[0.18em] text-gray-500 font-bold">Roster Keseluruhan Pengguna</h3>
+        <div class="glass-card rounded-sm overflow-hidden p-6 shadow-xl bg-white">
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs text-left border-collapse min-w-[800px]">
+              <thead>
+                <tr class="text-gray-500 font-bold uppercase tracking-wider border-b border-gray-100 pb-4">
+                  <th class="py-4 px-4">ID Pengguna</th>
+                  <th class="py-4 px-4">Nama Pengguna</th>
+                  <th class="py-4 px-4">Alamat Emel</th>
+                  <th class="py-4 px-4">Peranan / Keahlian Status</th>
+                  <th class="py-4 px-2 text-right">Kelulusan VIP</th>
+                </tr>
+              </thead>
+              <tbody id="users-table-body" class="divide-y divide-gray-100">
+                <!-- Loaded dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ADD NEW PRODUCT SLIDE-OUT MODAL -->
+  <div id="add-product-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex justify-end transition-opacity duration-300 opacity-0 pointer-events-none">
+    <div id="add-product-drawer" class="w-full max-w-lg bg-white border-l border-[#C59D5F]/15 h-full p-6 sm:p-8 lg:p-10 shadow-2xl flex flex-col justify-between translate-x-full transition-transform duration-300">
+      <div>
+        <div class="flex justify-between items-center border-b border-gray-100 pb-6 mb-8">
+          <div>
+            <span class="text-[#C59D5F] text-[10px] uppercase tracking-[0.2em] font-bold block mb-1">Catalog Expansion</span>
+            <h3 class="text-xl font-serif text-[#2B2B2B]">Tambah Produk Baharu</h3>
+          </div>
+          <button onclick="toggleAddModal(false)" class="text-gray-500 hover:text-gray-800">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+          </button>
+        </div>
+
+        <form id="add-product-form" onsubmit="submitNewProduct(event)" class="space-y-6 overflow-y-auto max-h-[75vh] pr-2">
+          <!-- Input 1: Product Name -->
+          <div>
+            <label for="p-title" class="block text-[10px] font-bold uppercase tracking-wider text-gray-600 mb-2">Nama Produk:</label>
+            <input type="text" id="p-title" required placeholder="Contoh: Cincin Bunga Melur" class="w-full bg-white border-gray-200 text-[#2B2B2B] focus:border-[#C59D5F] focus:ring-1 focus:ring-[#C59D5F]/20 text-xs py-3 rounded-sm">
+          </div>
+
+          <!-- Input: Category -->
+          <div>
+            <label for="p-category" class="block text-[10px] font-bold uppercase tracking-wider text-gray-600 mb-2">Jenis Produk (Kategori):</label>
+            <select id="p-category" class="w-full bg-white border-gray-200 text-[#2B2B2B] focus:border-[#C59D5F] focus:ring-1 focus:ring-[#C59D5F]/20 text-xs py-3 rounded-sm">
+              <option value="cincin">Cincin (Rings)</option>
+              <option value="rantai">Rantai Leher (Necklaces)</option>
+              <option value="gelang">Gelang Tangan (Bracelets)</option>
+            </select>
+          </div>
+
+          <!-- Input: Product Image -->
+          <div>
+            <label class="block text-[10px] font-bold uppercase tracking-wider text-gray-600 mb-2">Gambar Kempen Produk:</label>
+            <div class="flex gap-2 mb-3">
+              <button type="button" id="add-img-mode-select" onclick="switchAddImgMode('select')" class="w-1/2 bg-[#C59D5F] text-white text-[9px] uppercase tracking-wider font-bold py-2 rounded-sm transition-all border border-[#C59D5F]">Pilihan Kempen</button>
+              <button type="button" id="add-img-mode-upload" onclick="switchAddImgMode('upload')" class="w-1/2 bg-white text-gray-600 hover:text-black text-[9px] uppercase tracking-wider font-bold py-2 rounded-sm transition-all border border-gray-200">Muat Naik Fail</button>
+            </div>
+            
+            <!-- Option 1: Dropdown -->
+            <div id="add-img-select-wrapper">
+              <select id="p-image" class="w-full bg-white border-gray-200 text-[#2B2B2B] focus:border-[#C59D5F] focus:ring-1 focus:ring-[#C59D5F]/20 text-xs py-3 rounded-sm">
+                <option value="Product/WhatsApp Image 2026-05-24 at 5.34.41 PM.jpeg">Cincin Permata DiRaja</option>
+                <option value="Product/WhatsApp Image 2026-05-24 at 5.34.42 PM (1).jpeg">Cincin Belah Rotan Klasik</option>
+                <option value="Product/WhatsApp Image 2026-05-24 at 5.34.42 PM (2).jpeg">Cincin Bunga Melur</option>
+                <option value="Product/WhatsApp Image 2026-05-24 at 5.34.43 PM.jpeg">Cincin Nilam Diraja</option>
+                <option value="Product/WhatsApp Image 2026-05-24 at 5.34.43 PM (2).jpeg">Rantai Leher Mahkota Emas</option>
+                <option value="Product/WhatsApp Image 2026-05-24 at 5.34.43 PM (3).jpeg">Rantai Leher Pintal Kasih</option>
+                <option value="Product/WhatsApp Image 2026-05-24 at 5.34.47 PM.jpeg">Rantai Leher Saujana Hiasan</option>
+                <option value="Product/WhatsApp Image 2026-05-24 at 5.34.47 PM (2).jpeg">Rantai Leher Saujana Nilam</option>
+                <option value="Product/WhatsApp Image 2026-05-24 at 5.34.48 PM.jpeg">Gelang Tangan Adria</option>
+                <option value="Product/WhatsApp Image 2026-05-24 at 5.34.52 PM.jpeg">Gelang Tangan Zinnia</option>
+                <option value="Product/WhatsApp Image 2026-05-24 at 5.34.49 PM.jpeg">Gelang Tangan Coco Laksamana</option>
+              </select>
+            </div>
+            
+            <!-- Option 2: Upload File Input -->
+            <div id="add-img-upload-wrapper" class="hidden">
+              <div class="flex items-center justify-center w-full">
+                <label class="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-gray-200 hover:border-[#C59D5F] rounded-sm cursor-pointer transition-colors bg-gray-50/50">
+                  <div class="flex flex-col items-center justify-center pt-3 pb-3">
+                    <svg class="w-6 h-6 text-gray-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    <p class="text-[10px] text-gray-500 font-bold uppercase tracking-wider" id="add-upload-status-label">Pilih fail gambar</p>
+                  </div>
+                  <input type="file" id="p-upload-file" accept="image/*" onchange="handleAddImageUpload(event)" class="hidden" />
+                </label>
+              </div>
+              <input type="hidden" id="p-uploaded-url" value="" />
+            </div>
+          </div>
+
+          <!-- Input 2: Description -->
+          <div>
+            <label for="p-desc" class="block text-[10px] font-bold uppercase tracking-wider text-gray-600 mb-2">Keterangan / Deskripsi:</label>
+            <textarea id="p-desc" rows="4" required placeholder="Jelaskan seni ukiran pertukangan pertukangan emas murni..." class="w-full bg-white border-gray-200 text-[#2B2B2B] focus:border-[#C59D5F] focus:ring-1 focus:ring-[#C59D5F]/20 text-xs py-3 rounded-sm"></textarea>
+          </div>
+
+          <!-- Input: Purity Selector -->
+          <div>
+            <label for="p-purity" class="block text-[10px] font-bold uppercase tracking-wider text-gray-600 mb-2">Purity / Ketulenan Emas:</label>
+            <select id="p-purity" onchange="calculateLiveEstimate()" class="w-full bg-white border-gray-200 text-[#2B2B2B] focus:border-[#C59D5F] focus:ring-1 focus:ring-[#C59D5F]/20 text-xs py-3 rounded-sm">
+              <option value="Emas 916 (22K)" selected>Emas 916 (22K) - Cth: Gelang/Cincin Standard</option>
+              <option value="Emas 999 (24K)">Emas 999 (24K) - Cth: Rantai Murni/Emas Padu</option>
+            </select>
+          </div>
+
+          <!-- Input: Weight & Craftsmanship -->
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="p-weight" class="block text-[10px] font-bold uppercase tracking-wider text-gray-600 mb-2">Berat Emas (Gram):</label>
+              <input type="number" id="p-weight" step="0.001" required min="0.01" placeholder="4.80" oninput="calculateLiveEstimate()" class="w-full bg-white border-gray-200 text-[#2B2B2B] focus:border-[#C59D5F] focus:ring-1 focus:ring-[#C59D5F]/20 text-xs py-3 rounded-sm text-center font-mono">
+            </div>
+            <div>
+              <label for="p-craftsmanship" class="block text-[10px] font-bold uppercase tracking-wider text-gray-600 mb-2">Upah Tukang (RM):</label>
+              <input type="number" id="p-craftsmanship" step="0.01" required min="0" placeholder="250.00" oninput="calculateLiveEstimate()" class="w-full bg-white border-gray-200 text-[#2B2B2B] focus:border-[#C59D5F] focus:ring-1 focus:ring-[#C59D5F]/20 text-xs py-3 rounded-sm text-center font-mono">
+            </div>
+          </div>
+
+          <!-- Input: Length & Sizes -->
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="p-length" class="block text-[10px] font-bold uppercase tracking-wider text-gray-600 mb-2">Panjang (cm / Cth: 17, 18):</label>
+              <input type="text" id="p-length" placeholder="Letak 'Tiada' jika cincin" value="Tiada" class="w-full bg-white border-gray-200 text-[#2B2B2B] focus:border-[#C59D5F] focus:ring-1 focus:ring-[#C59D5F]/20 text-xs py-3 rounded-sm text-center font-mono">
+            </div>
+            <div>
+              <label for="p-sizes" class="block text-[10px] font-bold uppercase tracking-wider text-gray-600 mb-2">Saiz (Separasi Koma):</label>
+              <input type="text" id="p-sizes" placeholder="Cth: 15, 16, 21, 22" value="Tiada" class="w-full bg-white border-gray-200 text-[#2B2B2B] focus:border-[#C59D5F] focus:ring-1 focus:ring-[#C59D5F]/20 text-xs py-3 rounded-sm text-center font-mono">
+            </div>
+          </div>
+
+          <!-- Estimated Live Pricing Panel -->
+          <div class="p-4 bg-[#FAF9F6] border border-[#C59D5F]/20 rounded-sm space-y-2.5 shadow-sm">
+            <span class="text-[#C59D5F] text-[9px] uppercase tracking-[0.25em] font-bold block mb-0.5">Anggaran Harga Pasaran Semasa (Live)</span>
+            <div class="flex justify-between items-baseline text-[11px]">
+              <span class="text-gray-500 font-light">Harga Biasa Anggaran (Emas + Upah):</span>
+              <span id="p-live-estimate-standard" class="font-bold text-[#2B2B2B] font-mono text-xs">RM 0.00</span>
+            </div>
+            <div class="flex justify-between items-baseline text-[11px] border-t border-gray-100 pt-2">
+              <span class="text-[#C59D5F] font-bold">Harga Ahli VIP (Rebat 15%):</span>
+              <span id="p-live-estimate-vip" class="font-extrabold text-[#C59D5F] font-mono text-xs">RM 0.00</span>
+            </div>
+          </div>
+
+          <div class="pt-6">
+            <button type="submit" class="w-full bg-[#C59D5F] hover:bg-[#A6824D] text-white text-[10px] uppercase tracking-[0.2em] font-bold py-4 transition-colors shadow-lg rounded-sm">
+              Rekod Produk Baru Ke Inventori
+            </button>
+          </div>
+        </form>
+      </div>
+      
+      <div class="text-[9px] text-gray-500 text-center font-light uppercase tracking-wider">
+        Ketulenan Emas 916 • Chempaka Jewels Heritage
+      </div>
+    </div>
+  </div>
+
+  <!-- EDIT PRODUCT SLIDE-OUT MODAL -->
+  <div id="edit-product-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex justify-end transition-opacity duration-300 opacity-0 pointer-events-none">
+    <div id="edit-product-drawer" class="w-full max-w-lg bg-white border-l border-[#C59D5F]/15 h-full p-6 sm:p-8 lg:p-10 shadow-2xl flex flex-col justify-between translate-x-full transition-transform duration-300">
+      <div>
+        <div class="flex justify-between items-center border-b border-gray-100 pb-6 mb-8">
+          <div>
+            <span class="text-[#C59D5F] text-[10px] uppercase tracking-[0.2em] font-bold block mb-1">Catalog Editing</span>
+            <h3 class="text-xl font-serif text-[#2B2B2B]">Kemaskini Maklumat Produk</h3>
+          </div>
+          <button onclick="toggleEditModal(false)" class="text-gray-500 hover:text-gray-800">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+          </button>
+        </div>
+
+        <form id="edit-product-form" onsubmit="submitEditProduct(event)" class="space-y-6 overflow-y-auto max-h-[70vh] pr-2">
+          <!-- Hidden field to track product ID -->
+          <input type="hidden" id="edit-p-id">
+
+          <!-- Input 1: Product Name -->
+          <div>
+            <label for="edit-p-title" class="block text-[10px] font-bold uppercase tracking-wider text-gray-600 mb-2">Nama Produk:</label>
+            <input type="text" id="edit-p-title" required class="w-full bg-white border-gray-200 text-[#2B2B2B] focus:border-[#C59D5F] focus:ring-1 focus:ring-[#C59D5F]/20 text-xs py-3 rounded-sm">
+          </div>
+
+          <!-- Input: Category -->
+          <div>
+            <label for="edit-p-category" class="block text-[10px] font-bold uppercase tracking-wider text-gray-600 mb-2">Jenis Produk (Kategori):</label>
+            <select id="edit-p-category" class="w-full bg-white border-gray-200 text-[#2B2B2B] focus:border-[#C59D5F] focus:ring-1 focus:ring-[#C59D5F]/20 text-xs py-3 rounded-sm">
+              <option value="cincin">Cincin (Rings)</option>
+              <option value="rantai">Rantai Leher (Necklaces)</option>
+              <option value="gelang">Gelang Tangan (Bracelets)</option>
+            </select>
+          </div>
+
+          <!-- Input: Product Image -->
+          <div>
+            <label class="block text-[10px] font-bold uppercase tracking-wider text-gray-600 mb-2">Gambar Kempen Produk:</label>
+            <div class="flex gap-2 mb-3">
+              <button type="button" id="edit-img-mode-select" onclick="switchEditImgMode('select')" class="w-1/2 bg-[#C59D5F] text-white text-[9px] uppercase tracking-wider font-bold py-2 rounded-sm transition-all border border-[#C59D5F]">Pilihan Kempen</button>
+              <button type="button" id="edit-img-mode-upload" onclick="switchEditImgMode('upload')" class="w-1/2 bg-white text-gray-600 hover:text-black text-[9px] uppercase tracking-wider font-bold py-2 rounded-sm transition-all border border-gray-200">Muat Naik Fail</button>
+            </div>
+            
+            <!-- Option 1: Dropdown -->
+            <div id="edit-img-select-wrapper">
+              <select id="edit-p-image" class="w-full bg-white border-gray-200 text-[#2B2B2B] focus:border-[#C59D5F] focus:ring-1 focus:ring-[#C59D5F]/20 text-xs py-3 rounded-sm">
+                <option value="Product/WhatsApp Image 2026-05-24 at 5.34.41 PM.jpeg">Cincin Permata DiRaja</option>
+                <option value="Product/WhatsApp Image 2026-05-24 at 5.34.42 PM (1).jpeg">Cincin Belah Rotan Klasik</option>
+                <option value="Product/WhatsApp Image 2026-05-24 at 5.34.42 PM (2).jpeg">Cincin Bunga Melur</option>
+                <option value="Product/WhatsApp Image 2026-05-24 at 5.34.43 PM.jpeg">Cincin Nilam Diraja</option>
+                <option value="Product/WhatsApp Image 2026-05-24 at 5.34.43 PM (2).jpeg">Rantai Leher Mahkota Emas</option>
+                <option value="Product/WhatsApp Image 2026-05-24 at 5.34.43 PM (3).jpeg">Rantai Leher Pintal Kasih</option>
+                <option value="Product/WhatsApp Image 2026-05-24 at 5.34.47 PM.jpeg">Rantai Leher Saujana Hiasan</option>
+                <option value="Product/WhatsApp Image 2026-05-24 at 5.34.47 PM (2).jpeg">Rantai Leher Saujana Nilam</option>
+                <option value="Product/WhatsApp Image 2026-05-24 at 5.34.48 PM.jpeg">Gelang Tangan Adria</option>
+                <option value="Product/WhatsApp Image 2026-05-24 at 5.34.52 PM.jpeg">Gelang Tangan Zinnia</option>
+                <option value="Product/WhatsApp Image 2026-05-24 at 5.34.49 PM.jpeg">Gelang Tangan Coco Laksamana</option>
+              </select>
+            </div>
+            
+            <!-- Option 2: Upload File Input -->
+            <div id="edit-img-upload-wrapper" class="hidden">
+              <div class="flex items-center justify-center w-full">
+                <label class="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-gray-200 hover:border-[#C59D5F] rounded-sm cursor-pointer transition-colors bg-gray-50/50">
+                  <div class="flex flex-col items-center justify-center pt-3 pb-3">
+                    <svg class="w-6 h-6 text-gray-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    <p class="text-[10px] text-gray-500 font-bold uppercase tracking-wider" id="edit-upload-status-label">Pilih fail gambar</p>
+                  </div>
+                  <input type="file" id="edit-p-upload-file" accept="image/*" onchange="handleEditImageUpload(event)" class="hidden" />
+                </label>
+              </div>
+              <input type="hidden" id="edit-p-uploaded-url" value="" />
+            </div>
+          </div>
+
+          <!-- Input 2: Description -->
+          <div>
+            <label for="edit-p-desc" class="block text-[10px] font-bold uppercase tracking-wider text-gray-600 mb-2">Keterangan / Deskripsi:</label>
+            <textarea id="edit-p-desc" rows="4" required class="w-full bg-white border-gray-200 text-[#2B2B2B] focus:border-[#C59D5F] focus:ring-1 focus:ring-[#C59D5F]/20 text-xs py-3 rounded-sm"></textarea>
+          </div>
+
+          <!-- Input: Purity Selector -->
+          <div>
+            <label for="edit-p-purity" class="block text-[10px] font-bold uppercase tracking-wider text-gray-600 mb-2">Purity / Ketulenan Emas:</label>
+            <select id="edit-p-purity" onchange="calculateEditLiveEstimate()" class="w-full bg-white border-gray-200 text-[#2B2B2B] focus:border-[#C59D5F] focus:ring-1 focus:ring-[#C59D5F]/20 text-xs py-3 rounded-sm">
+              <option value="Emas 916 (22K)" selected>Emas 916 (22K) - Cth: Gelang/Cincin Standard</option>
+              <option value="Emas 999 (24K)">Emas 999 (24K) - Cth: Rantai Murni/Emas Padu</option>
+            </select>
+          </div>
+
+          <!-- Input: Weight & Craftsmanship -->
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="edit-p-weight" class="block text-[10px] font-bold uppercase tracking-wider text-gray-600 mb-2">Berat Emas (Gram):</label>
+              <input type="number" id="edit-p-weight" step="0.001" required min="0.01" placeholder="4.80" oninput="calculateEditLiveEstimate()" class="w-full bg-white border-gray-200 text-[#2B2B2B] focus:border-[#C59D5F] focus:ring-1 focus:ring-[#C59D5F]/20 text-xs py-3 rounded-sm text-center font-mono">
+            </div>
+            <div>
+              <label for="edit-p-craftsmanship" class="block text-[10px] font-bold uppercase tracking-wider text-gray-600 mb-2">Upah Tukang (RM):</label>
+              <input type="number" id="edit-p-craftsmanship" step="0.01" required min="0" placeholder="250.00" oninput="calculateEditLiveEstimate()" class="w-full bg-white border-gray-200 text-[#2B2B2B] focus:border-[#C59D5F] focus:ring-1 focus:ring-[#C59D5F]/20 text-xs py-3 rounded-sm text-center font-mono">
+            </div>
+          </div>
+
+          <!-- Input: Length & Sizes -->
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="edit-p-length" class="block text-[10px] font-bold uppercase tracking-wider text-gray-600 mb-2">Panjang (cm / Cth: 17, 18):</label>
+              <input type="text" id="edit-p-length" placeholder="Letak 'Tiada' jika cincin" class="w-full bg-white border-gray-200 text-[#2B2B2B] focus:border-[#C59D5F] focus:ring-1 focus:ring-[#C59D5F]/20 text-xs py-3 rounded-sm text-center font-mono">
+            </div>
+            <div>
+              <label for="edit-p-sizes" class="block text-[10px] font-bold uppercase tracking-wider text-gray-600 mb-2">Saiz (Separasi Koma):</label>
+              <input type="text" id="edit-p-sizes" placeholder="Cth: 15, 16, 21, 22" class="w-full bg-white border-gray-200 text-[#2B2B2B] focus:border-[#C59D5F] focus:ring-1 focus:ring-[#C59D5F]/20 text-xs py-3 rounded-sm text-center font-mono">
+            </div>
+          </div>
+
+          <!-- Estimated Live Pricing Panel -->
+          <div class="p-4 bg-[#FAF9F6] border border-[#C59D5F]/20 rounded-sm space-y-2.5 shadow-sm">
+            <span class="text-[#C59D5F] text-[9px] uppercase tracking-[0.25em] font-bold block mb-0.5">Anggaran Harga Pasaran Semasa (Live)</span>
+            <div class="flex justify-between items-baseline text-[11px]">
+              <span class="text-gray-500 font-light">Harga Biasa Anggaran (Emas + Upah):</span>
+              <span id="edit-p-live-estimate-standard" class="font-bold text-[#2B2B2B] font-mono text-xs">RM 0.00</span>
+            </div>
+            <div class="flex justify-between items-baseline text-[11px] border-t border-gray-100 pt-2">
+              <span class="text-[#C59D5F] font-bold">Harga Ahli VIP (Rebat 15%):</span>
+              <span id="edit-p-live-estimate-vip" class="font-extrabold text-[#C59D5F] font-mono text-xs">RM 0.00</span>
+            </div>
+          </div>
+
+          <div class="pt-6">
+            <button type="submit" class="w-full bg-[#C59D5F] hover:bg-[#A6824D] text-white text-[10px] uppercase tracking-[0.2em] font-bold py-4 transition-colors shadow-lg rounded-sm btn-luxury-transition">
+              Simpan Perubahan Inventori
+            </button>
+          </div>
+        </form>
+      </div>
+      
+      <div class="text-[9px] text-gray-500 text-center font-light uppercase tracking-wider">
+        Ketulenan Emas 916 • Chempaka Jewels Heritage
+      </div>
+    </div>
+  </div>
+
+  <!-- CREATE VOUCHER SLIDE-OUT MODAL -->
+  <div id="add-voucher-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex justify-end transition-opacity duration-300 opacity-0 pointer-events-none">
+    <div id="add-voucher-drawer" class="w-full max-w-lg bg-white border-l border-[#C59D5F]/15 h-full p-8 lg:p-10 shadow-2xl flex flex-col justify-between translate-x-full transition-transform duration-300">
+      <div>
+        <div class="flex justify-between items-center border-b border-gray-100 pb-6 mb-8">
+          <div>
+            <span class="text-[#C59D5F] text-[10px] uppercase tracking-[0.2em] font-bold block mb-1">Voucher Generator</span>
+            <h3 class="text-xl font-serif text-[#2B2B2B]">Cipta Baucar Baharu</h3>
+          </div>
+          <button onclick="toggleVoucherModal(false)" class="text-gray-500 hover:text-gray-800">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+          </button>
+        </div>
+
+        <form id="add-voucher-form" onsubmit="submitNewVoucher(event)" class="space-y-6">
+          <!-- Input 1: Voucher Code -->
+          <div>
+            <label for="v-code" class="block text-[10px] font-bold uppercase tracking-wider text-gray-600 mb-2">Kod Baucar (Aksara sahaja, cth: RAYA2026):</label>
+            <input type="text" id="v-code" required placeholder="Contoh: RAYA2026" class="w-full bg-white border-gray-200 text-[#2B2B2B] focus:border-[#C59D5F] focus:ring-1 focus:ring-[#C59D5F]/20 text-xs py-3 rounded-sm uppercase font-mono tracking-wider">
+          </div>
+
+          <!-- Input 2: Discount Type -->
+          <div>
+            <label for="v-type" class="block text-[10px] font-bold uppercase tracking-wider text-gray-600 mb-2">Jenis Rebat / Diskaun:</label>
+            <select id="v-type" class="w-full bg-white border-gray-200 text-[#2B2B2B] focus:border-[#C59D5F] focus:ring-1 focus:ring-[#C59D5F]/20 text-xs py-3 rounded-sm">
+              <option value="percentage">Peratusan (%) - Cth: 10% Diskaun</option>
+              <option value="fixed">Tunai Tetap (RM) - Cth: RM 50 Potongan</option>
+            </select>
+          </div>
+
+          <!-- Input 3: Discount Value -->
+          <div>
+            <label for="v-value" class="block text-[10px] font-bold uppercase tracking-wider text-gray-600 mb-2">Nilai Diskaun:</label>
+            <input type="number" id="v-value" step="0.01" required min="0.01" placeholder="10.00" class="w-full bg-white border-gray-200 text-[#2B2B2B] focus:border-[#C59D5F] focus:ring-1 focus:ring-[#C59D5F]/20 text-xs py-3 rounded-sm text-center font-mono">
+          </div>
+
+          <!-- Input 4: Minimum Purchase -->
+          <div>
+            <label for="v-min" class="block text-[10px] font-bold uppercase tracking-wider text-gray-600 mb-2">Had Pembelian Minimum (RM, Letak 0 jika tiada):</label>
+            <input type="number" id="v-min" step="0.01" value="0.00" min="0" placeholder="100.00" class="w-full bg-white border-gray-200 text-[#2B2B2B] focus:border-[#C59D5F] focus:ring-1 focus:ring-[#C59D5F]/20 text-xs py-3 rounded-sm text-center font-mono">
+          </div>
+
+          <div class="pt-6">
+            <button type="submit" class="w-full bg-[#C59D5F] hover:bg-[#A6824D] text-white text-[10px] uppercase tracking-[0.2em] font-bold py-4 transition-colors shadow-lg rounded-sm">
+              Jana Baucar Semasa
+            </button>
+          </div>
+        </form>
+      </div>
+      
+      <div class="text-[9px] text-gray-500 text-center font-light uppercase tracking-wider">
+        Kelab Elit Chempaka • Kempen Kesetiaan Butik
+      </div>
+    </div>
+  </div>
+
+
+
+  <script>
+    // 1. Single Admin Security Guardrail Lock down check
+    const userToken = localStorage.getItem('chempaka_token');
+    const userProfile = JSON.parse(localStorage.getItem('chempaka_user'));
+
+    if (!userToken || !userProfile || userProfile.role !== 'admin' || userProfile.email !== 'admin@chempakajewels.my') {
+      // Lockdown Action
+      document.body.innerHTML = `
+        <div class="flex items-center justify-center min-h-screen bg-[#FAF9F6] text-center p-6">
+          <div class="glass-card max-w-md p-10 border border-[#C59D5F]/20 shadow-2xl">
+            <div class="flex items-center justify-center text-red-500 mb-6">
+              <svg class="w-14 h-14 text-red-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" /></svg>
+            </div>
+            <h2 class="text-2xl font-serif text-[#2B2B2B] font-bold mb-4">Akses Keselamatan Disekat</h2>
+            <p class="text-xs text-gray-600 leading-relaxed mb-6">
+              Halaman Pentadbiran Chempaka Jewels berkunci. Hanya akaun pentadbir mutlak rasmi dibenarkan mengakses panel ini.
+            </p>
+            <a href="/" class="inline-block bg-[#C59D5F] hover:bg-[#A6824D] text-white px-8 py-3 text-[10px] uppercase tracking-[0.2em] font-semibold transition-colors shadow-lg">
+              Kembali ke Butik
+            </a>
+          </div>
+        </div>
+      `;
+    } else {
+      document.getElementById('admin-user-tag').innerText = `Log masuk: ${userProfile.name}\n(${userProfile.email})`;
+      // Initial Load
+      loadAdminGoldRates();
+      switchTab('overview');
+    }
+
+    let liveGold916 = 368.50;
+    let liveGold999 = 385.20;
+
+    function toggleGoldPopover() {
+      const panel = document.getElementById('gold-popover-panel');
+      if (panel) {
+        panel.classList.toggle('hidden');
+      }
+    }
+
+    function loadAdminGoldRates() {
+      fetch('/api/gold-rates')
+        .then(res => res.json())
+        .then(data => {
+          if (data.rates) {
+            liveGold916 = data.rates.gold916;
+            liveGold999 = data.rates.gold999;
+            document.getElementById('admin-gold-916').value = data.rates.gold916.toFixed(2);
+            document.getElementById('admin-gold-999').value = data.rates.gold999.toFixed(2);
+            
+            // Sync with global header labels
+            const label916 = document.getElementById('global-gold-916-label');
+            const label999 = document.getElementById('global-gold-999-label');
+            if (label916) label916.innerText = `RM ${data.rates.gold916.toFixed(2)}`;
+            if (label999) label999.innerText = `RM ${data.rates.gold999.toFixed(2)}`;
+          }
+        })
+        .catch(err => console.error("Error loading admin gold rates:", err));
+    }
+
+    function updateAdminGoldRates() {
+      const gold916 = parseFloat(document.getElementById('admin-gold-916').value);
+      const gold999 = parseFloat(document.getElementById('admin-gold-999').value);
+
+      if (!gold916 || !gold999) {
+        alert("Sila masukkan nilai harga emas yang sah.");
+        return;
+      }
+
+      fetch('/api/gold-rates', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': userToken
+        },
+        body: JSON.stringify({ gold916, gold999 })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) {
+          alert(data.error);
+        } else {
+          alert(data.message);
+          // Hide rates panel popover
+          const panel = document.getElementById('gold-popover-panel');
+          if (panel) panel.classList.add('hidden');
+          
+          loadAdminGoldRates();
+          loadAllInventory();
+          
+          // Only load orders if we are active
+          if (!document.getElementById('tab-section-overview').classList.contains('hidden')) {
+            loadOverviewDashboard();
+          } else if (!document.getElementById('tab-section-orders').classList.contains('hidden')) {
+            loadAllOrders();
+          }
+        }
+      })
+      .catch(err => console.error("Error updating gold rates:", err));
+    }
+
+    // Live price calculator for adding product
+    function calculateLiveEstimate() {
+      const purity = document.getElementById('p-purity').value;
+      const weight = parseFloat(document.getElementById('p-weight').value) || 0;
+      const craftsmanship = parseFloat(document.getElementById('p-craftsmanship').value) || 0;
+
+      const goldRate = purity.includes('999') ? liveGold999 : liveGold916;
+      const standardPrice = (weight * goldRate) + craftsmanship;
+      const vipPrice = standardPrice * 0.85;
+
+      document.getElementById('p-live-estimate-standard').innerText = `RM ${standardPrice.toFixed(2)}`;
+      document.getElementById('p-live-estimate-vip').innerText = `RM ${vipPrice.toFixed(2)}`;
+    }
+
+    // Live price calculator for editing product
+    function calculateEditLiveEstimate() {
+      const purity = document.getElementById('edit-p-purity').value;
+      const weight = parseFloat(document.getElementById('edit-p-weight').value) || 0;
+      const craftsmanship = parseFloat(document.getElementById('edit-p-craftsmanship').value) || 0;
+
+      const goldRate = purity.includes('999') ? liveGold999 : liveGold916;
+      const standardPrice = (weight * goldRate) + craftsmanship;
+      const vipPrice = standardPrice * 0.85;
+
+      document.getElementById('edit-p-live-estimate-standard').innerText = `RM ${standardPrice.toFixed(2)}`;
+      document.getElementById('edit-p-live-estimate-vip').innerText = `RM ${vipPrice.toFixed(2)}`;
+    }
+
+    let productsList = [];
+    let ordersList = [];
+    let vouchersList = [];
+    let usersList = [];
+
+    // --- TAB SWITCHER LOGIC ---
+    function switchTab(tab) {
+      const ovBtn = document.getElementById('nav-btn-overview');
+      const invBtn = document.getElementById('nav-btn-inventory');
+      const ordBtn = document.getElementById('nav-btn-orders');
+      const vchBtn = document.getElementById('nav-btn-vouchers');
+      const usrBtn = document.getElementById('nav-btn-users');
+      
+      const ovSec = document.getElementById('tab-section-overview');
+      const invSec = document.getElementById('tab-section-inventory');
+      const ordSec = document.getElementById('tab-section-orders');
+      const vchSec = document.getElementById('tab-section-vouchers');
+      const usrSec = document.getElementById('tab-section-users');
+
+      // Reset styles to inactive states
+      const inactiveClass = "flex items-center gap-2 px-3 py-2 text-[10px] sm:text-xs uppercase tracking-wider font-semibold rounded-sm transition-all duration-200 text-gray-600 hover:text-[#C59D5F] hover:bg-[#C59D5F]/5";
+      const activeClass = "flex items-center gap-2 px-3 py-2 text-[10px] sm:text-xs uppercase tracking-wider font-semibold rounded-sm transition-all duration-200 bg-[#C59D5F]/10 text-[#C59D5F]";
+
+      [ovBtn, invBtn, ordBtn, vchBtn, usrBtn].forEach(btn => {
+        if (btn) btn.className = inactiveClass;
+      });
+      [ovSec, invSec, ordSec, vchSec, usrSec].forEach(sec => {
+        if (sec) sec.classList.add('hidden');
+      });
+
+      if (tab === 'overview') {
+        if (ovBtn) ovBtn.className = activeClass;
+        if (ovSec) ovSec.classList.remove('hidden');
+        loadOverviewDashboard();
+      } else if (tab === 'inventory') {
+        if (invBtn) invBtn.className = activeClass;
+        if (invSec) invSec.classList.remove('hidden');
+        loadAllInventory();
+      } else if (tab === 'orders') {
+        if (ordBtn) ordBtn.className = activeClass;
+        if (ordSec) ordSec.classList.remove('hidden');
+        loadAllOrders();
+      } else if (tab === 'vouchers') {
+        if (vchBtn) vchBtn.className = activeClass;
+        if (vchSec) vchSec.classList.remove('hidden');
+        loadAllVouchers();
+      } else if (tab === 'users') {
+        if (usrBtn) usrBtn.className = activeClass;
+        if (usrSec) usrSec.classList.remove('hidden');
+        loadAllUsers();
+      }
+    }
+
+    // --- TAB 0: DASHBOARD OVERVIEW FUNCTIONS ---
+
+    function loadOverviewDashboard() {
+      const headers = { 'Authorization': userToken };
+      
+      const dateEl = document.getElementById('overview-live-date');
+      if (dateEl) {
+        dateEl.innerText = new Date().toLocaleDateString('ms-MY', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+      }
+
+      Promise.all([
+        fetch('/api/admin/orders', { headers }).then(res => res.json()),
+        fetch('/api/products', { headers }).then(res => res.json())
+      ])
+      .then(([ordersData, productsData]) => {
+        ordersList = ordersData.orders || [];
+        productsList = productsData.products || [];
+        
+        // 1. Calculate KPI values
+        calculateAndRenderKpis(ordersList);
+        
+        // 2. Render Sales Chart
+        renderSalesTrendChart(ordersList);
+      })
+      .catch(err => {
+        console.error("Error loading overview dashboard data:", err);
+      });
+    }
+
+    function calculateAndRenderKpis(orders) {
+      const paidOrders = orders.filter(o => o.status === 'paid');
+      
+      let totalSales = 0;
+      let vipSales = 0;
+      let guestSales = 0;
+      let totalSavings = 0;
+      
+      paidOrders.forEach(o => {
+        totalSales += o.total;
+        totalSavings += o.discountAmount || 0;
+        
+        const isGuest = o.customerEmail === 'guest@chempakajewels.my' || o.customerName === 'Guest Customer';
+        if (isGuest) {
+          guestSales += o.total;
+        } else {
+          vipSales += o.total;
+        }
+      });
+      
+      const ordersCount = paidOrders.length;
+      const aov = ordersCount > 0 ? (totalSales / ordersCount) : 0;
+      
+      // Update UI
+      document.getElementById('kpi-total-sales').innerText = `RM ${totalSales.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      document.getElementById('kpi-total-orders').innerText = `${ordersCount} Resit`;
+      document.getElementById('kpi-aov').innerText = `RM ${aov.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      document.getElementById('kpi-vip-guest').innerText = `VIP: RM ${vipSales.toLocaleString('en-US', { maximumFractionDigits: 0 })} | Guest: RM ${guestSales.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
+      document.getElementById('kpi-savings').innerText = `RM ${totalSavings.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    }
+
+    let activeChartInterval = 'daily';
+
+    function setChartInterval(interval) {
+      activeChartInterval = interval;
+      
+      // Update UI button styles
+      ['daily', 'weekly', 'monthly'].forEach(i => {
+        const btn = document.getElementById(`chart-filter-${i}`);
+        if (btn) {
+          if (i === interval) {
+            btn.className = "px-3.5 py-1 text-[9px] uppercase tracking-wider font-bold rounded-sm transition-all duration-200 bg-[#C59D5F] text-white shadow-sm";
+          } else {
+            btn.className = "px-3.5 py-1 text-[9px] uppercase tracking-wider font-bold rounded-sm transition-all duration-200 text-gray-600 hover:text-black hover:bg-gray-100/50";
+          }
+        }
+      });
+      
+      renderSalesTrendChart(ordersList);
+    }
+
+    function renderSalesTrendChart(orders) {
+      const paidOrders = orders.filter(o => o.status === 'paid');
+      const salesAggregated = {};
+
+      paidOrders.forEach(o => {
+        const dateObj = new Date(o.createdAt);
+        let key = '';
+        
+        if (activeChartInterval === 'daily') {
+          key = o.createdAt.slice(0, 10);
+        } else if (activeChartInterval === 'weekly') {
+          // Get start of the week (Sunday)
+          const startOfWeek = new Date(dateObj);
+          startOfWeek.setDate(dateObj.getDate() - dateObj.getDay());
+          key = startOfWeek.toISOString().slice(0, 10);
+        } else if (activeChartInterval === 'monthly') {
+          key = o.createdAt.slice(0, 7); // YYYY-MM
+        }
+        
+        salesAggregated[key] = (salesAggregated[key] || 0) + o.total;
+      });
+
+      const sortedKeys = Object.keys(salesAggregated).sort();
+      let chartData = sortedKeys.map(key => {
+        let label = '';
+        const dateObj = new Date(key);
+        if (activeChartInterval === 'daily') {
+          label = dateObj.toLocaleDateString('ms-MY', { day: 'numeric', month: 'short' });
+        } else if (activeChartInterval === 'weekly') {
+          label = 'Wk ' + dateObj.toLocaleDateString('ms-MY', { day: 'numeric', month: 'short' });
+        } else if (activeChartInterval === 'monthly') {
+          label = dateObj.toLocaleDateString('ms-MY', { month: 'short', year: '2-digit' });
+        }
+        return { date: key, label, val: salesAggregated[key] };
+      });
+
+      // Pad with mock preceding items if less than 5
+      if (chartData.length < 5) {
+        const minDays = 5;
+        const missingCount = minDays - chartData.length;
+        const baseKey = chartData.length > 0 ? chartData[0].date : new Date().toISOString();
+        
+        for (let i = missingCount; i > 0; i--) {
+          const d = new Date(baseKey);
+          let key = '';
+          let label = '';
+          
+          if (activeChartInterval === 'daily') {
+            d.setDate(d.getDate() - i);
+            key = d.toISOString().slice(0, 10);
+            label = d.toLocaleDateString('ms-MY', { day: 'numeric', month: 'short' });
+          } else if (activeChartInterval === 'weekly') {
+            d.setDate(d.getDate() - (i * 7));
+            // Round to start of week
+            d.setDate(d.getDate() - d.getDay());
+            key = d.toISOString().slice(0, 10);
+            label = 'Wk ' + d.toLocaleDateString('ms-MY', { day: 'numeric', month: 'short' });
+          } else if (activeChartInterval === 'monthly') {
+            d.setMonth(d.getMonth() - i);
+            key = d.toISOString().slice(0, 7);
+            label = d.toLocaleDateString('ms-MY', { month: 'short', year: '2-digit' });
+          }
+          
+          chartData.unshift({ date: key, label, val: 0 });
+        }
+      }
+
+      if (chartData.length > 7) {
+        chartData = chartData.slice(-7);
+      }
+
+      const vals = chartData.map(d => d.val);
+      const maxVal = Math.max(...vals, 5000) * 1.15; // 15% headroom
+
+      const N = chartData.length;
+      const points = chartData.map((d, i) => {
+        const x = 60 + (i / (N - 1)) * 480;
+        const y = 240 - (d.val / maxVal) * 200;
+        return { ...d, x, y };
+      });
+
+      // SVG Elements assembly
+      const svg = document.getElementById('overview-sales-chart');
+      if (!svg) return;
+
+      // Reset SVG
+      svg.innerHTML = `
+        <defs>
+          <linearGradient id="chart-area-glow" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#C59D5F" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#C59D5F" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="chart-line-gradient" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#DFBA7D"/>
+            <stop offset="50%" stop-color="#C59D5F"/>
+            <stop offset="100%" stop-color="#A6824D"/>
+          </linearGradient>
+        </defs>
+      `;
+
+      // Draw Grid Lines (Y-Axis references)
+      const gridLevels = 4;
+      for (let i = 0; i <= gridLevels; i++) {
+        const y = 40 + (i / gridLevels) * 200;
+        const gridVal = maxVal - (i / gridLevels) * maxVal;
+        
+        // Line
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("x1", "60");
+        line.setAttribute("y1", y.toString());
+        line.setAttribute("x2", "540");
+        line.setAttribute("y2", y.toString());
+        line.setAttribute("stroke", "rgba(197, 157, 95, 0.08)");
+        line.setAttribute("stroke-width", "0.75");
+        if (i < gridLevels) line.setAttribute("stroke-dasharray", "3");
+        svg.appendChild(line);
+
+        // Label
+        const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        text.setAttribute("x", "50");
+        text.setAttribute("y", (y + 3).toString());
+        text.setAttribute("font-family", "'Inter', sans-serif");
+        text.setAttribute("font-size", "7.5");
+        text.setAttribute("fill", "#9CA3AF");
+        text.setAttribute("text-anchor", "end");
+        text.setAttribute("font-weight", "500");
+        text.textContent = `RM ${Math.round(gridVal).toLocaleString()}`;
+        svg.appendChild(text);
+      }
+
+      // Draw Area Under the curve
+      let areaD = `M 60 240`;
+      points.forEach(p => {
+        areaD += ` L ${p.x} ${p.y}`;
+      });
+      areaD += ` L 540 240 Z`;
+
+      const areaPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      areaPath.setAttribute("d", areaD);
+      areaPath.setAttribute("fill", "url(#chart-area-glow)");
+      svg.appendChild(areaPath);
+
+      // Draw Main line path
+      let lineD = `M ${points[0].x} ${points[0].y}`;
+      for (let i = 1; i < N; i++) {
+        lineD += ` L ${points[i].x} ${points[i].y}`;
+      }
+
+      const trendLine = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      trendLine.setAttribute("d", lineD);
+      trendLine.setAttribute("fill", "none");
+      trendLine.setAttribute("stroke", "url(#chart-line-gradient)");
+      trendLine.setAttribute("stroke-width", "2.5");
+      trendLine.setAttribute("stroke-linecap", "round");
+      trendLine.setAttribute("stroke-linejoin", "round");
+      svg.appendChild(trendLine);
+
+      // Draw interactive vertices dots & Tooltips
+      points.forEach(p => {
+        // Vertex Circle
+        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        circle.setAttribute("cx", p.x.toString());
+        circle.setAttribute("cy", p.y.toString());
+        circle.setAttribute("r", "4.5");
+        circle.setAttribute("fill", "#FFFFFF");
+        circle.setAttribute("stroke", "#C59D5F");
+        circle.setAttribute("stroke-width", "2.5");
+        circle.setAttribute("style", "cursor: pointer; transition: all 0.2s ease-in-out;");
+        
+        // Add dynamic HTML tooltip hover events
+        circle.addEventListener('mouseenter', (e) => {
+          circle.setAttribute("r", "6.5");
+          circle.setAttribute("fill", "#C59D5F");
+          showChartTooltip(p, e);
+        });
+        circle.addEventListener('mouseleave', () => {
+          circle.setAttribute("r", "4.5");
+          circle.setAttribute("fill", "#FFFFFF");
+          hideChartTooltip();
+        });
+        svg.appendChild(circle);
+
+        // Bottom label
+        const xText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        xText.setAttribute("x", p.x.toString());
+        xText.setAttribute("y", "265");
+        xText.setAttribute("font-family", "'Inter', sans-serif");
+        xText.setAttribute("font-size", "8.5");
+        xText.setAttribute("fill", "#6B7280");
+        xText.setAttribute("text-anchor", "middle");
+        xText.setAttribute("font-weight", "600");
+        xText.textContent = p.label;
+        svg.appendChild(xText);
+      });
+    }
+
+    // Dynamic HTML Tooltip Helpers
+    function showChartTooltip(point, event) {
+      let tooltip = document.getElementById('chart-html-tooltip');
+      if (!tooltip) {
+        tooltip = document.createElement('div');
+        tooltip.id = 'chart-html-tooltip';
+        tooltip.className = 'absolute bg-[#1E1E1E] text-white text-[10px] p-3 rounded shadow-2xl border border-[#C59D5F]/30 pointer-events-none transition-opacity duration-200 z-[100] font-mono leading-relaxed';
+        document.body.appendChild(tooltip);
+      }
+      
+      tooltip.innerHTML = `
+        <span class="text-[#C59D5F] font-bold block mb-1">Tarikh: ${point.label}</span>
+        <span>Jualan: <strong>RM ${point.val.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong></span>
+      `;
+      
+      tooltip.style.opacity = '1';
+      tooltip.style.left = (event.pageX + 15) + 'px';
+      tooltip.style.top = (event.pageY - 40) + 'px';
+    }
+
+    function hideChartTooltip() {
+      const tooltip = document.getElementById('chart-html-tooltip');
+      if (tooltip) {
+        tooltip.style.opacity = '0';
+      }
+    }
+
+    // --- PDF INVOICE SECURE DOWNLOAD ---
+
+    function downloadPdfInvoice(orderId) {
+      fetch(`/api/admin/orders/${orderId}/pdf`, {
+        headers: { 'Authorization': userToken }
+      })
+      .then(res => {
+        if (!res.ok) throw new Error();
+        return res.blob();
+      })
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `invoice_${orderId}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      })
+      .catch(err => {
+        console.error("PDF download error:", err);
+        alert("Gagal memuat turun invois PDF rasmi.");
+      });
+    }
+
+    // --- DATA EXPORTS ENGINE ---
+
+    function exportOrdersCSV() {
+      if (!ordersList || ordersList.length === 0) {
+        alert("Tiada rekod pesanan untuk dieksport.");
+        return;
+      }
+
+      const headers = ["Order Reference ID", "Date", "Customer Name", "Customer Email", "Subtotal (RM)", "Member Discount (RM)", "Total Paid (RM)", "FPX Status", "Transaction ID"];
+      
+      const rows = ordersList.map(o => {
+        const isAudit = o.status === 'system_audit';
+        return [
+          o.id,
+          new Date(o.createdAt).toISOString(),
+          `"${o.customerName.replace(/"/g, '""')}"`,
+          o.customerEmail,
+          isAudit ? 0 : o.subtotal,
+          isAudit ? 0 : o.discountAmount,
+          o.total,
+          o.status,
+          isAudit ? "AUDIT_LOG" : (o.payment?.transactionId || "")
+        ];
+      });
+
+      const csvContent = [headers.join(","), ...rows.map(r => r.join(","))].join("\n");
+      downloadCsvFile(csvContent, "chempaka_orders_export.csv");
+    }
+
+    function exportProductsCSV() {
+      if (!productsList || productsList.length === 0) {
+        alert("Tiada rekod produk untuk dieksport.");
+        return;
+      }
+
+      const headers = ["Product ID", "Title", "Category", "Purity", "Weight (g)", "Craftsmanship Fee (RM)", "Standard Retail Price (RM)", "VIP Member Price (RM)", "Display Status"];
+      
+      const rows = productsList.map(p => {
+        return [
+          p.id,
+          `"${p.title.replace(/"/g, '""')}"`,
+          p.category,
+          `"${p.purity}"`,
+          p.weight,
+          p.craftsmanship,
+          p.standardPrice,
+          p.memberPrice,
+          p.status
+        ];
+      });
+
+      const csvContent = [headers.join(","), ...rows.map(r => r.join(","))].join("\n");
+      downloadCsvFile(csvContent, "chempaka_inventory_export.csv");
+    }
+
+    function downloadCsvFile(content, filename) {
+      const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    }
+
+    function downloadDatabaseJSON() {
+      fetch('/api/admin/export/backup', {
+        headers: { 'Authorization': userToken }
+      })
+      .then(res => {
+        if (!res.ok) throw new Error();
+        return res.blob();
+      })
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `chempaka_db_backup_${Date.now()}.json`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      })
+      .catch(err => {
+        console.error("JSON Backup download error:", err);
+        alert("Gagal memuat turun sandaran pangkalan data JSON.");
+      });
+    }
+
+    // --- TAB 1: INVENTORY MANAGEMENT ---
+
+    function loadAllInventory() {
+      fetch('/api/products', {
+        headers: { 'Authorization': userToken }
+      })
+      .then(res => res.json())
+      .then(data => {
+        productsList = data.products;
+        renderProductTable();
+      })
+      .catch(err => console.error("Error loading products catalog:", err));
+    }
+
+    function renderProductTable() {
+      const tbody = document.getElementById('inventory-table-body');
+      tbody.innerHTML = '';
+
+      if (productsList.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="text-center py-12 text-gray-500 font-light">Tiada produk ditemui dalam inventori pangkalan data.</td></tr>`;
+        return;
+      }
+
+      productsList.forEach(p => {
+        const isHidden = p.status === 'inactive';
+        
+        // Visibility Badge
+        const statusBadge = isHidden
+          ? `<span class="bg-gray-100 text-gray-600 font-bold px-2.5 py-0.5 rounded-sm uppercase tracking-widest text-[8px] border border-gray-200">Hidden</span>`
+          : `<span class="bg-emerald-50 text-emerald-700 font-bold px-2.5 py-0.5 rounded-sm uppercase tracking-widest text-[8px] border border-emerald-100">Public</span>`;
+
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-gray-50/80 transition-colors border-b border-gray-100";
+        tr.innerHTML = `
+          <td class="py-4 px-2">
+            <div class="w-10 h-12 bg-gray-50 rounded-sm overflow-hidden border border-gray-100 flex items-center justify-center">
+              <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover">
+            </div>
+          </td>
+          <td class="py-4 px-4 font-semibold text-[#2B2B2B]">
+            ${p.title}<br>
+            <span class="text-[9px] text-[#C59D5F] font-bold uppercase tracking-wider">${p.purity}</span>
+          </td>
+          <td class="py-4 px-4 font-mono text-gray-700">RM ${p.standardPrice.toFixed(2)}</td>
+          <td class="py-4 px-4 font-mono text-[#C59D5F] font-bold">RM ${p.memberPrice.toFixed(2)}</td>
+          <td class="py-4 px-4">${statusBadge}</td>
+          <td class="py-4 px-2 text-right">
+            <div class="flex items-center justify-end gap-3.5">
+              <button onclick="openEditProductModal('${p.id}')" class="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-wider font-bold text-[#C59D5F] hover:text-[#A6824D] transition-colors bg-[#C59D5F]/10 hover:bg-[#C59D5F]/20 px-2.5 py-1.5 rounded-sm btn-luxury-transition">
+                <svg class="w-3 h-3 text-[#C59D5F] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" /></svg>
+                <span>Edit</span>
+              </button>
+              <label class="switch">
+                <input type="checkbox" ${!isHidden ? 'checked' : ''} onclick="toggleProductVisibility('${p.id}', '${p.status}')">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Toggle hide/show status
+    function toggleProductVisibility(id, currentStatus) {
+      const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
+      
+      fetch(`/api/products/${id}/status`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': userToken
+        },
+        body: JSON.stringify({ status: newStatus })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) {
+          alert(data.error);
+        } else {
+          loadAllInventory();
+        }
+      })
+      .catch(err => console.error("Error toggling catalog status:", err));
+    }
+
+    // --- ADD PRODUCT MODAL CONTROL ---
+    // Toggle active image mode for Add Drawer
+    let addImgMode = 'select';
+    function switchAddImgMode(mode) {
+      addImgMode = mode;
+      const btnSel = document.getElementById('add-img-mode-select');
+      const btnUp = document.getElementById('add-img-mode-upload');
+      const wrapSel = document.getElementById('add-img-select-wrapper');
+      const wrapUp = document.getElementById('add-img-upload-wrapper');
+
+      if (mode === 'select') {
+        btnSel.className = "w-1/2 bg-[#C59D5F] text-white text-[9px] uppercase tracking-wider font-bold py-2 rounded-sm transition-all border border-[#C59D5F]";
+        btnUp.className = "w-1/2 bg-white text-gray-600 hover:text-black text-[9px] uppercase tracking-wider font-bold py-2 rounded-sm transition-all border border-gray-200";
+        wrapSel.classList.remove('hidden');
+        wrapUp.classList.add('hidden');
+      } else {
+        btnSel.className = "w-1/2 bg-white text-gray-600 hover:text-black text-[9px] uppercase tracking-wider font-bold py-2 rounded-sm transition-all border border-gray-200";
+        btnUp.className = "w-1/2 bg-[#C59D5F] text-white text-[9px] uppercase tracking-wider font-bold py-2 rounded-sm transition-all border border-[#C59D5F]";
+        wrapSel.classList.add('hidden');
+        wrapUp.classList.remove('hidden');
+      }
+    }
+
+    // Toggle active image mode for Edit Drawer
+    let editImgMode = 'select';
+    function switchEditImgMode(mode) {
+      editImgMode = mode;
+      const btnSel = document.getElementById('edit-img-mode-select');
+      const btnUp = document.getElementById('edit-img-mode-upload');
+      const wrapSel = document.getElementById('edit-img-select-wrapper');
+      const wrapUp = document.getElementById('edit-img-upload-wrapper');
+
+      if (mode === 'select') {
+        btnSel.className = "w-1/2 bg-[#C59D5F] text-white text-[9px] uppercase tracking-wider font-bold py-2 rounded-sm transition-all border border-[#C59D5F]";
+        btnUp.className = "w-1/2 bg-white text-gray-600 hover:text-black text-[9px] uppercase tracking-wider font-bold py-2 rounded-sm transition-all border border-gray-200";
+        wrapSel.classList.remove('hidden');
+        wrapUp.classList.add('hidden');
+      } else {
+        btnSel.className = "w-1/2 bg-white text-gray-600 hover:text-black text-[9px] uppercase tracking-wider font-bold py-2 rounded-sm transition-all border border-gray-200";
+        btnUp.className = "w-1/2 bg-[#C59D5F] text-white text-[9px] uppercase tracking-wider font-bold py-2 rounded-sm transition-all border border-[#C59D5F]";
+        wrapSel.classList.add('hidden');
+        wrapUp.classList.remove('hidden');
+      }
+    }
+
+    // Handle asynchronous file uploading to the backend
+    function uploadImageFile(file, labelId, hiddenInputId) {
+      const label = document.getElementById(labelId);
+      label.innerText = "Sila tunggu (Sedang memuat naik)...";
+      
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const base64Data = event.target.result;
+        
+        fetch('/api/admin/upload-image', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': userToken
+          },
+          body: JSON.stringify({ base64Data, filename: file.name })
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success && data.imageUrl) {
+            document.getElementById(hiddenInputId).value = data.imageUrl;
+            label.innerText = `Berjaya: ${file.name.slice(0, 15)}...`;
+          } else {
+            alert(data.error || "Gagal memuat naik imej.");
+            label.innerText = "Pilih fail imej";
+          }
+        })
+        .catch(err => {
+          console.error("Upload error:", err);
+          alert("Gagal memuat naik imej ke pelayan.");
+          label.innerText = "Pilih fail imej";
+        });
+      };
+      
+      reader.readAsDataURL(file);
+    }
+
+    function handleAddImageUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        uploadImageFile(file, 'add-upload-status-label', 'p-uploaded-url');
+      }
+    }
+
+    function handleEditImageUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        uploadImageFile(file, 'edit-upload-status-label', 'edit-p-uploaded-url');
+      }
+    }
+
+    function toggleAddModal(show) {
+      const modal = document.getElementById('add-product-modal');
+      const drawer = document.getElementById('add-product-drawer');
+      if (show) {
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        drawer.classList.remove('translate-x-full');
+        switchAddImgMode('select');
+      } else {
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        drawer.classList.add('translate-x-full');
+        document.getElementById('add-product-form').reset();
+        document.getElementById('p-uploaded-url').value = '';
+        document.getElementById('add-upload-status-label').innerText = "Pilih fail gambar";
+      }
+    }
+
+    // Auto-calculate estimate VIP discounted price as they type standard price
+    function calculateVipEstimate(retailVal) {
+      const parsed = parseFloat(retailVal) || 0;
+      document.getElementById('p-member').value = (parsed * 0.85).toFixed(2);
+    }
+
+    // Submit new product
+    function submitNewProduct(e) {
+      e.preventDefault();
+      
+      const title = document.getElementById('p-title').value;
+      const category = document.getElementById('p-category').value;
+      const description = document.getElementById('p-desc').value;
+      const purity = document.getElementById('p-purity').value;
+      const weight = parseFloat(document.getElementById('p-weight').value);
+      const craftsmanship = parseFloat(document.getElementById('p-craftsmanship').value);
+      const length = document.getElementById('p-length').value;
+      const sizes = document.getElementById('p-sizes').value;
+
+      let image = document.getElementById('p-image').value;
+      if (addImgMode === 'upload') {
+        const uploaded = document.getElementById('p-uploaded-url').value;
+        if (!uploaded) {
+          alert("Sila muat naik fail gambar produk terlebih dahulu atau pilih dari pilihan kempen.");
+          return;
+        }
+        image = uploaded;
+      }
+
+      const payload = {
+        title: title,
+        description: description,
+        category: category,
+        purity: purity,
+        weight: weight,
+        craftsmanship: craftsmanship,
+        image: image,
+        length: length,
+        sizes: sizes
+      };
+
+      fetch('/api/products', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': userToken
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) {
+          alert(data.error);
+        } else {
+          alert(data.message);
+          toggleAddModal(false);
+          loadAllInventory();
+        }
+      })
+      .catch(err => console.error("Error creating product:", err));
+    }
+
+    // --- EDIT PRODUCT MODAL CONTROL ---
+    function toggleEditModal(show) {
+      const modal = document.getElementById('edit-product-modal');
+      const drawer = document.getElementById('edit-product-drawer');
+      if (show) {
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        drawer.classList.remove('translate-x-full');
+      } else {
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        drawer.classList.add('translate-x-full');
+        document.getElementById('edit-product-form').reset();
+        document.getElementById('edit-p-uploaded-url').value = '';
+        document.getElementById('edit-upload-status-label').innerText = "Pilih fail gambar";
+      }
+    }
+
+    function openEditProductModal(id) {
+      const product = productsList.find(p => p.id === id);
+      if (!product) {
+        alert("Produk tidak ditemui.");
+        return;
+      }
+
+      // Populate edit drawer fields
+      document.getElementById('edit-p-id').value = product.id;
+      document.getElementById('edit-p-title').value = product.title;
+      document.getElementById('edit-p-category').value = product.category;
+      document.getElementById('edit-p-desc').value = product.description || '';
+      
+      // Populate new physical fields
+      document.getElementById('edit-p-purity').value = product.purity || "Emas 916 (22K)";
+      document.getElementById('edit-p-weight').value = parseFloat(product.weight || 0).toFixed(3);
+      document.getElementById('edit-p-craftsmanship').value = parseFloat(product.craftsmanship || 0).toFixed(2);
+      document.getElementById('edit-p-length').value = product.length || 'Tiada';
+      document.getElementById('edit-p-sizes').value = Array.isArray(product.sizes) ? product.sizes.join(', ') : (product.sizes || 'Tiada');
+
+      // Trigger dynamic calculations
+      calculateEditLiveEstimate();
+
+      const standardImages = [
+        "Product/WhatsApp Image 2026-05-24 at 5.34.41 PM.jpeg",
+        "Product/WhatsApp Image 2026-05-24 at 5.34.42 PM (1).jpeg",
+        "Product/WhatsApp Image 2026-05-24 at 5.34.42 PM (2).jpeg",
+        "Product/WhatsApp Image 2026-05-24 at 5.34.43 PM.jpeg",
+        "Product/WhatsApp Image 2026-05-24 at 5.34.43 PM (2).jpeg",
+        "Product/WhatsApp Image 2026-05-24 at 5.34.43 PM (3).jpeg",
+        "Product/WhatsApp Image 2026-05-24 at 5.34.47 PM.jpeg",
+        "Product/WhatsApp Image 2026-05-24 at 5.34.47 PM (2).jpeg",
+        "Product/WhatsApp Image 2026-05-24 at 5.34.48 PM.jpeg",
+        "Product/WhatsApp Image 2026-05-24 at 5.34.52 PM.jpeg",
+        "Product/WhatsApp Image 2026-05-24 at 5.34.49 PM.jpeg"
+      ];
+
+      if (standardImages.includes(product.image)) {
+        switchEditImgMode('select');
+        document.getElementById('edit-p-image').value = product.image;
+        document.getElementById('edit-p-uploaded-url').value = '';
+        document.getElementById('edit-upload-status-label').innerText = "Pilih fail gambar";
+      } else {
+        switchEditImgMode('upload');
+        document.getElementById('edit-p-uploaded-url').value = product.image;
+        document.getElementById('edit-upload-status-label').innerText = `Imej Aktif: Custom`;
+      }
+
+      // Slide open the edit drawer
+      toggleEditModal(true);
+    }
+
+    function submitEditProduct(e) {
+      e.preventDefault();
+
+      const id = document.getElementById('edit-p-id').value;
+      const title = document.getElementById('edit-p-title').value;
+      const category = document.getElementById('edit-p-category').value;
+      const description = document.getElementById('edit-p-desc').value;
+      
+      const purity = document.getElementById('edit-p-purity').value;
+      const weight = parseFloat(document.getElementById('edit-p-weight').value);
+      const craftsmanship = parseFloat(document.getElementById('edit-p-craftsmanship').value);
+      const length = document.getElementById('edit-p-length').value;
+      const sizes = document.getElementById('edit-p-sizes').value;
+
+      let image = document.getElementById('edit-p-image').value;
+      if (editImgMode === 'upload') {
+        const uploaded = document.getElementById('edit-p-uploaded-url').value;
+        if (uploaded) {
+          image = uploaded;
+        }
+      }
+
+      const payload = {
+        title: title,
+        description: description,
+        category: category,
+        purity: purity,
+        weight: weight,
+        craftsmanship: craftsmanship,
+        image: image,
+        length: length,
+        sizes: sizes
+      };
+
+      fetch(`/api/products/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': userToken
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) {
+          alert(data.error);
+        } else {
+          alert(data.message);
+          toggleEditModal(false);
+          loadAllInventory();
+        }
+      })
+      .catch(err => console.error("Error updating product:", err));
+    }
+
+    // --- TAB 2: ORDER LOGS (READ-ONLY) ---
+
+    function loadAllOrders() {
+      fetch('/api/admin/orders', {
+        headers: { 'Authorization': userToken }
+      })
+      .then(res => res.json())
+      .then(data => {
+        ordersList = data.orders;
+        renderOrdersTable();
+      })
+      .catch(err => console.error("Error fetching order logs:", err));
+    }
+
+    function renderOrdersTable() {
+      const tbody = document.getElementById('orders-table-body');
+      tbody.innerHTML = '';
+
+      if (!ordersList || ordersList.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="text-center py-12 text-gray-500 font-light">Tiada log transaksi jualan dikesan di butik.</td></tr>`;
+        return;
+      }
+
+      // Sort orders by timestamp descending
+      const sortedOrders = [...ordersList].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+      sortedOrders.forEach(o => {
+        const dateObj = new Date(o.createdAt);
+        const formattedDate = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+        
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-gray-50/80 transition-colors border-b border-gray-100";
+
+        if (o.status === 'system_audit') {
+          // Render system audit pricing log row
+          tr.innerHTML = `
+            <td class="py-4 px-2">
+              <span class="font-bold text-[#C59D5F] font-mono">#AUDIT</span><br/>
+              <span class="text-[9px] text-gray-500 font-light font-mono">${formattedDate}</span>
+            </td>
+            <td class="py-4 px-4 text-gray-900" colspan="2">
+              <span class="font-semibold block text-[#C59D5F]">${o.customerName}</span>
+              <span class="text-[10px] text-gray-600 font-mono">${o.customerEmail}</span>
+            </td>
+            <td class="py-4 px-4">
+              <span class="bg-[#C59D5F]/10 text-[#C59D5F] border border-[#C59D5F]/20 font-bold px-2 py-0.5 rounded-sm uppercase tracking-widest text-[8px]">Gold Audit</span>
+            </td>
+            <td class="py-4 px-2 text-right">
+              <span class="text-[#C59D5F] font-bold text-[8px] uppercase tracking-wider">Logged</span>
+            </td>
+          `;
+        } else {
+          // Success Badge or Red Failed
+          const isPaid = o.status === 'paid';
+          const gatewayBadge = isPaid
+            ? `<span class="bg-emerald-50 text-emerald-700 border border-emerald-100 font-bold px-2 py-0.5 rounded-sm uppercase tracking-widest text-[8px]">Success</span>`
+            : `<span class="bg-red-50 text-red-700 border border-red-100 font-bold px-2 py-0.5 rounded-sm uppercase tracking-widest text-[8px]">${o.status}</span>`;
+
+          // Verification indicator checkmark
+          const verificationCheck = isPaid
+            ? `<div class="flex flex-col items-end gap-1">
+                 <div class="flex items-center justify-end gap-1.5 text-emerald-700 font-semibold uppercase tracking-wider text-[8px]">
+                   <span>PDF Compiled &amp; Sent</span>
+                   <svg class="w-3.5 h-3.5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path></svg>
+                 </div>
+                 <button onclick="downloadPdfInvoice('${o.id}')" class="text-[9px] text-[#C59D5F] hover:text-[#A6824D] font-bold uppercase tracking-wider hover:underline flex items-center gap-1.5 font-mono">
+                    <svg class="w-3 h-3 text-[#C59D5F] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
+                    <span>Invois PDF</span>
+                  </button>
+               </div>`
+            : `<div class="flex items-center justify-end gap-1.5 text-gray-500 font-medium uppercase tracking-wider text-[8px]">
+                 <span>Pending</span>
+               </div>`;
+
+          tr.innerHTML = `
+            <td class="py-4 px-2">
+              <span class="font-bold text-[#2B2B2B] font-mono">#${o.id}</span><br/>
+              <span class="text-[9px] text-gray-500 font-light font-mono">${formattedDate}</span>
+            </td>
+            <td class="py-4 px-4 text-[#2B2B2B]">
+              <span class="font-semibold block">${o.customerName}</span>
+              <span class="text-[9px] text-[#C59D5F] font-mono">${o.customerEmail}</span>
+            </td>
+            <td class="py-4 px-4 font-mono font-bold text-gray-700">RM ${o.total.toFixed(2)}</td>
+            <td class="py-4 px-4">${gatewayBadge}</td>
+            <td class="py-4 px-2 text-right">${verificationCheck}</td>
+          `;
+        }
+        tbody.appendChild(tr);
+      });
+    }
+
+    function filterOrdersTable() {
+      const query = document.getElementById('order-search-input').value.toLowerCase();
+      const rows = document.querySelectorAll('#orders-table-body tr');
+      
+      rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        if (text.includes(query)) {
+          row.classList.remove('hidden');
+        } else {
+          row.classList.add('hidden');
+        }
+      });
+    }
+
+    // --- TAB 3: VOUCHERS MANAGEMENT FUNCTIONS ---
+
+    function loadAllVouchers() {
+      fetch('/api/admin/vouchers', {
+        headers: { 'Authorization': userToken }
+      })
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(data => {
+            throw new Error(data.error || "Sesi tamat. Sila log masuk semula.");
+          });
+        }
+        return res.json();
+      })
+      .then(data => {
+        vouchersList = data.vouchers || [];
+        renderVouchersTable();
+      })
+      .catch(err => {
+        console.error("Error loading vouchers:", err);
+        if (err.message.includes("Akses dinafikan") || err.message.includes("Sesi tamat")) {
+          alert(err.message);
+          handleLogout();
+        } else {
+          alert("Ralat Rangkaian: Gagal memuat turun senarai baucar.");
+        }
+      });
+    }
+
+    function renderVouchersTable() {
+      const tbody = document.getElementById('vouchers-table-body');
+      tbody.innerHTML = '';
+
+      if (vouchersList.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="text-center py-12 text-gray-500 font-light bg-white border border-gray-100 p-8 rounded-sm shadow-sm">Tiada baucar diskaun dikesan. Cipta baucar pertama anda dengan klik "+ Cipta Baucar Baharu" di atas.</td></tr>`;
+        return;
+      }
+
+      vouchersList.forEach(v => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-gray-50/80 transition-colors border-b border-gray-100";
+
+        const formattedDate = new Date(v.createdAt).toLocaleDateString('ms-MY', { day: 'numeric', month: 'short', year: 'numeric' });
+        
+        const typeBadge = v.discountType === 'percentage'
+          ? `<span class="bg-emerald-50 text-emerald-700 border border-emerald-100 font-bold px-2 py-0.5 rounded-sm uppercase tracking-widest text-[8px]">Peratusan (%)</span>`
+          : `<span class="bg-amber-50 text-amber-700 border border-amber-100 font-bold px-2 py-0.5 rounded-sm uppercase tracking-widest text-[8px]">Tunai Tetap (RM)</span>`;
+
+        const displayDiscount = v.discountType === 'percentage'
+          ? `${v.discountValue}%`
+          : `RM ${v.discountValue.toFixed(2)}`;
+
+        const minPurchaseText = v.minPurchase > 0
+          ? `RM ${v.minPurchase.toFixed(2)}`
+          : `Tiada`;
+
+        tr.innerHTML = `
+          <td class="py-4 px-2">
+            <span class="inline-block px-3 py-1 bg-[#C59D5F]/10 text-[#C59D5F] border border-[#C59D5F]/20 border-dashed font-mono font-bold text-xs uppercase tracking-widest rounded-sm">${v.code}</span>
+          </td>
+          <td class="py-4 px-4 font-mono font-bold text-gray-800 text-sm">${displayDiscount}</td>
+          <td class="py-4 px-4">${typeBadge}</td>
+          <td class="py-4 px-4 font-mono text-gray-600">${minPurchaseText}</td>
+          <td class="py-4 px-4 text-gray-500 font-mono">${formattedDate}</td>
+          <td class="py-4 px-2 text-right">
+            <button onclick="deleteVoucherCode('${v.code}')" class="text-red-500 hover:text-red-700 font-bold text-[10px] uppercase tracking-wider hover:underline inline-flex items-center gap-1.5 font-mono">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+              <span>Padam</span>
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function toggleVoucherModal(show) {
+      const modal = document.getElementById('add-voucher-modal');
+      const drawer = document.getElementById('add-voucher-drawer');
+      if (show) {
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        drawer.classList.remove('translate-x-full');
+      } else {
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        drawer.classList.add('translate-x-full');
+        document.getElementById('add-voucher-form').reset();
+      }
+    }
+
+    function submitNewVoucher(e) {
+      e.preventDefault();
+
+      const code = document.getElementById('v-code').value;
+      const discountType = document.getElementById('v-type').value;
+      const discountValue = parseFloat(document.getElementById('v-value').value);
+      const minPurchase = parseFloat(document.getElementById('v-min').value);
+
+      const payload = { code, discountType, discountValue, minPurchase };
+
+      fetch('/api/admin/vouchers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': userToken
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(data => {
+            throw new Error(data.error || "Gagal mencipta baucar diskaun.");
+          });
+        }
+        return res.json();
+      })
+      .then(data => {
+        alert(data.message);
+        toggleVoucherModal(false);
+        loadAllVouchers();
+      })
+      .catch(err => {
+        console.error("Error creating voucher:", err);
+        if (err.message.includes("Akses dinafikan") || err.message.includes("Sesi tamat")) {
+          alert(err.message);
+          handleLogout();
+        } else {
+          alert(err.message || "Ralat Rangkaian: Gagal menghubungi pelayan.");
+        }
+      });
+    }
+
+    function deleteVoucherCode(code) {
+      if (!confirm(`Adakah anda pasti mahu memadam kod baucar ${code}?`)) {
+        return;
+      }
+
+      fetch(`/api/admin/vouchers/${code}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': userToken
+        }
+      })
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(data => {
+            throw new Error(data.error || "Gagal memadam baucar diskaun.");
+          });
+        }
+        return res.json();
+      })
+      .then(data => {
+        alert(data.message);
+        loadAllVouchers();
+      })
+      .catch(err => {
+        console.error("Error deleting voucher:", err);
+        if (err.message.includes("Akses dinafikan") || err.message.includes("Sesi tamat")) {
+          alert(err.message);
+          handleLogout();
+        } else {
+          alert(err.message || "Ralat Rangkaian: Gagal memadam baucar.");
+        }
+      });
+    }
+
+    // --- TAB 4: USERS MEMBERSHIP FUNCTIONS ---
+
+    function loadAllUsers() {
+      fetch('/api/admin/users', {
+        headers: {
+          'Authorization': userToken
+        }
+      })
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(data => {
+            throw new Error(data.error || "Gagal mendapatkan senarai pengguna.");
+          });
+        }
+        return res.json();
+      })
+      .then(data => {
+        usersList = data.users || [];
+        renderUsersTable();
+      })
+      .catch(err => {
+        console.error("Error loading users:", err);
+        if (err.message.includes("Akses dinafikan") || err.message.includes("Sesi tamat")) {
+          alert(err.message);
+          handleLogout();
+        }
+      });
+    }
+
+    function renderUsersTable() {
+      // 1. Get DOM references
+      const tbody = document.getElementById('users-table-body');
+      const pendingTbody = document.getElementById('pending-users-table-body');
+      const pendingSection = document.getElementById('pending-users-section');
+      
+      const kpiTotal = document.getElementById('users-kpi-total');
+      const kpiVip = document.getElementById('users-kpi-vip');
+      const kpiPending = document.getElementById('users-kpi-pending');
+
+      if (!tbody) return;
+
+      tbody.innerHTML = '';
+      if (pendingTbody) pendingTbody.innerHTML = '';
+
+      // 2. Calculate KPIs
+      const totalCount = usersList.length;
+      const vipCount = usersList.filter(u => u.role === 'member').length;
+      const pendingUsers = usersList.filter(u => u.role === 'user');
+      const pendingCount = pendingUsers.length;
+
+      // Update KPI text elements
+      if (kpiTotal) kpiTotal.innerText = totalCount;
+      if (kpiVip) kpiVip.innerText = vipCount;
+      if (kpiPending) {
+        kpiPending.innerText = pendingCount;
+        if (pendingCount > 0) {
+          kpiPending.className = "text-xl font-mono font-bold text-blue-600 animate-pulse";
+        } else {
+          kpiPending.className = "text-xl font-mono font-bold text-gray-500";
+        }
+      }
+
+      // 3. Render Permohonan VIP Terbaru Section
+      if (pendingCount > 0) {
+        if (pendingSection) pendingSection.classList.remove('hidden');
+        if (pendingTbody) {
+          pendingUsers.forEach(u => {
+            const tr = document.createElement('tr');
+            tr.className = "border-b border-gray-100 hover:bg-[#C59D5F]/5 transition-colors text-[#2B2B2B]";
+            tr.innerHTML = `
+              <td class="py-4 px-4 font-mono text-[10px] text-gray-400">${u.id}</td>
+              <td class="py-4 px-4 font-bold text-gray-800">${u.name}</td>
+              <td class="py-4 px-4 font-mono">${u.email}</td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-blue-50 text-blue-600 border border-blue-100 animate-pulse">Menunggu Kelulusan</span>
+              </td>
+              <td class="py-4 px-2 text-right">
+                <button onclick="approveVipRole('${u.id}', true)" class="bg-[#C59D5F] hover:bg-[#A6824D] text-white transition-colors px-3.5 py-1.5 text-[9px] uppercase tracking-wider font-bold rounded-sm shadow-md hover:scale-105 transform duration-150">
+                  Luluskan VIP
+                </button>
+              </td>
+            `;
+            pendingTbody.appendChild(tr);
+          });
+        }
+      } else {
+        if (pendingSection) pendingSection.classList.add('hidden');
+      }
+
+      // 4. Render Master User Roster
+      if (totalCount === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" class="py-12 text-center text-gray-400">
+              Tiada pengguna berdaftar ditemui.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      usersList.forEach(u => {
+        const tr = document.createElement('tr');
+        tr.className = "border-b border-gray-50 hover:bg-[#C59D5F]/3 transition-colors text-[#2B2B2B]";
+
+        // Role Status Pill
+        let roleBadge = '';
+        if (u.role === 'admin') {
+          roleBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-red-100 text-red-700">Administrator</span>';
+        } else if (u.role === 'member') {
+          roleBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-amber-100 text-[#C59D5F] border border-[#C59D5F]/20">Ahli VIP</span>';
+        } else {
+          roleBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-gray-100 text-gray-600">Pelanggan Biasa</span>';
+        }
+
+        // Action buttons
+        let actions = '';
+        if (u.role === 'admin') {
+          actions = '<span class="text-[9px] uppercase tracking-wider font-bold text-gray-400">Akses Mutlak</span>';
+        } else {
+          const isVip = u.role === 'member';
+          if (isVip) {
+            actions = `
+              <button onclick="approveVipRole('${u.id}', false)" class="border border-red-200 text-red-500 hover:bg-red-50 hover:text-red-700 transition-colors px-3 py-1.5 text-[9px] uppercase tracking-wider font-bold rounded-sm shadow-sm">
+                Batalkan VIP
+              </button>
+            `;
+          } else {
+            actions = `
+              <button onclick="approveVipRole('${u.id}', true)" class="bg-[#C59D5F] hover:bg-[#A6824D] text-white transition-colors px-3 py-1.5 text-[9px] uppercase tracking-wider font-bold rounded-sm shadow-md">
+                Luluskan VIP
+              </button>
+            `;
+          }
+        }
+
+        tr.innerHTML = `
+          <td class="py-4 px-4 font-mono text-[10px] text-gray-400">${u.id}</td>
+          <td class="py-4 px-4 font-bold text-gray-800">${u.name}</td>
+          <td class="py-4 px-4 font-mono">${u.email}</td>
+          <td class="py-4 px-4">${roleBadge}</td>
+          <td class="py-4 px-2 text-right">${actions}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function approveVipRole(userId, isApprove) {
+      const targetRole = isApprove ? 'member' : 'user';
+      const confirmMsg = isApprove 
+        ? "Adakah anda pasti mahu meluluskan status VIP kepada pengguna ini?" 
+        : "Adakah anda pasti mahu membatalkan status VIP pengguna ini?";
+
+      if (!confirm(confirmMsg)) {
+        return;
+      }
+
+      fetch(`/api/admin/users/${userId}/role`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': userToken
+        },
+        body: JSON.stringify({ role: targetRole })
+      })
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(data => {
+            throw new Error(data.error || "Gagal mengemaskini status keahlian.");
+          });
+        }
+        return res.json();
+      })
+      .then(data => {
+        alert(data.message);
+        loadAllUsers();
+      })
+      .catch(err => {
+        console.error("Error toggling user role:", err);
+        if (err.message.includes("Akses dinafikan") || err.message.includes("Sesi tamat")) {
+          alert(err.message);
+          handleLogout();
+        } else {
+          alert(err.message || "Ralat Rangkaian: Gagal mengemaskini peranan.");
+        }
+      });
+    }
+
+    // --- LOGOUT ACTION ---
+    function handleLogout() {
+      localStorage.removeItem('chempaka_token');
+      localStorage.removeItem('chempaka_user');
+      alert("Anda telah berjaya log keluar dari Sistem Pentadbir.");
+      window.location.href = "/";
+    }
+  </script>
+
+</body>
+</html>
