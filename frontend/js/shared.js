@@ -1201,12 +1201,20 @@ window.syncRevealObserver = syncRevealObserver;
 window.fetchProducts = function(token) {
   const isGitHubPages = window.location.hostname.includes('github.io');
   
+  // Cache buster to ensure the browser never serves a cached/stale version of the static JSON
+  const cacheBuster = '?t=' + Date.now();
+
   // If on GitHub Pages, immediately serve the static products.json to avoid slow TCP connection hangs
   if (isGitHubPages) {
     console.log("GitHub Pages detected. Fetching static products.json catalog instantly...");
-    const jsonUrl = '/chempaka-website/frontend/products.json';
-    return fetch(jsonUrl)
-      .then(res => res.json())
+    
+    // Attempt relative fetch, and if it fails (due to routing / subdirectories), fall back to absolute path
+    return fetch('products.json' + cacheBuster)
+      .catch(() => fetch('/chempaka-website/frontend/products.json' + cacheBuster))
+      .then(res => {
+        if (!res.ok) throw new Error("Catalog fetch failed with status " + res.status);
+        return res.json();
+      })
       .then(productsArray => {
         const isMember = currentUser && currentUser.role === 'member';
         const fallbackRates = { gold999: 385.20, gold916: 368.50 };
@@ -1239,8 +1247,11 @@ window.fetchProducts = function(token) {
     .then(res => res.json())
     .catch(err => {
       console.warn("Backend server offline. Falling back to static products.json!");
-      return fetch('products.json')
-        .then(res => res.json())
+      return fetch('products.json' + cacheBuster)
+        .then(res => {
+          if (!res.ok) throw new Error("Offline fetch failed with status " + res.status);
+          return res.json();
+        })
         .then(productsArray => {
           const isMember = currentUser && currentUser.role === 'member';
           // Use default rates for calculating static prices
