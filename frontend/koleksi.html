@@ -489,14 +489,14 @@
         div.className = `group bg-white p-2.5 sm:p-4 pb-4 sm:pb-6 flex flex-col justify-between rounded-sm border border-[#EAE6DF] hover:border-[#C59D5F]/40 hover:shadow-[0_12px_24px_rgba(197,157,95,0.06)] transition-all duration-500 overflow-hidden relative reveal-element reveal-scale ${delayClass}`;
         div.innerHTML = `
           <div>
-            <a href="/produk.html?id=${p.id}" class="block aspect-[3/4] overflow-hidden mb-3 sm:mb-5 bg-[#FAF7F2] relative rounded-sm">
+            <a href="produk.html?id=${p.id}" class="block aspect-[3/4] overflow-hidden mb-3 sm:mb-5 bg-[#FAF7F2] relative rounded-sm">
               <span class="absolute top-2 sm:top-3 left-2 sm:left-3 bg-[#C59D5F] text-white text-[8px] sm:text-[9px] uppercase tracking-wider px-1.5 sm:px-2.5 py-0.5 sm:py-1 z-10 font-bold rounded-sm shadow-sm">${p.purity}</span>
               <img alt="${p.title}" class="w-full h-full object-cover transition-transform duration-[1500ms] ease-out group-hover:scale-105" src="${p.image}"/>
             </a>
             
             <div class="text-center px-1 sm:px-2">
               <span class="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-[#C59D5F] font-bold mb-0.5 sm:mb-1 block">${p.weight.toFixed(2)}g</span>
-              <a href="/produk.html?id=${p.id}" class="block hover:underline mb-1 sm:mb-2">
+              <a href="produk.html?id=${p.id}" class="block hover:underline mb-1 sm:mb-2">
                 <h3 class="text-xs sm:text-sm font-serif text-gray-900 group-hover:text-[#C59D5F] transition-colors duration-300 leading-snug line-clamp-2 min-h-[32px] sm:min-h-[40px]">${p.title}</h3>
               </a>
               

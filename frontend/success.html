@@ -68,7 +68,7 @@
       <a id="download-pdf-btn" href="#" target="_blank" class="flex-1 bg-[#2B2B2B] hover:bg-[#C59D5F] text-white text-xs uppercase tracking-[0.2em] font-semibold py-4 px-6 text-center transition-colors shadow-lg rounded-sm">
         Muat Turun Resit PDF
       </a>
-      <a href="/" class="flex-1 border border-gray-300 hover:border-black text-gray-700 hover:text-black text-xs uppercase tracking-[0.2em] font-semibold py-4 px-6 text-center transition-colors rounded-sm">
+      <a href="index.html" class="flex-1 border border-gray-300 hover:border-black text-gray-700 hover:text-black text-xs uppercase tracking-[0.2em] font-semibold py-4 px-6 text-center transition-colors rounded-sm">
         Kembali ke Koleksi
       </a>
     </div>
@@ -80,7 +80,7 @@
 
     if (!orderId) {
       alert("No Order ID provided.");
-      window.location.href = "/";
+      window.location.href = "index.html";
     }
 
     // Fetch order details
@@ -89,7 +89,7 @@
       .then(data => {
         if (data.error) {
           alert(data.error);
-          window.location.href = "/";
+          window.location.href = "index.html";
         } else {
           const order = data.order;
           
@@ -121,7 +121,7 @@
           // Actually, we can add a simple server static route in server.js or we can serve it at `/invoices/invoice_<id>.pdf`!
           // Let's add that static route inside our server.js in the next step, or let's use the local file link!
           // A local file link is: `/invoices/invoice_${order.id}.pdf`!
-          document.getElementById('download-pdf-btn').href = `/invoices/invoice_${order.id}.pdf`;
+          document.getElementById('download-pdf-btn').href = (window.API_BASE || '') + `/invoices/invoice_${order.id}.pdf`;
         }
       })
       .catch(err => {

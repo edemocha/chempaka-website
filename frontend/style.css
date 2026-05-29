@@ -29,7 +29,7 @@
 body {
   scroll-behavior: smooth;
   font-family: 'Inter', sans-serif;
-  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -48,6 +48,12 @@ h1, h2, h3, h4, h5, h6, .font-serif {
 }
 
 /* Glassmorphism Classes */
+#navbar-placeholder {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
 .glass-nav {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);

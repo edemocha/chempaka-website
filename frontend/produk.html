@@ -32,7 +32,7 @@
       
       <!-- Back Link -->
       <div class="mb-10">
-        <a href="/koleksi.html" class="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-semibold text-[#C59D5F] hover:text-[#2B2B2B] transition-colors duration-300">
+        <a href="koleksi.html" class="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-semibold text-[#C59D5F] hover:text-[#2B2B2B] transition-colors duration-300">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
           Kembali ke Koleksi
         </a>
@@ -229,7 +229,7 @@
 
       if (!productId) {
         // Fallback: Redirect to Koleksi
-        window.location.href = '/koleksi.html';
+        window.location.href = 'koleksi.html';
         return;
       }
 
@@ -253,7 +253,7 @@
             document.getElementById('product-loading').innerHTML = `
               <div class="py-20 text-center text-red-500 font-serif text-sm">
                 <p>Maaf, produk tidak ditemui.</p>
-                <a href="/koleksi.html" class="text-xs uppercase tracking-widest text-[#C59D5F] underline mt-4 block">Kembali ke Koleksi</a>
+                <a href="koleksi.html" class="text-xs uppercase tracking-widest text-[#C59D5F] underline mt-4 block">Kembali ke Koleksi</a>
               </div>
             `;
             return;
@@ -518,7 +518,7 @@
 
       related.forEach((p, idx) => {
         const div = document.createElement('a');
-        div.href = `/produk.html?id=${p.id}`;
+        div.href = `produk.html?id=${p.id}`;
         const delayClass = `delay-${(idx % 3 + 1) * 100}`;
         div.className = `group bg-white p-6 pb-8 flex flex-col justify-between rounded-sm border border-gray-100 hover:border-[#C59D5F]/20 transition-all duration-300 shadow-sm hover:shadow-md flex-shrink-0 reveal-element reveal-scale ${delayClass}`;
         div.innerHTML = `

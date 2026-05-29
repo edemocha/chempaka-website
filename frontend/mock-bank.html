@@ -85,7 +85,7 @@
 
     if (!orderId) {
       alert("No Order ID provided.");
-      window.location.href = "/";
+      window.location.href = "index.html";
     }
 
     // Fetch order details from backend API
@@ -94,7 +94,7 @@
       .then(data => {
         if (data.error) {
           alert(data.error);
-          window.location.href = "/";
+          window.location.href = "index.html";
         } else {
           document.getElementById('order-id-label').innerText = `Rujukan Pesanan: ${data.order.id}`;
           document.getElementById('amount-label').innerText = `RM ${data.order.total.toFixed(2)}`;
@@ -125,10 +125,10 @@
       .then(data => {
         if (status === 'success') {
           // Redirect to success page
-          window.location.href = `/success.html?orderId=${orderId}`;
+          window.location.href = `success.html?orderId=${orderId}`;
         } else {
           alert("Pembayaran Gagal/Dibatalkan. Sila cuba lagi.");
-          window.location.href = "/";
+          window.location.href = "index.html";
         }
       })
       .catch(err => {
@@ -138,7 +138,7 @@
     }
 
     function cancelPayment() {
-      window.location.href = "/";
+      window.location.href = "index.html";
     }
   </script>
 

@@ -24,7 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // In-memory Auth and Cart states
-window.API_BASE = window.location.origin.includes('3000') ? '' : 'http://localhost:3000';
+// Smart API base: only redirect to localhost:3000 when running locally on a different port (e.g. Live Server 5500)
+// On production (Render etc.) frontend & backend share the same origin, so API_BASE stays empty
+window.API_BASE = (window.location.hostname === 'localhost' && !window.location.origin.includes('3000')) ? 'http://localhost:3000' : '';
 let currentUser = JSON.parse(localStorage.getItem('chempaka_user')) || null;
 let sessionToken = localStorage.getItem('chempaka_token') || null;
 let cart = JSON.parse(localStorage.getItem('chempaka_cart')) || [];
@@ -34,7 +36,7 @@ let cart = JSON.parse(localStorage.getItem('chempaka_cart')) || [];
 function injectLayouts() {
   // Top Announcement Strip with Infinite Horizontal Marquee
   const annStrip = document.createElement('div');
-  annStrip.className = "relative flex overflow-x-hidden border-b border-white/5 bg-[#2B2B2B] py-1.5 z-[60] sticky top-0 w-full text-[10px] uppercase font-semibold tracking-[0.18em]";
+  annStrip.className = "relative flex overflow-x-hidden border-b border-white/5 bg-[#2B2B2B] py-1.5 z-[60] w-full text-[10px] uppercase font-semibold tracking-[0.18em]";
   annStrip.innerHTML = `
     <div class="animate-marquee whitespace-nowrap flex">
       <span class="mx-16 text-gray-200 font-semibold uppercase tracking-[0.2em]" id="live-ticker-rates">Harga Emas Semasa: Emas 999 - RM385.20/g | Emas 916 - RM368.50/g</span>
@@ -65,36 +67,11 @@ function injectLayouts() {
   const navPlaceholder = document.getElementById('navbar-placeholder');
   if (navPlaceholder) {
     navPlaceholder.innerHTML = `
-      <nav class="border-b border-gray-100 sticky top-[27px] bg-white/90 backdrop-blur-md z-50 px-6 py-4 lg:px-16 transition-all duration-300" id="main-nav">
-        <div class="max-w-[1400px] mx-auto flex items-center justify-between">
-          <!-- Logo -->
-          <a href="/index.html" class="flex-shrink-0">
-            <h1 class="text-2xl lg:text-3xl font-serif tracking-[0.25em] text-[#C59D5F] font-bold uppercase">Chempaka</h1>
-          </a>
-          
-          <!-- Menu Links (Hidden on Tablet/Mobile) -->
-          <div class="hidden lg:flex space-x-8 uppercase text-sm tracking-[0.2em] font-semibold text-[#2B2B2B]/80">
-            <a class="hover:text-[#C59D5F] hover-gold-line pb-1 transition-colors" href="/koleksi.html">Koleksi</a>
-            <a class="hover:text-[#C59D5F] hover-gold-line pb-1 transition-colors" href="/tentang-kami.html">Tentang Kami</a>
-            <a class="hover:text-[#C59D5F] hover-gold-line pb-1 transition-colors" href="/membership.html">Keahlian</a>
-            <a class="hover:text-[#C59D5F] hover-gold-line pb-1 transition-colors" href="/butik.html">Butik</a>
-            <a class="hover:text-[#C59D5F] hover-gold-line pb-1 transition-colors" href="/hubungi.html">Hubungi</a>
-          </div>
-          
-          <!-- Action Icons -->
-          <div class="flex items-center space-x-6 text-gray-800 relative">
-            <button onclick="toggleCart()" aria-label="Cart" class="hover:text-[#C59D5F] transition-colors relative">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
-              <span id="cart-badge" class="absolute -top-2 -right-2 bg-[#C59D5F] text-white text-xs font-bold w-4.5 h-4.5 flex items-center justify-center rounded-full transition-transform duration-300 scale-0">0</span>
-            </button>
-            
-            <button onclick="toggleAuthModal()" aria-label="Account" class="hover:text-[#C59D5F] transition-colors relative">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
-              <span id="vip-indicator" class="absolute -top-1 -right-1 bg-green-500 w-2 h-2 rounded-full hidden"></span>
-            </button>
-
-            <!-- Responsive Hamburger Button (Mobile Only) -->
-            <button onclick="toggleMobileMenu()" aria-label="Toggle Mobile Menu" class="lg:hidden hover:text-[#C59D5F] transition-colors focus:outline-none relative">
+      <nav class="border-b border-gray-100 bg-white/90 backdrop-blur-md px-6 py-4 lg:px-16 transition-all duration-300" id="main-nav">
+        <div class="max-w-[1400px] mx-auto flex items-center justify-between relative">
+          <!-- Mobile Hamburger Menu (Shown on Mobile Left) -->
+          <div class="flex items-center lg:hidden">
+            <button onclick="toggleMobileMenu()" aria-label="Toggle Mobile Menu" class="hover:text-[#C59D5F] transition-colors focus:outline-none relative">
               <svg id="hamburger-icon-svg" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path id="hamburger-path-1" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6h16" class="transition-transform duration-300 origin-center"></path>
                 <path id="hamburger-path-2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 12h16" class="transition-opacity duration-300"></path>
@@ -102,16 +79,48 @@ function injectLayouts() {
               </svg>
             </button>
           </div>
+          
+          <!-- Logo (Mobile: Absolute Centered | Desktop: Normal Left) -->
+          <!-- Desktop Logo -->
+          <a href="index.html" class="hidden lg:block flex-shrink-0">
+            <h1 class="text-2xl lg:text-3xl font-serif tracking-[0.25em] text-[#C59D5F] font-bold uppercase">Chempaka</h1>
+          </a>
+          <!-- Mobile Logo -->
+          <a href="index.html" class="absolute left-1/2 transform -translate-x-1/2 lg:hidden flex-shrink-0">
+            <h1 class="text-xl sm:text-2xl font-serif tracking-[0.2em] text-[#C59D5F] font-bold uppercase">Chempaka</h1>
+          </a>
+          
+          <!-- Menu Links (Hidden on Tablet/Mobile, Centered on Desktop) -->
+          <div class="hidden lg:flex space-x-8 uppercase text-sm tracking-[0.2em] font-semibold text-[#2B2B2B]/80">
+            <a class="hover:text-[#C59D5F] hover-gold-line pb-1 transition-colors" href="koleksi.html">Koleksi</a>
+            <a class="hover:text-[#C59D5F] hover-gold-line pb-1 transition-colors" href="tentang-kami.html">Tentang Kami</a>
+            <a class="hover:text-[#C59D5F] hover-gold-line pb-1 transition-colors" href="membership.html">Keahlian</a>
+            <a class="hover:text-[#C59D5F] hover-gold-line pb-1 transition-colors" href="butik.html">Butik</a>
+            <a class="hover:text-[#C59D5F] hover-gold-line pb-1 transition-colors" href="hubungi.html">Hubungi</a>
+          </div>
+          
+          <!-- Action Icons (Mobile: Right | Desktop: Right) -->
+          <div class="flex items-center space-x-4 lg:space-x-6 text-gray-800 relative">
+            <button onclick="toggleAuthModal()" aria-label="Account" class="hover:text-[#C59D5F] transition-colors relative">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+              <span id="vip-indicator" class="absolute -top-1 -right-1 bg-green-500 w-2 h-2 rounded-full hidden"></span>
+            </button>
+
+            <button onclick="toggleCart()" aria-label="Cart" class="hover:text-[#C59D5F] transition-colors relative">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+              <span id="cart-badge" class="absolute -top-2 -right-2 bg-[#C59D5F] text-white text-xs font-bold w-4.5 h-4.5 flex items-center justify-center rounded-full transition-transform duration-300 scale-0">0</span>
+            </button>
+          </div>
         </div>
       </nav>
 
       <!-- Glassmorphic Drop-down Mobile Menu overlay -->
       <div id="mobile-menu" class="hidden lg:hidden bg-white/95 backdrop-blur-md border-b border-gray-100 px-6 py-4 flex flex-col space-y-3.5 text-left uppercase text-xs tracking-[0.18em] font-semibold text-[#2B2B2B]/85 transition-all duration-300 relative z-40">
-        <a class="hover:text-[#C59D5F] py-2 border-b border-gray-50/50 block transition-colors" href="/koleksi.html">Koleksi</a>
-        <a class="hover:text-[#C59D5F] py-2 border-b border-gray-50/50 block transition-colors" href="/tentang-kami.html">Tentang Kami</a>
-        <a class="hover:text-[#C59D5F] py-2 border-b border-gray-50/50 block transition-colors" href="/membership.html">Keahlian</a>
-        <a class="hover:text-[#C59D5F] py-2 border-b border-gray-50/50 block transition-colors" href="/butik.html">Butik</a>
-        <a class="hover:text-[#C59D5F] py-2 block transition-colors" href="/hubungi.html">Hubungi</a>
+        <a class="hover:text-[#C59D5F] py-2 border-b border-gray-50/50 block transition-colors" href="koleksi.html">Koleksi</a>
+        <a class="hover:text-[#C59D5F] py-2 border-b border-gray-50/50 block transition-colors" href="tentang-kami.html">Tentang Kami</a>
+        <a class="hover:text-[#C59D5F] py-2 border-b border-gray-50/50 block transition-colors" href="membership.html">Keahlian</a>
+        <a class="hover:text-[#C59D5F] py-2 border-b border-gray-50/50 block transition-colors" href="butik.html">Butik</a>
+        <a class="hover:text-[#C59D5F] py-2 block transition-colors" href="hubungi.html">Hubungi</a>
       </div>
 
       <!-- Glassmorphic Login/Register Floating Card -->
@@ -240,10 +249,10 @@ function injectLayouts() {
   if (footerPlaceholder) {
     footerPlaceholder.innerHTML = `
       <!-- CRYSTAL MEMBERSHIP CLUB SIGN UP BANNER -->
-      <section class="bg-[#B8A99A] w-full relative z-20 py-16 md:py-20 overflow-hidden">
+      <section class="bg-[#B8A99A] w-full relative z-20 py-12 md:py-20 overflow-hidden">
         <div class="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-20 grid grid-cols-1 md:grid-cols-12 items-center gap-8 md:gap-12">
           <!-- Left Column (Luxury Gold Logo) -->
-          <div class="col-span-12 md:col-span-3 lg:col-span-4 flex justify-center md:justify-start">
+          <div class="hidden md:flex col-span-12 md:col-span-3 lg:col-span-4 justify-center md:justify-start">
             <img
               src="Model/chempaka_jewels_gold_logo.png"
               alt="Chempaka Jewels Crystal Logo"
@@ -256,8 +265,13 @@ function injectLayouts() {
             <h2 class="font-serif text-[#1C1C1C] text-3xl md:text-[38px] font-medium tracking-wide mb-6 leading-tight">
               Daftar &amp; Nikmati Diskaun 10%*
             </h2>
-            <p class="text-xs md:text-sm text-gray-800 leading-[1.8] font-normal max-w-xl mx-auto mb-8 tracking-wide">
+            <!-- Desktop Description -->
+            <p class="hidden md:block text-xs md:text-sm text-gray-800 leading-[1.8] font-normal max-w-xl mx-auto mb-8 tracking-wide">
               Jadilah yang terawal menerima maklumat tentang koleksi terbaharu, inspirasi gaya, idea hadiah, dan akses eksklusif. Daftar Keahlian Butik Chempaka hari ini dan nikmati potongan diskaun 10%* untuk pembelian dalam talian seterusnya (tertakluk kepada barangan harga penuh sahaja). <a href="https://docs.google.com/forms/d/e/1FAIpQLScnTbJ8QEIXe_ENrZbqYr0cVUfvSJPm6gyZzrH3z34nNSnU3Q/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="underline hover:text-black transition-colors duration-200 font-medium">*Tertakluk kepada terma dan syarat</a>
+            </p>
+            <!-- Mobile Description -->
+            <p class="block md:hidden text-xs text-gray-800 leading-[1.8] font-normal max-w-xs mx-auto mb-6 tracking-wide">
+              Sertai Keahlian Butik Chempaka hari ini untuk potongan 10%* dan akses eksklusif. <a href="https://docs.google.com/forms/d/e/1FAIpQLScnTbJ8QEIXe_ENrZbqYr0cVUfvSJPm6gyZzrH3z34nNSnU3Q/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="underline hover:text-black font-medium">*T&amp;C</a>
             </p>
             <a href="https://docs.google.com/forms/d/e/1FAIpQLScnTbJ8QEIXe_ENrZbqYr0cVUfvSJPm6gyZzrH3z34nNSnU3Q/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="inline-block bg-black text-white hover:bg-white hover:text-black border border-black px-12 py-3 text-xs uppercase tracking-[0.2em] font-semibold transition-all duration-300 rounded-none shadow-md">
               Sertai Kelab Butik
@@ -269,26 +283,26 @@ function injectLayouts() {
         </div>
       </section>
 
-      <footer class="bg-[#2B2B2B] text-[#CCCCCC] pt-20 pb-12 border-t border-white/5">
+      <footer class="bg-[#2B2B2B] text-[#CCCCCC] pt-10 md:pt-20 pb-12 border-t border-white/5">
         <div class="container mx-auto px-8 lg:px-16 max-w-[1400px]">
           
           <!-- FOUR COLUMNS GRID -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-20 text-left">
+          <div class="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-20 text-left">
             
             <!-- Column 1: KHIDMAT PELANGGAN & SOALAN LAZIM -->
             <div>
               <h4 class="text-xs uppercase font-bold tracking-[0.2em] text-white mb-6">Khidmat Pelanggan &amp; Soalan Lazim</h4>
               <ul class="space-y-3.5 text-xs text-gray-400">
-                <li><a class="hover:text-[#C59D5F] transition-colors" href="/hubungi.html">Gambaran Keseluruhan Khidmat Pelanggan</a></li>
-                <li><a class="hover:text-[#C59D5F] transition-colors" href="/admin.html">Status Pesanan</a></li>
-                <li><a class="hover:text-[#C59D5F] transition-colors" href="/koleksi.html">Baki Kad Hadiah</a></li>
-                <li><a class="hover:text-[#C59D5F] transition-colors" href="/butik.html">Penghantaran</a></li>
-                <li><a class="hover:text-[#C59D5F] transition-colors" href="/hubungi.html">Pemulangan &amp; Pertukaran</a></li>
-                <li><a class="hover:text-[#C59D5F] transition-colors" href="/hubungi.html">Status Pembaikan</a></li>
-                <li><a class="hover:text-[#C59D5F] transition-colors" href="/hubungi.html">Hubungi Kami</a></li>
-                <li><a class="hover:text-[#C59D5F] transition-colors" href="/koleksi.html">Panduan Saiz</a></li>
-                <li><a class="hover:text-[#C59D5F] transition-colors" href="/butik.html">Butik Kami</a></li>
-                <li><a class="hover:text-[#C59D5F] transition-colors" href="/butik.html">Tempah Temujanji Butik</a></li>
+                <li><a class="hover:text-[#C59D5F] transition-colors" href="hubungi.html">Gambaran Keseluruhan Khidmat Pelanggan</a></li>
+                <li><a class="hover:text-[#C59D5F] transition-colors" href="admin.html">Status Pesanan</a></li>
+                <li><a class="hover:text-[#C59D5F] transition-colors" href="koleksi.html">Baki Kad Hadiah</a></li>
+                <li><a class="hover:text-[#C59D5F] transition-colors" href="butik.html">Penghantaran</a></li>
+                <li><a class="hover:text-[#C59D5F] transition-colors" href="hubungi.html">Pemulangan &amp; Pertukaran</a></li>
+                <li><a class="hover:text-[#C59D5F] transition-colors" href="hubungi.html">Status Pembaikan</a></li>
+                <li><a class="hover:text-[#C59D5F] transition-colors" href="hubungi.html">Hubungi Kami</a></li>
+                <li><a class="hover:text-[#C59D5F] transition-colors" href="koleksi.html">Panduan Saiz</a></li>
+                <li><a class="hover:text-[#C59D5F] transition-colors" href="butik.html">Butik Kami</a></li>
+                <li><a class="hover:text-[#C59D5F] transition-colors" href="butik.html">Tempah Temujanji Butik</a></li>
               </ul>
             </div>
             
@@ -297,7 +311,7 @@ function injectLayouts() {
               <h4 class="text-xs uppercase font-bold tracking-[0.2em] text-white mb-6">Keahlian</h4>
               <ul class="space-y-3.5 text-xs text-gray-400">
                 <li><a class="hover:text-[#C59D5F] transition-colors" href="https://docs.google.com/forms/d/e/1FAIpQLScnTbJ8QEIXe_ENrZbqYr0cVUfvSJPm6gyZzrH3z34nNSnU3Q/viewform?usp=dialog" target="_blank" rel="noopener noreferrer">Daftar Ahli</a></li>
-                <li><a class="hover:text-[#C59D5F] transition-colors" href="/membership.html">Kelab Chempaka</a></li>
+                <li><a class="hover:text-[#C59D5F] transition-colors" href="membership.html">Kelab Chempaka</a></li>
                 <li><a class="hover:text-[#C59D5F] transition-colors" href="https://docs.google.com/forms/d/e/1FAIpQLScnTbJ8QEIXe_ENrZbqYr0cVUfvSJPm6gyZzrH3z34nNSnU3Q/viewform?usp=dialog" target="_blank" rel="noopener noreferrer">Kelab VIP Chempaka</a></li>
               </ul>
             </div>
@@ -306,14 +320,14 @@ function injectLayouts() {
             <div>
               <h4 class="text-xs uppercase font-bold tracking-[0.2em] text-white mb-6">Tentang Kami</h4>
               <ul class="space-y-3.5 text-xs text-gray-400">
-                <li><a class="hover:text-[#C59D5F] transition-colors" href="/tentang-kami.html">Mengenai Chempaka</a></li>
-                <li><a class="hover:text-[#C59D5F] transition-colors" href="/tentang-kami.html">Peluang Kerjaya</a></li>
-                <li><a class="hover:text-[#C59D5F] transition-colors" href="/tentang-kami.html">Komuniti Alumni</a></li>
-                <li><a class="hover:text-[#C59D5F] transition-colors" href="/tentang-kami.html">Untuk Profesional</a></li>
-                <li><a class="hover:text-[#C59D5F] transition-colors" href="/tentang-kami.html">Peta Laman</a></li>
-                <li><a class="hover:text-[#C59D5F] transition-colors" href="/koleksi.html">Permata &amp; Emas Chempaka</a></li>
-                <li><a class="hover:text-[#C59D5F] transition-colors" href="/butik.html">Bilik Pameran Chempaka</a></li>
-                <li><a class="hover:text-[#C59D5F] transition-colors" href="/tentang-kami.html">Kod Etika &amp; Polisi Butik</a></li>
+                <li><a class="hover:text-[#C59D5F] transition-colors" href="tentang-kami.html">Mengenai Chempaka</a></li>
+                <li><a class="hover:text-[#C59D5F] transition-colors" href="tentang-kami.html">Peluang Kerjaya</a></li>
+                <li><a class="hover:text-[#C59D5F] transition-colors" href="tentang-kami.html">Komuniti Alumni</a></li>
+                <li><a class="hover:text-[#C59D5F] transition-colors" href="tentang-kami.html">Untuk Profesional</a></li>
+                <li><a class="hover:text-[#C59D5F] transition-colors" href="tentang-kami.html">Peta Laman</a></li>
+                <li><a class="hover:text-[#C59D5F] transition-colors" href="koleksi.html">Permata &amp; Emas Chempaka</a></li>
+                <li><a class="hover:text-[#C59D5F] transition-colors" href="butik.html">Bilik Pameran Chempaka</a></li>
+                <li><a class="hover:text-[#C59D5F] transition-colors" href="tentang-kami.html">Kod Etika &amp; Polisi Butik</a></li>
               </ul>
             </div>
             
@@ -321,26 +335,26 @@ function injectLayouts() {
             <div>
               <h4 class="text-xs uppercase font-bold tracking-[0.2em] text-white mb-6">Undang-Undang &amp; Polisi</h4>
               <ul class="space-y-3.5 text-xs text-gray-400">
-                <li><a class="hover:text-[#C59D5F] transition-colors" href="/hubungi.html">Terma Penggunaan</a></li>
-                <li><a class="hover:text-[#C59D5F] transition-colors" href="/hubungi.html">Terma &amp; Syarat</a></li>
-                <li><a class="hover:text-[#C59D5F] transition-colors" href="/hubungi.html">Polisi Privasi</a></li>
-                <li><a class="hover:text-[#C59D5F] transition-colors" href="/hubungi.html">Persetujuan Kuki</a></li>
-                <li><a class="hover:text-[#C59D5F] transition-colors" href="/hubungi.html">Imprint (Maklumat Butik)</a></li>
-                <li><a class="hover:text-[#C59D5F] transition-colors" href="/hubungi.html">Maklumat REACH</a></li>
-                <li><a class="hover:text-[#C59D5F] transition-colors" href="/hubungi.html">Penyata Persetujuan Perlindungan Data</a></li>
+                <li><a class="hover:text-[#C59D5F] transition-colors" href="hubungi.html">Terma Penggunaan</a></li>
+                <li><a class="hover:text-[#C59D5F] transition-colors" href="hubungi.html">Terma &amp; Syarat</a></li>
+                <li><a class="hover:text-[#C59D5F] transition-colors" href="hubungi.html">Polisi Privasi</a></li>
+                <li><a class="hover:text-[#C59D5F] transition-colors" href="hubungi.html">Persetujuan Kuki</a></li>
+                <li><a class="hover:text-[#C59D5F] transition-colors" href="hubungi.html">Imprint (Maklumat Butik)</a></li>
+                <li><a class="hover:text-[#C59D5F] transition-colors" href="hubungi.html">Maklumat REACH</a></li>
+                <li><a class="hover:text-[#C59D5F] transition-colors" href="hubungi.html">Penyata Persetujuan Perlindungan Data</a></li>
               </ul>
             </div>
             
           </div>
           
           <!-- THIN DIVIDER LINE -->
-          <hr class="border-white/10 mb-8" />
+          <hr class="hidden md:block border-white/10 mb-8" />
           
           <!-- BOTTOM SECTION -->
           <div class="flex flex-col lg:flex-row justify-between items-center lg:items-end gap-10 w-full">
             
             <!-- Left Side (Language + Copyright) -->
-            <div class="flex flex-col items-center lg:items-start gap-4">
+            <div class="flex flex-col items-center lg:items-start gap-4 order-3 lg:order-1">
               <!-- Globe Language Selector -->
               <div class="flex items-center gap-2 text-xs text-gray-400 font-semibold">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
@@ -358,12 +372,12 @@ function injectLayouts() {
             </div>
             
             <!-- Center Brand Logo -->
-            <div class="text-center">
+            <div class="text-center order-1 lg:order-2">
               <h2 class="text-white text-4xl lg:text-5xl font-serif tracking-[0.3em] font-semibold uppercase leading-none select-none">CHEMPAKA</h2>
             </div>
             
             <!-- Right Circular Social Media Icons -->
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 order-2 lg:order-3">
               <!-- Facebook -->
               <a href="https://www.facebook.com/people/Chempaka-Jewels/pfbid02hV2YsFGp67RcNPVTFEkXyY6zaDRSF3PxZxRNvzxGmQ9d9hbxT16myzksZ7DwG6fol/" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full border border-white/20 hover:border-white text-white/70 hover:text-white flex items-center justify-center transition-all duration-300" aria-label="Facebook">
                 <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
@@ -823,7 +837,8 @@ function simulateCheckout() {
       updateCartBadge();
       activeVoucher = null;
       localStorage.removeItem('chempaka_voucher');
-      window.location.href = (window.API_BASE ? window.API_BASE : '') + data.paymentUrl;
+      const targetUrl = data.paymentUrl.startsWith('/') ? data.paymentUrl.substring(1) : data.paymentUrl;
+      window.location.href = (window.API_BASE ? window.API_BASE : '') + targetUrl;
     }
   })
   .catch(err => {
@@ -1136,6 +1151,23 @@ function initScrollAnimations() {
     
     // Initial calculation on page load
     window.requestAnimationFrame(updateParallax);
+  }
+
+  // 3. Navbar premium dynamic scroll response (shrinks padding and adds luxury shadow)
+  const mainNav = document.getElementById('main-nav');
+  if (mainNav) {
+    const handleNavbarScroll = () => {
+      if (window.scrollY > 20) {
+        mainNav.classList.remove('py-4');
+        mainNav.classList.add('py-2.5', 'shadow-luxury', 'bg-white/95');
+      } else {
+        mainNav.classList.remove('py-2.5', 'shadow-luxury', 'bg-white/95');
+        mainNav.classList.add('py-4');
+      }
+    };
+    window.addEventListener('scroll', handleNavbarScroll, { passive: true });
+    // Run on initial load to catch mid-page refreshes
+    handleNavbarScroll();
   }
 }
 
