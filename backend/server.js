@@ -44,14 +44,14 @@ app.use('/invoices', express.static(path.join(__dirname, 'invoices')));
 // --- REST API ENDPOINTS ---
 
 // 1. Auth: Registration Portal
-app.post('/api/auth/register', (req, res) => {
+app.post('/api/auth/register', async (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password) {
     return res.status(400).json({ error: "Sila isi semua maklumat pendaftaran." });
   }
 
   // Check if member already exists
-  const existingUser = db.findUserByEmail(email);
+  const existingUser = await db.findUserByEmail(email);
   if (existingUser) {
     return res.status(400).json({ error: "Emel ini telah berdaftar di Kelab Elit Chempaka." });
   }
@@ -68,7 +68,7 @@ app.post('/api/auth/register', (req, res) => {
     address: req.body.address || null
   };
 
-  db.addUser(newUser);
+  await db.addUser(newUser);
 
   // Auto-login after registration by issuing token
   const token = crypto.randomBytes(24).toString('hex');
@@ -86,13 +86,13 @@ app.post('/api/auth/register', (req, res) => {
 });
 
 // 2. Auth: Login Portal
-app.post('/api/auth/login', (req, res) => {
+app.post('/api/auth/login', async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(400).json({ error: "Sila isi emel dan kata laluan anda." });
   }
 
-  const user = db.findUserByEmail(email);
+  const user = await db.findUserByEmail(email);
   if (!user || user.passwordHash !== hashPassword(password)) {
     return res.status(401).json({ error: "Emel atau kata laluan tidak sah." });
   }
@@ -113,7 +113,7 @@ app.post('/api/auth/login', (req, res) => {
 });
 
 // Google Sign-in Mock Endpoint
-app.post('/api/auth/google-login', (req, res) => {
+app.post('/api/auth/google-login', async (req, res) => {
   const { name, email, googleId } = req.body;
   if (!email || !name) {
     return res.status(400).json({ error: "Maklumat akaun Google tidak lengkap." });
@@ -121,7 +121,7 @@ app.post('/api/auth/google-login', (req, res) => {
 
   let isNew = false;
   // Check if member exists
-  let user = db.findUserByEmail(email);
+  let user = await db.findUserByEmail(email);
   if (!user) {
     isNew = true;
     // Automatically register them as regular user, VIP pending approval
@@ -132,7 +132,7 @@ app.post('/api/auth/google-login', (req, res) => {
       name: name,
       role: 'user'
     };
-    db.addUser(user);
+    await db.addUser(user);
   }
 
   // Issue session token
@@ -161,13 +161,13 @@ app.get('/api/auth/me', authenticateUser, (req, res) => {
 });
 
 // 4a. Gold Rates: Retrieve current prices
-app.get('/api/gold-rates', (req, res) => {
-  const rates = db.getGoldRates();
+app.get('/api/gold-rates', async (req, res) => {
+  const rates = await db.getGoldRates();
   res.json({ rates });
 });
 
 // 4b. Gold Rates [Admin Only]: Update active rates
-app.put('/api/gold-rates', authenticateUser, (req, res) => {
+app.put('/api/gold-rates', authenticateUser, async (req, res) => {
   if (!req.user || req.user.role !== 'admin') {
     return res.status(403).json({ error: "Akses dinafikan. Hanya pentadbir sahaja dibenarkan." });
   }
@@ -177,11 +177,11 @@ app.put('/api/gold-rates', authenticateUser, (req, res) => {
     return res.status(400).json({ error: "Maklumat kadar emas tidak lengkap." });
   }
 
-  const oldRates = db.getGoldRates();
-  const newRates = db.updateGoldRates(gold916, gold999);
+  const oldRates = await db.getGoldRates();
+  const newRates = await db.updateGoldRates(gold916, gold999);
 
   // Generate gold price audit entry inside orders logs
-  db.addOrder({
+  await db.addOrder({
     id: "AUDIT-" + Date.now(),
     createdAt: new Date().toISOString(),
     customerName: `KEMASKINI HARGA: Oleh ${req.user.name}`,
@@ -237,15 +237,15 @@ app.post('/api/admin/upload-image', authenticateUser, (req, res) => {
 // --- VOUCHER ENGINE ENDPOINTS ---
 
 // 7a. Vouchers [Admin Only]: List all vouchers
-app.get('/api/admin/vouchers', authenticateUser, (req, res) => {
+app.get('/api/admin/vouchers', authenticateUser, async (req, res) => {
   if (!req.user || req.user.role !== 'admin') {
     return res.status(403).json({ error: "Akses dinafikan. Hanya untuk Pentadbir." });
   }
-  res.json({ vouchers: db.getVouchers() });
+  res.json({ vouchers: await db.getVouchers() });
 });
 
 // 7b. Vouchers [Admin Only]: Create a voucher
-app.post('/api/admin/vouchers', authenticateUser, (req, res) => {
+app.post('/api/admin/vouchers', authenticateUser, async (req, res) => {
   if (!req.user || req.user.role !== 'admin') {
     return res.status(403).json({ error: "Akses dinafikan. Hanya untuk Pentadbir." });
   }
@@ -270,7 +270,7 @@ app.post('/api/admin/vouchers', authenticateUser, (req, res) => {
     createdAt: new Date().toISOString()
   };
 
-  const added = db.addVoucher(newVoucher);
+  const added = await db.addVoucher(newVoucher);
   if (!added) {
     return res.status(400).json({ error: "Kod baucar ini telah wujud." });
   }
@@ -279,12 +279,12 @@ app.post('/api/admin/vouchers', authenticateUser, (req, res) => {
 });
 
 // 7c. Vouchers [Admin Only]: Delete a voucher
-app.delete('/api/admin/vouchers/:code', authenticateUser, (req, res) => {
+app.delete('/api/admin/vouchers/:code', authenticateUser, async (req, res) => {
   if (!req.user || req.user.role !== 'admin') {
     return res.status(403).json({ error: "Akses dinafikan. Hanya untuk Pentadbir." });
   }
 
-  const deleted = db.deleteVoucher(req.params.code);
+  const deleted = await db.deleteVoucher(req.params.code);
   if (!deleted) {
     return res.status(404).json({ error: "Baucar tidak ditemui." });
   }
@@ -293,13 +293,13 @@ app.delete('/api/admin/vouchers/:code', authenticateUser, (req, res) => {
 });
 
 // 7d. Vouchers [Public]: Validate a voucher
-app.post('/api/vouchers/validate', (req, res) => {
+app.post('/api/vouchers/validate', async (req, res) => {
   const { code, cartSubtotal } = req.body;
   if (!code) {
     return res.status(400).json({ error: "Sila masukkan kod baucar." });
   }
 
-  const voucher = db.findVoucherByCode(code);
+  const voucher = await db.findVoucherByCode(code);
   if (!voucher) {
     return res.status(400).json({ error: "Kod baucar tidak sah atau telah tamat tempoh." });
   }
@@ -331,10 +331,10 @@ app.post('/api/vouchers/validate', (req, res) => {
 // 4b. Products: Dynamic Catalog with Conditional Pricing
 // Guests: standard pricing
 // Authenticated Members: 15% discount
-app.get('/api/products', authenticateUser, (req, res) => {
-  const products = db.getProducts();
+app.get('/api/products', authenticateUser, async (req, res) => {
+  const products = await db.getProducts();
   const isMember = req.user && req.user.role === 'member';
-  const goldRates = db.getGoldRates();
+  const goldRates = await db.getGoldRates();
 
   // Apply conditional pricing
   const pricedProducts = products.map(product => {
@@ -369,7 +369,7 @@ app.get('/api/products', authenticateUser, (req, res) => {
 });
 
 // 5. Products [Admin Only]: Add Product
-app.post('/api/products', authenticateUser, (req, res) => {
+app.post('/api/products', authenticateUser, async (req, res) => {
   if (!req.user || req.user.role !== 'admin') {
     return res.status(403).json({ error: "Akses dinafikan. Hanya untuk Pentadbir." });
   }
@@ -401,12 +401,12 @@ app.post('/api/products', authenticateUser, (req, res) => {
     status: 'active'
   };
 
-  db.addProduct(newProduct);
+  await db.addProduct(newProduct);
   res.status(201).json({ message: "Produk berjaya ditambah ke inventori.", product: newProduct });
 });
 
 // 5b. Products [Admin Only]: Edit Product
-app.put('/api/products/:id', authenticateUser, (req, res) => {
+app.put('/api/products/:id', authenticateUser, async (req, res) => {
   if (!req.user || req.user.role !== 'admin') {
     return res.status(403).json({ error: "Akses dinafikan. Hanya untuk Pentadbir." });
   }
@@ -416,7 +416,7 @@ app.put('/api/products/:id', authenticateUser, (req, res) => {
     return res.status(400).json({ error: "Sila isi semua medan produk wajib." });
   }
 
-  const product = db.findProductById(req.params.id);
+  const product = await db.findProductById(req.params.id);
   if (!product) {
     return res.status(404).json({ error: "Produk tidak ditemui." });
   }
@@ -429,24 +429,23 @@ app.put('/api/products/:id', authenticateUser, (req, res) => {
     parsedSizes = String(sizes).split(',').map(s => s.trim()).filter(Boolean);
   }
 
-  // Update properties by reference in the database cache
-  product.title = title;
-  product.category = category;
-  product.purity = purity;
-  product.weight = parseFloat(weight);
-  product.craftsmanship = parseFloat(craftsmanship);
-  product.description = description || '';
-  product.image = image || product.image;
-  product.length = length ? String(length).trim() : 'Tiada';
-  product.sizes = parsedSizes;
+  const updated = await db.updateProduct(req.params.id, {
+    title,
+    category,
+    image: image || product.image,
+    purity,
+    weight: parseFloat(weight),
+    craftsmanship: parseFloat(craftsmanship),
+    description: description || '',
+    length: length ? String(length).trim() : 'Tiada',
+    sizes: parsedSizes
+  });
 
-  db.save();
-
-  res.json({ message: "Produk berjaya dikemaskini.", product: product });
+  res.json({ message: "Produk berjaya dikemaskini.", product: updated });
 });
 
 // 6. Products [Admin Only]: Toggle Active/Inactive Status
-app.put('/api/products/:id/status', authenticateUser, (req, res) => {
+app.put('/api/products/:id/status', authenticateUser, async (req, res) => {
   if (!req.user || req.user.role !== 'admin') {
     return res.status(403).json({ error: "Akses dinafikan. Hanya untuk Pentadbir." });
   }
@@ -456,7 +455,7 @@ app.put('/api/products/:id/status', authenticateUser, (req, res) => {
     return res.status(400).json({ error: "Status tidak sah." });
   }
 
-  const updatedProduct = db.updateProductStatus(req.params.id, status);
+  const updatedProduct = await db.updateProductStatus(req.params.id, status);
   if (!updatedProduct) {
     return res.status(404).json({ error: "Produk tidak ditemui." });
   }
@@ -466,7 +465,7 @@ app.put('/api/products/:id/status', authenticateUser, (req, res) => {
 
 
 // 7. Payments: Create FPX Online Banking Bill
-app.post('/api/payment/create-bill', authenticateUser, (req, res) => {
+app.post('/api/payment/create-bill', authenticateUser, async (req, res) => {
   const { cartItems, voucherCode } = req.body;
   if (!cartItems || cartItems.length === 0) {
     return res.status(400).json({ error: "Troli anda kosong." });
@@ -474,8 +473,8 @@ app.post('/api/payment/create-bill', authenticateUser, (req, res) => {
 
   // Calculate order totals based on active member discount tier
   const isMember = req.user && req.user.role === 'member';
-  const products = db.getProducts();
-  const goldRates = db.getGoldRates();
+  const products = await db.getProducts();
+  const goldRates = await db.getGoldRates();
 
   let subtotal = 0;
   let total = 0;
@@ -511,7 +510,7 @@ app.post('/api/payment/create-bill', authenticateUser, (req, res) => {
   let voucherDiscount = 0;
   let activeVoucher = null;
   if (voucherCode) {
-    activeVoucher = db.findVoucherByCode(voucherCode);
+    activeVoucher = await db.findVoucherByCode(voucherCode);
     if (activeVoucher) {
       if (!activeVoucher.minPurchase || total >= activeVoucher.minPurchase) {
         if (activeVoucher.discountType === 'percentage') {
@@ -546,7 +545,7 @@ app.post('/api/payment/create-bill', authenticateUser, (req, res) => {
     }
   };
 
-  db.addOrder(newOrder);
+  await db.addOrder(newOrder);
 
   // Return local sandbox payment URL
   const mockPaymentUrl = `/mock-bank.html?orderId=${orderId}`;
@@ -558,11 +557,11 @@ app.post('/api/payment/create-bill', authenticateUser, (req, res) => {
 });
 
 // Retrieve All Orders [Admin Only]
-app.get('/api/admin/orders', authenticateUser, (req, res) => {
+app.get('/api/admin/orders', authenticateUser, async (req, res) => {
   if (!req.user || req.user.role !== 'admin') {
     return res.status(403).json({ error: "Akses dinafikan. Hanya untuk Pentadbir." });
   }
-  const orders = db.getOrders();
+  const orders = await db.getOrders();
   res.json({ orders });
 });
 
@@ -572,7 +571,7 @@ app.get('/api/admin/orders/:id/pdf', authenticateUser, async (req, res) => {
     return res.status(403).json({ error: "Akses dinafikan. Hanya untuk Pentadbir." });
   }
 
-  const order = db.findOrderById(req.params.id);
+  const order = await db.findOrderById(req.params.id);
   if (!order) {
     return res.status(404).json({ error: "Pesanan tidak ditemui." });
   }
@@ -605,12 +604,13 @@ app.get('/api/admin/export/backup', authenticateUser, (req, res) => {
 // --- USERS MEMBERSHIP ENDPOINTS ---
 
 // Users [Admin Only]: List all registered users
-app.get('/api/admin/users', authenticateUser, (req, res) => {
+app.get('/api/admin/users', authenticateUser, async (req, res) => {
   if (!req.user || req.user.role !== 'admin') {
     return res.status(403).json({ error: "Akses dinafikan. Hanya untuk Pentadbir." });
   }
   // Strip passwordHash for security reasons
-  const safeUsers = db.getUsers().map(u => ({
+  const usersList = await db.getUsers();
+  const safeUsers = usersList.map(u => ({
     id: u.id,
     name: u.name,
     email: u.email,
@@ -623,7 +623,7 @@ app.get('/api/admin/users', authenticateUser, (req, res) => {
 });
 
 // Users [Admin Only]: Update user role (VIP approval/revocation)
-app.put('/api/admin/users/:id/role', authenticateUser, (req, res) => {
+app.put('/api/admin/users/:id/role', authenticateUser, async (req, res) => {
   if (!req.user || req.user.role !== 'admin') {
     return res.status(403).json({ error: "Akses dinafikan. Hanya untuk Pentadbir." });
   }
@@ -638,7 +638,7 @@ app.put('/api/admin/users/:id/role', authenticateUser, (req, res) => {
     return res.status(400).json({ error: "Anda tidak boleh menukar peranan akaun pentadbir mutlak." });
   }
 
-  const updatedUser = db.updateUserRole(req.params.id, role);
+  const updatedUser = await db.updateUserRole(req.params.id, role);
   if (!updatedUser) {
     return res.status(404).json({ error: "Pengguna tidak ditemui." });
   }
@@ -649,8 +649,8 @@ app.put('/api/admin/users/:id/role', authenticateUser, (req, res) => {
 
 
 // 8. Payments: Retrieve Order Details
-app.get('/api/orders/:id', (req, res) => {
-  const order = db.findOrderById(req.params.id);
+app.get('/api/orders/:id', async (req, res) => {
+  const order = await db.findOrderById(req.params.id);
   if (!order) {
     return res.status(404).json({ error: "Pesanan tidak ditemui." });
   }
@@ -664,14 +664,14 @@ app.post('/api/payment/webhook', async (req, res) => {
     return res.status(400).json({ error: "Parameter tidak lengkap." });
   }
 
-  const order = db.findOrderById(orderId);
+  const order = await db.findOrderById(orderId);
   if (!order) {
     return res.status(404).json({ error: "Pesanan tidak ditemui." });
   }
 
   if (status === 'success') {
     // 1. Update Order status to PAID
-    db.updateOrderStatus(orderId, 'paid', {
+    await db.updateOrderStatus(orderId, 'paid', {
       transactionId: transactionId || 'TXN-' + Date.now(),
       completedAt: new Date().toISOString()
     });
@@ -689,7 +689,7 @@ app.post('/api/payment/webhook', async (req, res) => {
       console.error("Error generating/sending receipt:", e.message);
     }
   } else {
-    db.updateOrderStatus(orderId, 'failed');
+    await db.updateOrderStatus(orderId, 'failed');
   }
 
   res.json({ success: true, message: `Webhook processed for order status: ${status}` });
@@ -698,8 +698,8 @@ app.post('/api/payment/webhook', async (req, res) => {
 // --- BANNERS / CAROUSELS REST API ENDPOINTS ---
 
 // 1. GET /api/banners [Public]: Retrieve all active slides
-app.get('/api/banners', (req, res) => {
-  const banners = db.getBanners();
+app.get('/api/banners', async (req, res) => {
+  const banners = await db.getBanners();
   
   // By default, return only active ones, but allow admin parameter to see all in panel
   const statusFilter = req.query.admin === 'true' ? null : 'active';
@@ -713,7 +713,7 @@ app.get('/api/banners', (req, res) => {
 });
 
 // 2. POST /api/banners [Admin Only]: Add a new slide
-app.post('/api/banners', authenticateUser, (req, res) => {
+app.post('/api/banners', authenticateUser, async (req, res) => {
   if (!req.user || req.user.role !== 'admin') {
     return res.status(403).json({ error: "Akses dinafikan. Hanya Pentadbir sahaja dibenarkan." });
   }
@@ -735,17 +735,17 @@ app.post('/api/banners', authenticateUser, (req, res) => {
     status: 'active'
   };
 
-  db.addBanner(newBanner);
+  await db.addBanner(newBanner);
   res.status(201).json({ message: "Slaid kempen berjaya ditambah.", banner: newBanner });
 });
 
 // 3. PUT /api/banners/:id [Admin Only]: Edit slide details
-app.put('/api/banners/:id', authenticateUser, (req, res) => {
+app.put('/api/banners/:id', authenticateUser, async (req, res) => {
   if (!req.user || req.user.role !== 'admin') {
     return res.status(403).json({ error: "Akses dinafikan. Hanya Pentadbir sahaja dibenarkan." });
   }
 
-  const banner = db.findBannerById(req.params.id);
+  const banner = await db.findBannerById(req.params.id);
   if (!banner) {
     return res.status(404).json({ error: "Slaid tidak ditemui." });
   }
@@ -755,27 +755,26 @@ app.put('/api/banners/:id', authenticateUser, (req, res) => {
     return res.status(400).json({ error: "Sila isi semua maklumat wajib (Kategori, Tajuk, dan Gambar)." });
   }
 
-  // Update properties by reference
-  banner.type = type;
-  banner.title = title;
-  banner.subtitle = subtitle || '';
-  banner.image = image;
-  banner.description = description || '';
-  banner.link = link || '#';
-  banner.ctaText = ctaText || 'Meneroka';
+  const updated = await db.updateBanner(req.params.id, {
+    type,
+    title,
+    subtitle,
+    image,
+    description,
+    link,
+    ctaText
+  });
 
-  db.save();
-
-  res.json({ message: "Slaid kempen berjaya dikemaskini.", banner: banner });
+  res.json({ message: "Slaid kempen berjaya dikemaskini.", banner: updated });
 });
 
 // 4. PUT /api/banners/:id/status [Admin Only]: Toggle active/inactive status
-app.put('/api/banners/:id/status', authenticateUser, (req, res) => {
+app.put('/api/banners/:id/status', authenticateUser, async (req, res) => {
   if (!req.user || req.user.role !== 'admin') {
     return res.status(403).json({ error: "Akses dinafikan. Hanya Pentadbir sahaja dibenarkan." });
   }
 
-  const banner = db.findBannerById(req.params.id);
+  const banner = await db.findBannerById(req.params.id);
   if (!banner) {
     return res.status(404).json({ error: "Slaid tidak ditemui." });
   }
@@ -785,19 +784,18 @@ app.put('/api/banners/:id/status', authenticateUser, (req, res) => {
     return res.status(400).json({ error: "Status tidak sah." });
   }
 
-  banner.status = status;
-  db.save();
+  const updated = await db.updateBannerStatus(req.params.id, status);
 
-  res.json({ message: `Status slaid ditukar kepada ${status}.`, banner: banner });
+  res.json({ message: `Status slaid ditukar kepada ${status}.`, banner: updated });
 });
 
 // 5. DELETE /api/banners/:id [Admin Only]: Delete a slide
-app.delete('/api/banners/:id', authenticateUser, (req, res) => {
+app.delete('/api/banners/:id', authenticateUser, async (req, res) => {
   if (!req.user || req.user.role !== 'admin') {
     return res.status(403).json({ error: "Akses dinafikan. Hanya Pentadbir sahaja dibenarkan." });
   }
 
-  const success = db.deleteBanner(req.params.id);
+  const success = await db.deleteBanner(req.params.id);
   if (!success) {
     return res.status(404).json({ error: "Slaid tidak ditemui." });
   }
@@ -816,6 +814,6 @@ app.listen(PORT, () => {
   console.log(`CHEMPAKA JEWELS BACKEND ONLINE!`);
   console.log(`Server URL : http://localhost:${PORT}`);
   console.log(`Frontend   : Serving static files from '/frontend'`);
-  console.log(`Database   : Persisting in '/backend/db.json'`);
+  console.log(`Database   : Active PostgreSQL Connection Pool`);
   console.log(`========================================================\n`);
 });

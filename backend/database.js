@@ -1,481 +1,714 @@
-const fs = require('fs');
+const { Pool } = require('pg');
+require('dotenv').config();
 const path = require('path');
+const fs = require('fs');
 
-const dbPath = path.join(__dirname, 'db.json');
+const pool = new Pool({
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'postgres',
+  password: process.env.DB_PASSWORD || 'postgres',
+  database: process.env.DB_NAME || 'chempaka_db',
+  port: parseInt(process.env.DB_PORT) || 5432,
+  connectionTimeoutMillis: 2000, // Fail-fast in 2 seconds to trigger JSON fallback instantly
+});
 
-// Default initial database structure
-const initialDb = {
-  goldRates: {
-    gold916: 368.50,
-    gold999: 385.20
-  },
-  users: [
-    {
-      id: "admin-1",
-      email: "admin@chempakajewels.my",
-      passwordHash: "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9", // sha256 of "admin123"
-      name: "Chempaka Admin",
-      role: "admin"
-    },
-    {
-      id: "user-1",
-      email: "danish@chempaka.my",
-      passwordHash: "f2d81a070f80993077759fe48a97b2be2a94a284fb89a42531cd8d8dc28d5420", // sha256 of "danish123"
-      name: "Danish Iman",
-      role: "member"
-    }
-  ],
-  products: [
-    // RINGS (1-14)
-    {
-      id: "ring-1",
-      title: "Cincin Permata DiRaja",
-      category: "cincin",
-      image: "Product/Cincin/Isolate_the_jewelry_on_a_202605281248.jpeg",
-      purity: "Emas 916 (22K)",
-      weight: 4.80,
-      craftsmanship: 280.00,
-      description: "Cincin permata diraja yang memukau, menggabungkan ketulenan emas 916 dengan perincian filigri halus buatan tangan tukang emas Chempaka.",
-      status: "active"
-    },
-    {
-      id: "ring-2",
-      title: "Cincin Keemasan Abadi",
-      category: "cincin",
-      image: "Product/Cincin/Isolate_the_jewelry_on_a_202605281248 (1).jpeg",
-      purity: "Emas 916 (22K)",
-      weight: 3.50,
-      craftsmanship: 220.00,
-      description: "Reka bentuk minimalis-mewah yang anggun, melambangkan kasih sayang yang tiada penghujung. Sesuai untuk pemakaian harian mahupun acara khas.",
-      status: "active"
-    },
-    {
-      id: "ring-3",
-      title: "Cincin Bunga Melur",
-      category: "cincin",
-      image: "Product/Cincin/Isolate_the_jewelry_on_a_202605281248 (2).jpeg",
-      purity: "Emas 916 (22K)",
-      weight: 5.20,
-      craftsmanship: 320.00,
-      description: "Inspirasi keindahan semula jadi bunga melur tradisional Melayu yang diukir dengan ketelitian luar biasa di atas emas 22K tulen.",
-      status: "active"
-    },
-    {
-      id: "ring-4",
-      title: "Cincin Belah Rotan Klasik",
-      category: "cincin",
-      image: "Product/Cincin/Isolate_the_jewelry_on_a_202605281249.jpeg",
-      purity: "Emas 916 (22K)",
-      weight: 2.80,
-      craftsmanship: 150.00,
-      description: "Simbol ketulenan dan kesetiaan abadi. Reka bentuk belah rotan klasik yang licin berkilat memancarkan prestij ringkas.",
-      status: "active"
-    },
-    {
-      id: "ring-5",
-      title: "Cincin Berlian Melur",
-      category: "cincin",
-      image: "Product/Cincin/Isolate_the_jewelry_on_a_202605281249 (1).jpeg",
-      purity: "Emas 916 & Berlian",
-      weight: 5.10,
-      craftsmanship: 450.00,
-      description: "Sentuhan eksklusif daripada siri Melur dengan tatahan berlian asli di tengahnya, menawarkan gabungan tradisi dan kemegahan.",
-      status: "active"
-    },
-    {
-      id: "ring-6",
-      title: "Cincin Nilam Diraja",
-      category: "cincin",
-      image: "Product/Cincin/Isolate_the_jewelry_on_a_202605281249 (2).jpeg",
-      purity: "Emas 916 & Nilam",
-      weight: 7.50,
-      craftsmanship: 580.00,
-      description: "Cincin bertatah batu permata nilam (sapphire) biru tua sejati, dikelilingi oleh tatahan emas 916 berkilau memukau.",
-      status: "active"
-    },
-    {
-      id: "ring-7",
-      title: "Cincin Seri Bintang",
-      category: "cincin",
-      image: "Product/Cincin/Isolate_the_jewelry_on_a_202605281248.jpeg",
-      purity: "Emas 916 (22K)",
-      weight: 6.00,
-      craftsmanship: 380.00,
-      description: "Rekaan cincin bersudut memantulkan cahaya bintang, menghasilkan pembiasan kecemerlangan emas yang tiada tolok bandingnya.",
-      status: "active"
-    },
-    
-    // NECKLACES (15-27)
-    {
-      id: "neck-1",
-      title: "Rantai Leher Mahkota Emas",
-      category: "rantai",
-      image: "Product/Rantai/WhatsApp_Image_2026-05-24_at_5.34.44_202605281257.jpeg",
-      purity: "Emas 916 (22K)",
-      weight: 18.50,
-      craftsmanship: 650.00,
-      description: "Rantai leher padat dengan loket bermotifkan mahkota Diraja Melayu yang melambangkan keagungan sejati bangsawan lama.",
-      status: "active"
-    },
-    {
-      id: "neck-2",
-      title: "Rantai Leher Pintal Kasih",
-      category: "rantai",
-      image: "Product/Rantai/WhatsApp_Image_2026-05-24_at_5.34.50_202605281257.jpeg",
-      purity: "Emas 916 (22K)",
-      weight: 12.20,
-      craftsmanship: 420.00,
-      description: "Ukiran tenunan pintal kembar yang menceritakan hubungan erat penuh cinta, memancarkan pesona murni di dada pemakai.",
-      status: "active"
-    },
-    {
-      id: "neck-3",
-      title: "Rantai LeherSaujana Hiasan",
-      category: "rantai",
-      image: "Product/Rantai/WhatsApp_Image_2026-05-24_at_5.34.44_202605281257.jpeg",
-      purity: "Emas 916 (22K)",
-      weight: 15.00,
-      craftsmanship: 500.00,
-      description: "Gabungan rantaian halus dengan perincian bulat berpintal memukau, sesuai untuk dipadankan dengan busana premium Hari Raya.",
-      status: "active"
-    },
-    {
-      id: "neck-4",
-      title: "Rantai Leher Saujana Nilam",
-      category: "rantai",
-      image: "Product/Rantai/WhatsApp_Image_2026-05-24_at_5.34.50_202605281257.jpeg",
-      purity: "Emas 916 & Nilam",
-      weight: 14.80,
-      craftsmanship: 620.00,
-      description: "Rangkaian emas bermutu tinggi dihiasi batu nilam bersinar terang di bahagian tengah, melambangkan keanggunan melangkaui zaman.",
-      status: "active"
-    },
-    
-    // BRACELETS (28-40)
-    {
-      id: "brace-1",
-      title: "Gelang Tangan Adria",
-      category: "gelang",
-      image: "Product/Gelang/WhatsApp_Image_2026-05-24_at_5.34.46_202605281256.jpeg",
-      purity: "Emas 916 (22K)",
-      weight: 9.80,
-      craftsmanship: 360.00,
-      description: "Reka bentuk lingkaran moden dengan tatahan butiran halus, amat bersesuaian untuk gaya harian yang minimalis and premium.",
-      status: "active"
-    },
-    {
-      id: "brace-2",
-      title: "Rantai Tangan Zinnia",
-      category: "gelang",
-      image: "Product/Gelang/WhatsApp_Image_2026-05-24_at_5.34.47_202605281256.jpeg",
-      purity: "Emas 916 (22K)",
-      weight: 11.20,
-      craftsmanship: 420.00,
-      description: "Tenunan emas padat berbentuk siri kelopak Zinnia yang memberikan keselesaan dan kelas tersendiri ketika dilingkarkan.",
-      status: "active"
-    },
-    {
-      id: "brace-3",
-      title: "Gelang Biru Nilam",
-      category: "gelang",
-      image: "Product/Gelang/WhatsApp_Image_2026-05-24_at_5.34.47_202605281256 (1).jpeg",
-      purity: "Emas 916 (22K)",
-      weight: 14.50,
-      craftsmanship: 595.00,
-      description: "Rantai tangan emas tebal dengan kehalusan ukiran permata nilam biru royal, melambangkan keagungan sejati bangsawan.",
-      status: "active"
-    },
-    {
-      id: "brace-4",
-      title: "Gelang Tangan Laksamana",
-      category: "gelang",
-      image: "Product/Gelang/WhatsApp_Image_2026-05-24_at_5.34.48_202605281256.jpeg",
-      purity: "Emas 916 (22K)",
-      weight: 22.00,
-      craftsmanship: 850.00,
-      description: "Tenunan rantai coco laksamana tebal yang gagah dan tegap, disaluti kilauan emas 916 murni yang memancarkan kewibawaan sejati.",
-      status: "active"
-    },
-    {
-      id: "ear-1",
-      title: "Subang Permata Melur",
-      category: "subang",
-      image: "Product/Subang/Isolate_subang_permata_melur.png",
-      purity: "Emas 916 (22K)",
-      weight: 6.50,
-      craftsmanship: 350.00,
-      description: "Subang gantung klasik bermotifkan kelopak melur emas murni 916, dihiasi perincian filigri halus yang memantulkan keanggunan abadi.",
-      status: "active"
-    }
-  ],
-  orders: [],
-  banners: [
-    // HERO SLIDES
-    {
-      id: "hero-slide-0",
-      type: "hero",
-      title: "Sertai Keahlian Kelab Elit & Nikmati Diskaun Sehingga 15%",
-      subtitle: "Keistimewaan Kelab VIP",
-      image: "Model/cincin_rantai_gelang_header.jpg",
-      description: "Sertai Membership kami untuk mendapatkan discount sehingga 15% bagi setiap pembelian barangan emas murni Chempaka.",
-      link: "/koleksi.html",
-      ctaText: "Lihat Koleksi",
-      status: "active"
-    },
-    {
-      id: "hero-slide-1",
-      type: "hero",
-      title: "Nilai Abadi. Keanggunan Terukir.",
-      subtitle: "Siri Platinum DiRaja",
-      image: "Model/second_header_bracelet.jpg",
-      description: "Hayati keindahan seni pertukangan emas warisan Melayu bertaraf VIP.",
-      link: "#highlight-section",
-      ctaText: "Mula Meneroka",
-      status: "active"
-    },
-    {
-      id: "hero-slide-2",
-      type: "hero",
-      title: "Keanggunan Tradisi Sejati",
-      subtitle: "— Duta Kami, Ayu Damit",
-      image: "Ayu Damit-Ambassador/ayu_damit_white_campaign.jpg",
-      description: "Hayati pesona kemilau emas murni Chempaka bersama rekaan eksklusif yang memancarkan karisma sejati wanita Melayu anggun.",
-      link: "/tentang-kami.html",
-      ctaText: "Kisah Duta Kami",
-      status: "active"
-    },
-    {
-      id: "hero-slide-3",
-      type: "hero",
-      title: "Keanggunan Warisan DiRaja",
-      subtitle: "- Duta Kami Ayu Damit",
-      image: "Ayu Damit-Ambassador/ayu_damit_suit.jpg",
-      description: "Hayati pesona kemilau emas murni 916 dengan rekaan mahkota keindahan eksklusif yang memancarkan aura keanggunan sejati seumur hidup.",
-      link: "/koleksi.html",
-      ctaText: "Terokai Koleksi",
-      status: "active"
-    },
-    
-    // BANNER SLIDES (Combined banner carousel)
-    {
-      id: "banner-slide-1",
-      type: "banner",
-      title: "Shop Cincin Permata DiRaja with 30% Exclusive Discount",
-      subtitle: "Tawaran Terhad Acara VIP",
-      image: "Product/WhatsApp Image 2026-05-24 at 5.34.41 PM.jpeg",
-      description: "Miliki mahkota keindahan sejati Emas 916 dengan potongan harga istimewa 30% eksklusif untuk kunjungan minggu ini sahaja.",
-      link: "/koleksi.html?category=cincin",
-      ctaText: "Dapatkan Sekarang",
-      status: "active"
-    },
-    {
-      id: "banner-slide-2",
-      type: "banner",
-      title: "Sertai Kelab Elit Chempaka & Terima 15% Rebate Seumur Hidup",
-      subtitle: "Keahlian Kelab Elit",
-      image: "Model/vip_lounge_showroom.png",
-      description: "Daftar keahlian VIP percuma hari ini untuk menikmati rebat 15% automatik untuk semua produk emas, tempahan awal koleksi Royale, dan undangan eksklusif.",
-      link: "SIGNUP_MODAL",
-      ctaText: "Daftar Keahlian Percuma",
-      status: "active"
-    }
-  ]
-};
-
-// Database utility class
 class Database {
   constructor() {
-    this.data = initialDb;
-    this.load();
+    this.usePostgres = false;
+    this.jsonDb = null;
+    this.initPromise = this.init();
   }
 
-  // Load database from file
-  load() {
+  // Attempt connection. Fallback to file-based JSON storage if Postgres is down
+  async init() {
     try {
-      if (fs.existsSync(dbPath)) {
-        const fileContent = fs.readFileSync(dbPath, 'utf8');
-        this.data = JSON.parse(fileContent);
-        // Robust migration check to sync goldRates
-        if (!this.data.goldRates) {
-          this.data.goldRates = { gold916: 368.50, gold999: 385.20 };
-          this.save();
-        }
-        // Robust migration check to sync banners array
-        if (!this.data.banners) {
-          this.data.banners = initialDb.banners;
-          this.save();
-        }
-        console.log("Database successfully loaded from", dbPath);
-      } else {
-        this.save();
-        console.log("New database initialized at", dbPath);
+      console.log("Attempting to connect to PostgreSQL at", process.env.DB_HOST || 'localhost');
+      const client = await pool.connect();
+      client.release();
+      this.usePostgres = true;
+      console.log("PostgreSQL connected successfully. Using PostgreSQL database.");
+
+      // Setup PostgreSQL schemas
+      await pool.query(`
+        CREATE TABLE IF NOT EXISTS gold_rates (
+          id SERIAL PRIMARY KEY,
+          gold_916 DECIMAL(10, 2) NOT NULL,
+          gold_999 DECIMAL(10, 2) NOT NULL,
+          updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
+      `);
+      
+      await pool.query(`
+        CREATE TABLE IF NOT EXISTS users (
+          id VARCHAR(255) PRIMARY KEY,
+          email VARCHAR(255) NOT NULL UNIQUE,
+          password_hash VARCHAR(255) NOT NULL,
+          name VARCHAR(255) NOT NULL,
+          role VARCHAR(50) NOT NULL DEFAULT 'user',
+          phone VARCHAR(50) NULL,
+          birthday VARCHAR(50) NULL,
+          address TEXT NULL,
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
+      `);
+
+      await pool.query(`
+        CREATE TABLE IF NOT EXISTS products (
+          id VARCHAR(255) PRIMARY KEY,
+          title VARCHAR(255) NOT NULL,
+          category VARCHAR(100) NOT NULL,
+          image VARCHAR(255) NOT NULL,
+          purity VARCHAR(100) NOT NULL,
+          weight DECIMAL(10, 2) NOT NULL,
+          craftsmanship DECIMAL(10, 2) NOT NULL,
+          description TEXT NULL,
+          length VARCHAR(100) NOT NULL DEFAULT 'Tiada',
+          sizes JSONB NULL,
+          status VARCHAR(50) NOT NULL DEFAULT 'active',
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
+      `);
+
+      await pool.query(`
+        CREATE TABLE IF NOT EXISTS banners (
+          id VARCHAR(255) PRIMARY KEY,
+          type VARCHAR(50) NOT NULL,
+          title VARCHAR(255) NOT NULL,
+          subtitle VARCHAR(255) NULL,
+          image VARCHAR(255) NOT NULL,
+          description TEXT NULL,
+          link VARCHAR(255) NULL,
+          cta_text VARCHAR(100) NULL,
+          status VARCHAR(50) NOT NULL DEFAULT 'active',
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
+      `);
+
+      await pool.query(`
+        CREATE TABLE IF NOT EXISTS vouchers (
+          code VARCHAR(100) PRIMARY KEY,
+          discount_type VARCHAR(50) NOT NULL,
+          discount_value DECIMAL(10, 2) NOT NULL,
+          min_purchase DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+          created_at VARCHAR(100) NOT NULL
+        );
+      `);
+
+      await pool.query(`
+        CREATE TABLE IF NOT EXISTS orders (
+          id VARCHAR(255) PRIMARY KEY,
+          subtotal DECIMAL(10, 2) NOT NULL,
+          discount_amount DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+          voucher_code VARCHAR(100) NULL,
+          voucher_discount DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+          total DECIMAL(10, 2) NOT NULL,
+          customer_name VARCHAR(255) NOT NULL,
+          customer_email VARCHAR(255) NOT NULL,
+          status VARCHAR(50) NOT NULL DEFAULT 'pending',
+          created_at VARCHAR(100) NOT NULL,
+          gateway VARCHAR(100) NOT NULL DEFAULT 'Billplz-Mock',
+          transaction_id VARCHAR(100) NULL,
+          completed_at VARCHAR(100) NULL
+        );
+      `);
+
+      await pool.query(`
+        CREATE TABLE IF NOT EXISTS order_items (
+          id SERIAL PRIMARY KEY,
+          order_id VARCHAR(255) NOT NULL,
+          product_id VARCHAR(255) NOT NULL,
+          title VARCHAR(255) NOT NULL,
+          purity VARCHAR(100) NOT NULL,
+          weight DECIMAL(10, 2) NOT NULL,
+          price DECIMAL(10, 2) NOT NULL,
+          quantity INT NOT NULL DEFAULT 1,
+          size VARCHAR(100) NULL,
+          length VARCHAR(100) NULL,
+          FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
+        );
+      `);
+
+      console.log("PostgreSQL Tables verified/created successfully.");
+      
+      // Auto seed initial default accounts if empty
+      const usersCountRes = await pool.query('SELECT COUNT(*) FROM users');
+      if (parseInt(usersCountRes.rows[0].count) === 0) {
+        console.log("No users found. Running initial seeding...");
+        await this.addUser({
+          id: "admin-1",
+          email: "admin@chempakajewels.my",
+          passwordHash: "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+          name: "Chempaka Admin",
+          role: "admin"
+        });
+        await this.addUser({
+          id: "user-1",
+          email: "danish@chempaka.my",
+          passwordHash: "f2d81a070f80993077759fe48a97b2be2a94a284fb89a42531cd8d8dc28d5420",
+          name: "Danish Iman",
+          role: "member"
+        });
+      }
+      
+      const ratesCountRes = await pool.query('SELECT COUNT(*) FROM gold_rates');
+      if (parseInt(ratesCountRes.rows[0].count) === 0) {
+        await this.updateGoldRates(368.50, 385.20);
       }
     } catch (e) {
-      console.error("Error loading database:", e.message);
-      this.data = initialDb;
-    }
-  }
-
-  // Save database to file
-  save() {
-    try {
-      fs.writeFileSync(dbPath, JSON.stringify(this.data, null, 2), 'utf8');
-    } catch (e) {
-      console.error("Error saving database:", e.message);
+      console.warn("\n==================================================================");
+      console.warn("WARNING: PostgreSQL connection failed!");
+      console.warn("Reason:", e.message);
+      console.warn("FALLING BACK TO LOCAL JSON DATABASE (db.json) FOR TESTING!");
+      console.warn("==================================================================\n");
+      this.usePostgres = false;
+      this.jsonDb = require('./database_old_json');
     }
   }
 
   // Auth Operations
-  findUserByEmail(email) {
-    return this.data.users.find(u => u.email.toLowerCase() === email.toLowerCase());
+  async findUserByEmail(email) {
+    await this.initPromise;
+    if (!this.usePostgres) {
+      return this.jsonDb.findUserByEmail(email);
+    }
+    if (!email) return null;
+    const res = await pool.query('SELECT * FROM users WHERE LOWER(email) = LOWER($1)', [email.trim()]);
+    const u = res.rows[0];
+    if (!u) return null;
+    return {
+      id: u.id,
+      email: u.email,
+      passwordHash: u.password_hash,
+      name: u.name,
+      role: u.role,
+      phone: u.phone,
+      birthday: u.birthday,
+      address: u.address
+    };
   }
 
-  addUser(user) {
-    this.data.users.push(user);
-    this.save();
+  async addUser(user) {
+    await this.initPromise;
+    if (!this.usePostgres) {
+      return this.jsonDb.addUser(user);
+    }
+    await pool.query(
+      `INSERT INTO users (id, email, password_hash, name, role, phone, birthday, address)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+      [
+        user.id,
+        user.email.toLowerCase().trim(),
+        user.passwordHash,
+        user.name,
+        user.role || 'user',
+        user.phone || null,
+        user.birthday || null,
+        user.address || null
+      ]
+    );
     return user;
   }
 
+  async getUsers() {
+    await this.initPromise;
+    if (!this.usePostgres) {
+      return this.jsonDb.getUsers();
+    }
+    const res = await pool.query('SELECT * FROM users ORDER BY created_at DESC');
+    return res.rows.map(u => ({
+      id: u.id,
+      email: u.email,
+      passwordHash: u.password_hash,
+      name: u.name,
+      role: u.role,
+      phone: u.phone,
+      birthday: u.birthday,
+      address: u.address
+    }));
+  }
+
+  async updateUserRole(id, role) {
+    await this.initPromise;
+    if (!this.usePostgres) {
+      return this.jsonDb.updateUserRole(id, role);
+    }
+    await pool.query('UPDATE users SET role = $1 WHERE id = $2', [role, id]);
+    const userEmail = await this.getUserEmailById(id);
+    return this.findUserByEmail(userEmail);
+  }
+
+  async getUserEmailById(id) {
+    const res = await pool.query('SELECT email FROM users WHERE id = $1', [id]);
+    return res.rows[0]?.email || '';
+  }
+
   // Product Operations
-  getProducts() {
-    return this.data.products;
+  async getProducts() {
+    await this.initPromise;
+    if (!this.usePostgres) {
+      return this.jsonDb.getProducts();
+    }
+    const res = await pool.query('SELECT * FROM products ORDER BY id ASC');
+    return res.rows.map(p => ({
+      id: p.id,
+      title: p.title,
+      category: p.category,
+      image: p.image,
+      purity: p.purity,
+      weight: parseFloat(p.weight),
+      craftsmanship: parseFloat(p.craftsmanship),
+      description: p.description,
+      length: p.length,
+      sizes: Array.isArray(p.sizes) ? p.sizes : [],
+      status: p.status
+    }));
   }
 
-  findProductById(id) {
-    return this.data.products.find(p => p.id === id);
+  async findProductById(id) {
+    await this.initPromise;
+    if (!this.usePostgres) {
+      return this.jsonDb.findProductById(id);
+    }
+    const res = await pool.query('SELECT * FROM products WHERE id = $1', [id]);
+    const p = res.rows[0];
+    if (!p) return null;
+    return {
+      id: p.id,
+      title: p.title,
+      category: p.category,
+      image: p.image,
+      purity: p.purity,
+      weight: parseFloat(p.weight),
+      craftsmanship: parseFloat(p.craftsmanship),
+      description: p.description,
+      length: p.length,
+      sizes: Array.isArray(p.sizes) ? p.sizes : [],
+      status: p.status
+    };
   }
 
-  addProduct(product) {
-    this.data.products.push(product);
-    this.save();
+  async addProduct(product) {
+    await this.initPromise;
+    if (!this.usePostgres) {
+      return this.jsonDb.addProduct(product);
+    }
+    await pool.query(
+      `INSERT INTO products (id, title, category, image, purity, weight, craftsmanship, description, length, sizes, status)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
+      [
+        product.id,
+        product.title,
+        product.category,
+        product.image,
+        product.purity,
+        parseFloat(product.weight),
+        parseFloat(product.craftsmanship),
+        product.description || '',
+        product.length || 'Tiada',
+        JSON.stringify(product.sizes || []),
+        product.status || 'active'
+      ]
+    );
     return product;
   }
 
-  updateProductStatus(id, status) {
-    const p = this.findProductById(id);
-    if (p) {
-      p.status = status;
-      this.save();
+  async updateProduct(id, product) {
+    await this.initPromise;
+    if (!this.usePostgres) {
+      const p = this.jsonDb.findProductById(id);
+      if (p) {
+        Object.assign(p, product);
+        this.jsonDb.save();
+      }
       return p;
     }
-    return null;
+    await pool.query(
+      `UPDATE products
+       SET title = $1, category = $2, image = $3, purity = $4, weight = $5, craftsmanship = $6, description = $7, length = $8, sizes = $9
+       WHERE id = $10`,
+      [
+        product.title,
+        product.category,
+        product.image,
+        product.purity,
+        parseFloat(product.weight),
+        parseFloat(product.craftsmanship),
+        product.description || '',
+        product.length || 'Tiada',
+        JSON.stringify(product.sizes || []),
+        id
+      ]
+    );
+    return this.findProductById(id);
   }
 
+  async updateProductStatus(id, status) {
+    await this.initPromise;
+    if (!this.usePostgres) {
+      return this.jsonDb.updateProductStatus(id, status);
+    }
+    await pool.query('UPDATE products SET status = $1 WHERE id = $2', [status, id]);
+    return this.findProductById(id);
+  }
 
   // Order Operations
-  getOrders() {
-    return this.data.orders;
+  async getOrders() {
+    await this.initPromise;
+    if (!this.usePostgres) {
+      return this.jsonDb.getOrders();
+    }
+    const res = await pool.query('SELECT * FROM orders ORDER BY created_at DESC');
+    const orders = [];
+    for (let o of res.rows) {
+      const itemsRes = await pool.query('SELECT * FROM order_items WHERE order_id = $1', [o.id]);
+      const items = itemsRes.rows.map(item => ({
+        id: item.product_id,
+        title: item.title,
+        purity: item.purity,
+        weight: parseFloat(item.weight),
+        price: parseFloat(item.price),
+        quantity: parseInt(item.quantity),
+        size: item.size || null,
+        length: item.length || null
+      }));
+      orders.push({
+        id: o.id,
+        items,
+        subtotal: parseFloat(o.subtotal),
+        discountAmount: parseFloat(o.discount_amount),
+        voucherCode: o.voucher_code,
+        voucherDiscount: parseFloat(o.voucher_discount),
+        total: parseFloat(o.total),
+        customerName: o.customer_name,
+        customerEmail: o.customer_email,
+        status: o.status,
+        createdAt: o.created_at,
+        payment: {
+          gateway: o.gateway,
+          transactionId: o.transaction_id,
+          completedAt: o.completed_at
+        }
+      });
+    }
+    return orders;
   }
 
-  findOrderById(id) {
-    return this.data.orders.find(o => o.id === id);
+  async findOrderById(id) {
+    await this.initPromise;
+    if (!this.usePostgres) {
+      return this.jsonDb.findOrderById(id);
+    }
+    const res = await pool.query('SELECT * FROM orders WHERE id = $1', [id]);
+    const o = res.rows[0];
+    if (!o) return null;
+    const itemsRes = await pool.query('SELECT * FROM order_items WHERE order_id = $1', [o.id]);
+    const items = itemsRes.rows.map(item => ({
+      id: item.product_id,
+      title: item.title,
+      purity: item.purity,
+      weight: parseFloat(item.weight),
+      price: parseFloat(item.price),
+      quantity: parseInt(item.quantity),
+      size: item.size || null,
+      length: item.length || null
+    }));
+    return {
+      id: o.id,
+      items,
+      subtotal: parseFloat(o.subtotal),
+      discountAmount: parseFloat(o.discount_amount),
+      voucherCode: o.voucher_code,
+      voucherDiscount: parseFloat(o.voucher_discount),
+      total: parseFloat(o.total),
+      customerName: o.customer_name,
+      customerEmail: o.customer_email,
+      status: o.status,
+      createdAt: o.created_at,
+      payment: {
+        gateway: o.gateway,
+        transactionId: o.transaction_id,
+        completedAt: o.completed_at
+      }
+    };
   }
 
-  addOrder(order) {
-    this.data.orders.push(order);
-    this.save();
+  async addOrder(order) {
+    await this.initPromise;
+    if (!this.usePostgres) {
+      return this.jsonDb.addOrder(order);
+    }
+    await pool.query(
+      `INSERT INTO orders (id, subtotal, discount_amount, voucher_code, voucher_discount, total, customer_name, customer_email, status, created_at, gateway, transaction_id, completed_at)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
+      [
+        order.id,
+        parseFloat(order.subtotal),
+        parseFloat(order.discountAmount || 0),
+        order.voucherCode || null,
+        parseFloat(order.voucherDiscount || 0),
+        parseFloat(order.total),
+        order.customerName,
+        order.customerEmail,
+        order.status || 'pending',
+        order.createdAt,
+        order.payment?.gateway || 'Billplz-Mock',
+        order.payment?.transactionId || null,
+        order.payment?.completedAt || null
+      ]
+    );
+
+    if (Array.isArray(order.items)) {
+      for (let item of order.items) {
+        await pool.query(
+          `INSERT INTO order_items (order_id, product_id, title, purity, weight, price, quantity, size, length)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+          [
+            order.id,
+            item.id,
+            item.title,
+            item.purity,
+            parseFloat(item.weight),
+            parseFloat(item.price),
+            parseInt(item.quantity),
+            item.size || null,
+            item.length || null
+          ]
+        );
+      }
+    }
     return order;
   }
 
-  updateOrderStatus(id, status, paymentDetails = {}) {
-    const o = this.findOrderById(id);
-    if (o) {
-      o.status = status;
-      o.payment = { ...o.payment, ...paymentDetails };
-      this.save();
-      return o;
+  async updateOrderStatus(id, status, paymentDetails = {}) {
+    await this.initPromise;
+    if (!this.usePostgres) {
+      return this.jsonDb.updateOrderStatus(id, status, paymentDetails);
     }
-    return null;
+    await pool.query(
+      `UPDATE orders
+       SET status = $1, transaction_id = COALESCE($2, transaction_id), completed_at = COALESCE($3, completed_at)
+       WHERE id = $4`,
+      [status, paymentDetails.transactionId || null, paymentDetails.completedAt || null, id]
+    );
+    return this.findOrderById(id);
   }
 
   // Gold Rates Operations
-  getGoldRates() {
-    return this.data.goldRates || { gold916: 368.50, gold999: 385.20 };
+  async getGoldRates() {
+    await this.initPromise;
+    if (!this.usePostgres) {
+      return this.jsonDb.getGoldRates();
+    }
+    const res = await pool.query('SELECT * FROM gold_rates ORDER BY id DESC LIMIT 1');
+    const r = res.rows[0];
+    if (!r) return { gold916: 368.50, gold999: 385.20 };
+    return {
+      gold916: parseFloat(r.gold_916),
+      gold999: parseFloat(r.gold_999)
+    };
   }
 
-  updateGoldRates(gold916, gold999) {
-    this.data.goldRates = {
-      gold916: parseFloat(gold916) || 368.50,
-      gold999: parseFloat(gold999) || 385.20
+  async updateGoldRates(gold916, gold999) {
+    await this.initPromise;
+    if (!this.usePostgres) {
+      return this.jsonDb.updateGoldRates(gold916, gold999);
+    }
+    await pool.query(
+      'INSERT INTO gold_rates (gold_916, gold_999) VALUES ($1, $2)',
+      [parseFloat(gold916), parseFloat(gold999)]
+    );
+    return {
+      gold916: parseFloat(gold916),
+      gold999: parseFloat(gold999)
     };
-    this.save();
-    return this.data.goldRates;
   }
 
   // Banner Operations
-  getBanners() {
-    return this.data.banners || [];
+  async getBanners() {
+    await this.initPromise;
+    if (!this.usePostgres) {
+      return this.jsonDb.getBanners();
+    }
+    const res = await pool.query('SELECT * FROM banners ORDER BY id ASC');
+    return res.rows.map(b => ({
+      id: b.id,
+      type: b.type,
+      title: b.title,
+      subtitle: b.subtitle,
+      image: b.image,
+      description: b.description,
+      link: b.link,
+      ctaText: b.cta_text,
+      status: b.status
+    }));
   }
 
-  findBannerById(id) {
-    return this.data.banners ? this.data.banners.find(b => b.id === id) : null;
+  async findBannerById(id) {
+    await this.initPromise;
+    if (!this.usePostgres) {
+      return this.jsonDb.findBannerById(id);
+    }
+    const res = await pool.query('SELECT * FROM banners WHERE id = $1', [id]);
+    const b = res.rows[0];
+    if (!b) return null;
+    return {
+      id: b.id,
+      type: b.type,
+      title: b.title,
+      subtitle: b.subtitle,
+      image: b.image,
+      description: b.description,
+      link: b.link,
+      ctaText: b.cta_text,
+      status: b.status
+    };
   }
 
-  addBanner(banner) {
-    if (!this.data.banners) this.data.banners = [];
-    this.data.banners.push(banner);
-    this.save();
+  async addBanner(banner) {
+    await this.initPromise;
+    if (!this.usePostgres) {
+      return this.jsonDb.addBanner(banner);
+    }
+    await pool.query(
+      `INSERT INTO banners (id, type, title, subtitle, image, description, link, cta_text, status)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+      [
+        banner.id,
+        banner.type,
+        banner.title,
+        banner.subtitle || '',
+        banner.image,
+        banner.description || '',
+        banner.link || '#',
+        banner.ctaText || 'Meneroka',
+        banner.status || 'active'
+      ]
+    );
     return banner;
   }
 
-  deleteBanner(id) {
-    if (this.data.banners) {
-      const initialLength = this.data.banners.length;
-      this.data.banners = this.data.banners.filter(b => b.id !== id);
-      if (this.data.banners.length !== initialLength) {
-        this.save();
-        return true;
+  async updateBanner(id, banner) {
+    await this.initPromise;
+    if (!this.usePostgres) {
+      const b = this.jsonDb.findBannerById(id);
+      if (b) {
+        Object.assign(b, banner);
+        this.jsonDb.save();
       }
+      return b;
     }
-    return false;
+    await pool.query(
+      `UPDATE banners
+       SET type = $1, title = $2, subtitle = $3, image = $4, description = $5, link = $6, cta_text = $7
+       WHERE id = $8`,
+      [
+        banner.type,
+        banner.title,
+        banner.subtitle || '',
+        banner.image,
+        banner.description || '',
+        banner.link || '#',
+        banner.ctaText || 'Meneroka',
+        id
+      ]
+    );
+    return this.findBannerById(id);
+  }
+
+  async updateBannerStatus(id, status) {
+    await this.initPromise;
+    if (!this.usePostgres) {
+      const b = this.jsonDb.findBannerById(id);
+      if (b) {
+        b.status = status;
+        this.jsonDb.save();
+      }
+      return b;
+    }
+    await pool.query('UPDATE banners SET status = $1 WHERE id = $2', [status, id]);
+    return this.findBannerById(id);
+  }
+
+  async deleteBanner(id) {
+    await this.initPromise;
+    if (!this.usePostgres) {
+      return this.jsonDb.deleteBanner(id);
+    }
+    const res = await pool.query('DELETE FROM banners WHERE id = $1', [id]);
+    return res.rowCount > 0;
   }
 
   // Voucher Operations
-  getVouchers() {
-    return this.data.vouchers || [];
+  async getVouchers() {
+    await this.initPromise;
+    if (!this.usePostgres) {
+      return this.jsonDb.getVouchers();
+    }
+    const res = await pool.query('SELECT * FROM vouchers ORDER BY code ASC');
+    return res.rows.map(v => ({
+      code: v.code,
+      discountType: v.discount_type,
+      discountValue: parseFloat(v.discount_value),
+      minPurchase: parseFloat(v.min_purchase),
+      createdAt: v.created_at
+    }));
   }
 
-  findVoucherByCode(code) {
-    if (!this.data.vouchers) return null;
-    return this.data.vouchers.find(v => v.code.toUpperCase() === code.toUpperCase());
+  async findVoucherByCode(code) {
+    await this.initPromise;
+    if (!this.usePostgres) {
+      return this.jsonDb.findVoucherByCode(code);
+    }
+    if (!code) return null;
+    const res = await pool.query('SELECT * FROM vouchers WHERE LOWER(code) = LOWER($1)', [code.trim()]);
+    const v = res.rows[0];
+    if (!v) return null;
+    return {
+      code: v.code,
+      discountType: v.discount_type,
+      discountValue: parseFloat(v.discount_value),
+      minPurchase: parseFloat(v.min_purchase),
+      createdAt: v.created_at
+    };
   }
 
-  addVoucher(voucher) {
-    if (!this.data.vouchers) this.data.vouchers = [];
-    const existing = this.findVoucherByCode(voucher.code);
+  async addVoucher(voucher) {
+    await this.initPromise;
+    if (!this.usePostgres) {
+      return this.jsonDb.addVoucher(voucher);
+    }
+    const existing = await this.findVoucherByCode(voucher.code);
     if (existing) return null;
-    
-    this.data.vouchers.push(voucher);
-    this.save();
+    await pool.query(
+      `INSERT INTO vouchers (code, discount_type, discount_value, min_purchase, created_at)
+       VALUES ($1, $2, $3, $4, $5)`,
+      [
+        voucher.code.toUpperCase().trim(),
+        voucher.discountType,
+        parseFloat(voucher.discountValue),
+        parseFloat(voucher.minPurchase || 0),
+        voucher.createdAt || new Date().toISOString()
+      ]
+    );
     return voucher;
   }
 
-  deleteVoucher(code) {
-    if (this.data.vouchers) {
-      const initialLength = this.data.vouchers.length;
-      this.data.vouchers = this.data.vouchers.filter(v => v.code.toUpperCase() !== code.toUpperCase());
-      if (this.data.vouchers.length !== initialLength) {
-        this.save();
-        return true;
-      }
+  async deleteVoucher(code) {
+    await this.initPromise;
+    if (!this.usePostgres) {
+      return this.jsonDb.deleteVoucher(code);
     }
-    return false;
+    if (!code) return false;
+    const res = await pool.query('DELETE FROM vouchers WHERE LOWER(code) = LOWER($1)', [code.trim()]);
+    return res.rowCount > 0;
   }
 
-  // User Operations
-  getUsers() {
-    return this.data.users || [];
-  }
-
-  updateUserRole(id, role) {
-    if (!this.data.users) return null;
-    const u = this.data.users.find(user => user.id === id);
-    if (u) {
-      u.role = role;
-      this.save();
-      return u;
+  async save() {
+    await this.initPromise;
+    if (!this.usePostgres) {
+      return this.jsonDb.save();
     }
-    return null;
+    return true;
   }
 }
 

@@ -8,7 +8,8 @@ if (!fs.existsSync(invoiceDir)) {
   fs.mkdirSync(invoiceDir, { recursive: true });
 }
 
-function generateInvoicePdf(order, customerName, customerEmail) {
+async function generateInvoicePdf(order, customerName, customerEmail) {
+  const user = await db.findUserByEmail(customerEmail);
   return new Promise((resolve, reject) => {
     try {
       const doc = new PDFDocument({ size: 'A4', margin: 50 });
@@ -58,7 +59,6 @@ function generateInvoicePdf(order, customerName, customerEmail) {
          .text(`Bayaran / Payment      : FPX Online Banking (SUCCESS)`, 50, 159);
 
       // Customer Details
-      const user = db.findUserByEmail(customerEmail);
       const isMember = user && user.role === 'member';
       const keahlianText = isMember ? 'Ahli VIP / VIP Member (15% Discount)' : 'Pelanggan Biasa / Guest Customer';
 
