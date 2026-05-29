@@ -1187,3 +1187,41 @@ function syncRevealObserver() {
 // Expose global hook for dynamic scripts to call after updates
 window.syncRevealObserver = syncRevealObserver;
 
+// Global helper to fetch products with automatic offline JSON fallback
+window.fetchProducts = function(token) {
+  const headers = {};
+  if (token) {
+    headers['Authorization'] = token;
+  }
+  return fetch((window.API_BASE || '') + '/api/products', { headers })
+    .then(res => res.json())
+    .catch(err => {
+      console.warn("Backend server offline. Falling back to static products.json!");
+      return fetch('products.json')
+        .then(res => res.json())
+        .then(productsArray => {
+          const isMember = currentUser && currentUser.role === 'member';
+          // Use default rates for calculating static prices
+          const fallbackRates = { gold999: 385.20, gold916: 368.50 };
+          const processedProducts = productsArray.map(p => {
+            const is999 = p.purity && (p.purity.includes("999") || p.purity.includes("24K"));
+            const goldRate = is999 ? fallbackRates.gold999 : fallbackRates.gold916; 
+            const rawGoldValue = p.weight * goldRate;
+            const standardPrice = rawGoldValue + p.craftsmanship;
+            const displayPrice = isMember ? (standardPrice * 0.85) : standardPrice;
+            return {
+              ...p,
+              standardPrice: standardPrice,
+              memberPrice: standardPrice * 0.85,
+              displayPrice: displayPrice,
+              discountApplied: isMember
+            };
+          });
+          return {
+            isMember: isMember,
+            products: processedProducts
+          };
+        });
+    });
+};
+

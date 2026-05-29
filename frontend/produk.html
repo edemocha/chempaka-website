@@ -245,9 +245,8 @@
         headers['Authorization'] = token;
       }
 
-      // Fetch products list from API server
-      fetch((window.API_BASE || '') + '/api/products', { headers })
-        .then(res => res.json())
+      // Fetch products list with offline static fallback
+      window.fetchProducts(token)
         .then(data => {
           const product = data.products.find(p => p.id === productId || p.id == productId);
           if (!product) {

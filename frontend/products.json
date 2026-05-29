@@ -1,0 +1,178 @@
+[
+  {
+    "id": "ring-1",
+    "title": "Cincin Permata DiRaja",
+    "category": "cincin",
+    "image": "Product/Cincin/Isolate_the_jewelry_on_a_202605281248.jpeg",
+    "purity": "Emas 916 (22K)",
+    "weight": 4.80,
+    "craftsmanship": 280.00,
+    "description": "Cincin permata diraja yang memukau, menggabungkan ketulenan emas 916 dengan perincian filigri halus buatan tangan tukang emas Chempaka.",
+    "status": "active"
+  },
+  {
+    "id": "ring-2",
+    "title": "Cincin Keemasan Abadi",
+    "category": "cincin",
+    "image": "Product/Cincin/Isolate_the_jewelry_on_a_202605281248 (1).jpeg",
+    "purity": "Emas 916 (22K)",
+    "weight": 3.50,
+    "craftsmanship": 220.00,
+    "description": "Reka bentuk minimalis-mewah yang anggun, melambangkan kasih sayang yang tiada penghujung. Sesuai untuk pemakaian harian mahupun acara khas.",
+    "status": "active"
+  },
+  {
+    "id": "ring-3",
+    "title": "Cincin Bunga Melur",
+    "category": "cincin",
+    "image": "Product/Cincin/Isolate_the_jewelry_on_a_202605281248 (2).jpeg",
+    "purity": "Emas 916 (22K)",
+    "weight": 5.20,
+    "craftsmanship": 320.00,
+    "description": "Inspirasi keindahan semula bagi bunga melur tradisional Melayu yang diukir dengan ketelitian luar biasa di atas emas 22K tulen.",
+    "status": "active"
+  },
+  {
+    "id": "ring-4",
+    "title": "Cincin Belah Rotan Klasik",
+    "category": "cincin",
+    "image": "Product/Cincin/Isolate_the_jewelry_on_a_202605281249.jpeg",
+    "purity": "Emas 916 (22K)",
+    "weight": 2.80,
+    "craftsmanship": 150.00,
+    "description": "Simbol ketulenan dan kesetiaan abadi. Reka bentuk belah rotan klasik yang licin berkilat memancarkan prestij ringkas.",
+    "status": "active"
+  },
+  {
+    "id": "ring-5",
+    "title": "Cincin Berlian Melur",
+    "category": "cincin",
+    "image": "Product/Cincin/Isolate_the_jewelry_on_a_202605281249 (1).jpeg",
+    "purity": "Emas 916 & Berlian",
+    "weight": 5.10,
+    "craftsmanship": 450.00,
+    "description": "Sentuhan eksklusif daripada siri Melur dengan tatahan berlian asli di tengahnya, menawarkan gabungan tradisi dan kemegahan.",
+    "status": "active"
+  },
+  {
+    "id": "ring-6",
+    "title": "Cincin Nilam Diraja",
+    "category": "cincin",
+    "image": "Product/Cincin/Isolate_the_jewelry_on_a_202605281249 (2).jpeg",
+    "purity": "Emas 916 & Nilam",
+    "weight": 7.50,
+    "craftsmanship": 580.00,
+    "description": "Cincin bertatah batu permata nilam (sapphire) biru tua sejati, dikelilingi oleh tatahan emas 916 berkilau memukau.",
+    "status": "active"
+  },
+  {
+    "id": "ring-7",
+    "title": "Cincin Seri Bintang",
+    "category": "cincin",
+    "image": "Product/Cincin/Isolate_the_jewelry_on_a_202605281248.jpeg",
+    "purity": "Emas 916 (22K)",
+    "weight": 6.00,
+    "craftsmanship": 380.00,
+    "description": "Rekaan cincin bersudut memantulkan cahaya bintang, menghasilkan pembiasan kecemerlangan emas yang tiada tolok bandingnya.",
+    "status": "active"
+  },
+  {
+    "id": "neck-1",
+    "title": "Rantai Leher Mahkota Emas",
+    "category": "rantai",
+    "image": "Product/Rantai/WhatsApp_Image_2026-05-24_at_5.34.44_202605281257.jpeg",
+    "purity": "Emas 916 (22K)",
+    "weight": 18.50,
+    "craftsmanship": 650.00,
+    "description": "Rantai leher padat dengan loket bermotifkan mahkota Diraja Melayu yang melambangkan keagungan sejati bangsawan lama.",
+    "status": "active"
+  },
+  {
+    "id": "neck-2",
+    "title": "Rantai Leher Pintal Kasih",
+    "category": "rantai",
+    "image": "Product/Rantai/WhatsApp_Image_2026-05-24_at_5.34.50_202605281257.jpeg",
+    "purity": "Emas 916 (22K)",
+    "weight": 12.20,
+    "craftsmanship": 420.00,
+    "description": "Ukiran tenunan pintal kembar yang menceritakan hubungan erat penuh cinta, memancarkan pesona murni di dada pemakai.",
+    "status": "active"
+  },
+  {
+    "id": "neck-3",
+    "title": "Rantai LeherSaujana Hiasan",
+    "category": "rantai",
+    "image": "Product/Rantai/WhatsApp_Image_2026-05-24_at_5.34.44_202605281257.jpeg",
+    "purity": "Emas 916 (22K)",
+    "weight": 15.00,
+    "craftsmanship": 500.00,
+    "description": "Gabungan rantaian halus dengan perincian bulat berpintal memukau, sesuai untuk dipadankan dengan busana premium Hari Raya.",
+    "status": "active"
+  },
+  {
+    "id": "neck-4",
+    "title": "Rantai Leher Saujana Nilam",
+    "category": "rantai",
+    "image": "Product/Rantai/WhatsApp_Image_2026-05-24_at_5.34.50_202605281257.jpeg",
+    "purity": "Emas 916 & Nilam",
+    "weight": 14.80,
+    "craftsmanship": 620.00,
+    "description": "Rangkaian emas bermutu tinggi dihiasi batu nilam bersinar terang di bahagian tengah, melambangkan keanggunan melangkaui zaman.",
+    "status": "active"
+  },
+  {
+    "id": "brace-1",
+    "title": "Gelang Tangan Adria",
+    "category": "gelang",
+    "image": "Product/Gelang/WhatsApp_Image_2026-05-24_at_5.34.46_202605281256.jpeg",
+    "purity": "Emas 916 (22K)",
+    "weight": 9.80,
+    "craftsmanship": 360.00,
+    "description": "Reka bentuk lingkaran moden dengan tatahan butiran halus, amat bersesuaian untuk gaya harian yang minimalis and premium.",
+    "status": "active"
+  },
+  {
+    "id": "brace-2",
+    "title": "Rantai Tangan Zinnia",
+    "category": "gelang",
+    "image": "Product/Gelang/WhatsApp_Image_2026-05-24_at_5.34.47_202605281256.jpeg",
+    "purity": "Emas 916 (22K)",
+    "weight": 11.20,
+    "craftsmanship": 420.00,
+    "description": "Tenunan emas padat berbentuk siri kelopak Zinnia yang memberikan keselesaan dan kelas tersendiri ketika dilingkarkan.",
+    "status": "active"
+  },
+  {
+    "id": "brace-3",
+    "title": "Gelang Biru Nilam",
+    "category": "gelang",
+    "image": "Product/Gelang/WhatsApp_Image_2026-05-24_at_5.34.47_202605281256 (1).jpeg",
+    "purity": "Emas 916 (22K)",
+    "weight": 14.50,
+    "craftsmanship": 595.00,
+    "description": "Rantai tangan emas tebal dengan kehalusan ukiran permata nilam biru royal, melambangkan keagungan sejati bangsawan.",
+    "status": "active"
+  },
+  {
+    "id": "brace-4",
+    "title": "Gelang Tangan Laksamana",
+    "category": "gelang",
+    "image": "Product/Gelang/WhatsApp_Image_2026-05-24_at_5.34.48_202605281256.jpeg",
+    "purity": "Emas 916 (22K)",
+    "weight": 22.00,
+    "craftsmanship": 850.00,
+    "description": "Tenunan rantai coco laksamana tebal yang gagah and tegap, disaluti kilauan emas 916 murni yang memancarkan kewibawaan sejati.",
+    "status": "active"
+  },
+  {
+    "id": "ear-1",
+    "title": "Subang Permata Melur",
+    "category": "subang",
+    "image": "Product/Subang/Isolate_subang_permata_melur.png",
+    "purity": "Emas 916 (22K)",
+    "weight": 6.50,
+    "craftsmanship": 350.00,
+    "description": "Subang gantung klasik bermotifkan kelopak melur emas murni 916, dihiasi perincian filigri halus yang memantulkan keanggunan abadi.",
+    "status": "active"
+  }
+]

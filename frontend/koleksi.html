@@ -368,8 +368,7 @@
         headers['Authorization'] = token;
       }
 
-      fetch((window.API_BASE || '') + '/api/products', { headers })
-        .then(res => res.json())
+      window.fetchProducts(token)
         .then(data => {
           allProducts = data.products;
           
