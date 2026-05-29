@@ -53,19 +53,29 @@ function injectLayouts() {
   `;
   document.body.prepend(annStrip);
 
-  // Dynamic Gold Price Ticker Fetch
-  fetch(window.API_BASE + '/api/gold-rates')
-    .then(res => res.json())
-    .then(data => {
-      const ticker = document.getElementById('live-ticker-rates');
-      const tickerDup = document.getElementById('live-ticker-rates-dup');
-      if (data.rates) {
-        const rateText = `Harga Emas Semasa: Emas 999 - RM${data.rates.gold999.toFixed(2)}/g | Emas 916 - RM${data.rates.gold916.toFixed(2)}/g`;
-        if (ticker) ticker.innerText = rateText;
-        if (tickerDup) tickerDup.innerText = rateText;
-      }
-    })
-    .catch(err => console.log("Ticker live rate fetch offline fallback used."));
+  // Dynamic Gold Price Ticker Fetch (Bypassed instantly on GitHub Pages to avoid slow connection hangs)
+  const isGitHubPages = window.location.hostname.includes('github.io');
+  if (isGitHubPages) {
+    const fallbackRates = { gold999: 385.20, gold916: 368.50 };
+    const rateText = `Harga Emas Semasa: Emas 999 - RM${fallbackRates.gold999.toFixed(2)}/g | Emas 916 - RM${fallbackRates.gold916.toFixed(2)}/g`;
+    const ticker = document.getElementById('live-ticker-rates');
+    const tickerDup = document.getElementById('live-ticker-rates-dup');
+    if (ticker) ticker.innerText = rateText;
+    if (tickerDup) tickerDup.innerText = rateText;
+  } else {
+    fetch(window.API_BASE + '/api/gold-rates')
+      .then(res => res.json())
+      .then(data => {
+        const ticker = document.getElementById('live-ticker-rates');
+        const tickerDup = document.getElementById('live-ticker-rates-dup');
+        if (data.rates) {
+          const rateText = `Harga Emas Semasa: Emas 999 - RM${data.rates.gold999.toFixed(2)}/g | Emas 916 - RM${data.rates.gold916.toFixed(2)}/g`;
+          if (ticker) ticker.innerText = rateText;
+          if (tickerDup) tickerDup.innerText = rateText;
+        }
+      })
+      .catch(err => console.log("Ticker live rate fetch offline fallback used."));
+  }
 
   // Dynamic Navigation Bar
   const navPlaceholder = document.getElementById('navbar-placeholder');
@@ -1189,6 +1199,38 @@ window.syncRevealObserver = syncRevealObserver;
 
 // Global helper to fetch products with automatic offline JSON fallback
 window.fetchProducts = function(token) {
+  const isGitHubPages = window.location.hostname.includes('github.io');
+  
+  // If on GitHub Pages, immediately serve the static products.json to avoid slow TCP connection hangs
+  if (isGitHubPages) {
+    console.log("GitHub Pages detected. Fetching static products.json catalog instantly...");
+    const jsonUrl = '/chempaka-website/frontend/products.json';
+    return fetch(jsonUrl)
+      .then(res => res.json())
+      .then(productsArray => {
+        const isMember = currentUser && currentUser.role === 'member';
+        const fallbackRates = { gold999: 385.20, gold916: 368.50 };
+        const processedProducts = productsArray.map(p => {
+          const is999 = p.purity && (p.purity.includes("999") || p.purity.includes("24K"));
+          const goldRate = is999 ? fallbackRates.gold999 : fallbackRates.gold916; 
+          const rawGoldValue = p.weight * goldRate;
+          const standardPrice = rawGoldValue + p.craftsmanship;
+          const displayPrice = isMember ? (standardPrice * 0.85) : standardPrice;
+          return {
+            ...p,
+            standardPrice: standardPrice,
+            memberPrice: standardPrice * 0.85,
+            displayPrice: displayPrice,
+            discountApplied: isMember
+          };
+        });
+        return {
+          isMember: isMember,
+          products: processedProducts
+        };
+      });
+  }
+
   const headers = {};
   if (token) {
     headers['Authorization'] = token;
