@@ -1030,51 +1030,51 @@ function initVipWelcomeModal() {
   modalDiv.className = "fixed inset-0 bg-black/60 backdrop-blur-md z-[150] flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500";
   modalDiv.style.fontFamily = "'Inter', sans-serif";
   modalDiv.innerHTML = `
-    <div class="bg-[#181818] border border-[#C59D5F]/20 max-w-sm w-full p-8 text-center text-white relative shadow-2xl rounded-sm transform translate-y-4 transition-transform duration-500" id="vip-welcome-card">
-      <!-- Background Ambient Glow -->
-      <div class="absolute -top-12 -right-12 w-36 h-36 bg-[#C59D5F]/5 blur-3xl pointer-events-none"></div>
+    <div class="bg-[#FCFBFA] border-2 border-[#C59D5F] max-w-md w-full p-10 text-center text-[#2B2B2B] relative shadow-3xl rounded-none transform translate-y-4 transition-transform duration-500" id="vip-welcome-card">
+      <!-- Luxury Double Frame Accents -->
+      <div class="absolute inset-2 border border-[#C59D5F]/30 pointer-events-none"></div>
 
       <!-- Close Button -->
-      <button onclick="closeVipWelcome()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+      <button onclick="closeVipWelcome()" class="absolute top-5 right-5 text-gray-400 hover:text-[#C59D5F] transition-colors z-30">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg>
       </button>
 
       <!-- Badge and Icon -->
-      <div class="w-16 h-16 bg-[#C59D5F]/10 text-[#C59D5F] rounded-full flex items-center justify-center mx-auto mb-6 border border-[#C59D5F]/20">
-        <svg class="w-7 h-7 text-[#C59D5F]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+      <div class="w-16 h-16 bg-[#C59D5F]/10 text-[#C59D5F] rounded-full flex items-center justify-center mx-auto mb-6 border border-[#C59D5F]/20 relative z-10">
+        <svg class="w-8 h-8 text-[#C59D5F]" fill="none" stroke="currentColor" stroke-width="1.2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M21 19H3M20 16L18 8l-4 4-2-6-2 6-4-4-2 8h16z" />
         </svg>
       </div>
 
       <!-- Welcome Content -->
-      <span class="text-[#C59D5F] text-xs uppercase tracking-[0.3em] font-bold block mb-2">Jemputan Khas Diraja</span>
-      <h3 class="text-sm font-serif text-white mb-4">Sertai Kelab Elit Chempaka</h3>
+      <span class="text-[#C59D5F] text-xs uppercase tracking-[0.3em] font-bold block mb-3 relative z-10">Jemputan Khas Diraja</span>
+      <h3 class="text-2xl font-serif text-gray-900 mb-4 tracking-wide font-medium relative z-10">Sertai Kelab Elit Chempaka</h3>
       
-      <p class="text-xs text-gray-400 leading-relaxed max-w-sm mx-auto mb-6">
-        Daftar hari ini secara percuma dan dapatkan <strong class="text-[#C59D5F] font-bold">Rebat Segera 15%</strong> untuk semua koleksi perhiasan emas murni di troli anda!
+      <p class="text-xs text-gray-600 leading-relaxed max-w-sm mx-auto mb-6 relative z-10 font-light">
+        Daftar hari ini secara percuma dan nikmati kelebihan ahli premium serta <strong class="text-[#C59D5F] font-bold">Rebat Segera 15%</strong> untuk semua koleksi perhiasan emas murni di troli anda!
       </p>
  
-      <div class="space-y-3 mb-6 text-left border-y border-white/5 py-4 text-xs text-gray-400 uppercase tracking-wider font-semibold">
+      <div class="space-y-3.5 mb-8 text-left border-y border-gray-200/60 py-5 text-xs text-gray-700 uppercase tracking-widest font-semibold relative z-10">
         <div class="flex items-center gap-3">
-          <svg class="w-3.5 h-3.5 text-[#C59D5F] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
-          <span>15% Member-Only Pricing</span>
+          <svg class="w-4 h-4 text-[#C59D5F] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
+          <span class="text-gray-800 text-[10px]">15% Member-Only Pricing</span>
         </div>
         <div class="flex items-center gap-3">
-          <svg class="w-3.5 h-3.5 text-[#C59D5F] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
-          <span>Free Premium Insured Delivery</span>
+          <svg class="w-4 h-4 text-[#C59D5F] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
+          <span class="text-gray-800 text-[10px]">Free Premium Insured Delivery</span>
         </div>
         <div class="flex items-center gap-3">
-          <svg class="w-3.5 h-3.5 text-[#C59D5F] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
-          <span>5% Exclusive Trade-In Bonus</span>
+          <svg class="w-4 h-4 text-[#C59D5F] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
+          <span class="text-gray-800 text-[10px]">5% Exclusive Trade-In Bonus</span>
         </div>
       </div>
  
       <!-- CTA -->
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLScnTbJ8QEIXe_ENrZbqYr0cVUfvSJPm6gyZzrH3z34nNSnU3Q/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" onclick="closeVipWelcome()" class="block w-full bg-[#C59D5F] hover:bg-[#A6824D] text-white py-3 text-sm uppercase tracking-[0.2em] font-bold transition-all duration-300 shadow-lg rounded-sm text-center">
+      <a href="membership.html" onclick="closeVipWelcome()" class="block w-full bg-[#2B2B2B] hover:bg-[#C59D5F] text-white py-4 text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 shadow-md rounded-none text-center relative z-10">
         Aktifkan Rebat 15% VIP Percuma
       </a>
  
-      <button onclick="closeVipWelcome()" class="text-xs text-gray-500 hover:text-gray-300 uppercase tracking-widest block mx-auto mt-4 font-semibold transition-colors">
+      <button onclick="closeVipWelcome()" class="text-[10px] text-gray-400 hover:text-gray-900 uppercase tracking-[0.18em] block mx-auto mt-5 font-bold transition-colors relative z-10">
         Tolak Jemputan
       </button>
     </div>
