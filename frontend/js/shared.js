@@ -24,9 +24,13 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // In-memory Auth and Cart states
-// Smart API base: only redirect to localhost:3000 when running locally on a different port (e.g. Live Server 5500)
-// On production (Render etc.) frontend & backend share the same origin, so API_BASE stays empty
-window.API_BASE = (window.location.hostname === 'localhost' && !window.location.origin.includes('3000')) ? 'http://localhost:3000' : '';
+// Smart API base: 
+// 1. When running frontend locally on a different port (e.g. Live Server 5500), connect to local backend (3000)
+// 2. When hosted on GitHub Pages (github.io), connect to local backend (http://localhost:3000) for testing
+// 3. (Optional) Replace 'http://localhost:3000' with your hosted backend URL (e.g. Render) when deploying the backend!
+window.API_BASE = (window.location.hostname === 'localhost' && !window.location.origin.includes('3000'))
+  ? 'http://localhost:3000'
+  : (window.location.hostname.includes('github.io') ? 'http://localhost:3000' : '');
 let currentUser = JSON.parse(localStorage.getItem('chempaka_user')) || null;
 let sessionToken = localStorage.getItem('chempaka_token') || null;
 let cart = JSON.parse(localStorage.getItem('chempaka_cart')) || [];
